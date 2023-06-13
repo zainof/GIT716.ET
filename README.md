@@ -2,8 +2,8 @@
 This repository details the code for modelling ET in the model of ET look.  This repository was created by the GIT 716 Honors class of 2023
 
 # Tech Stack 
-- Visual Studio Code or Pycharm
-- GitHub (Version control) 
+- Visual Studio code
+- GitHub 
 
 # Create your python environment using Conda
 - Open VS code 
@@ -13,9 +13,15 @@ This repository details the code for modelling ET in the model of ET look.  This
 - Select the latest version of Python available
 
 # Setting up your environment in VS code or Pycharm 
-- Open VS code 
-- ![image](https://github.com/zainof/716.E.T/assets/121748761/44998bb9-29d5-4455-8896-78e7a44f3855)
-- Click repo and enter the following URL: https://github.com/zainof/716.E.T.git
+- Open the command pallet again.
+- search for clone and enter the following URL: https://github.com/zainof/716.E.T.git
+- Once you have cloned the repo, switch to your branch before you start coding
+- Look at the bottom left ![Alt text](image.png) and click on main 
+- The command pallet should show up at the top
+- click on you name, the branch name should change
+- After this then you can start editing and making changes to the code
+- When you are done make sure you commit the changes to your branch only
+- committing to main may cause conflicts 
 
 # Idea for execution 
-- each person will work from a branch from which they will be able to edit and make changes to the code and not affect the other work.
+- each person will work on their own branch from which they will be able to edit and make changes to the code and not affect the other peoples work. This will allow us to work on different sections or part of the code simultaneously. 
