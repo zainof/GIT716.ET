@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enhancing data &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Enhancing data</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://bitbucket.org///src/notebooks/2.4.1/5_enhancers.ipynb?mode=view" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Enhancing-data">
+<h1>Enhancing data<a class="headerlink" href="#Enhancing-data" title="Permalink to this heading"></a></h1>
+<p>When running <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>, on some variables extra functions are applied. In this notebook we’ll take a closer look at those functions and how to modify them.</p>
+<p>First we install pywapor, in case it’s not installed yet.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">pywapor</span><span class="o">==</span><span class="m">2</span>.4.1<span class="w"> </span>--quiet
+</pre></div>
+</div>
+</div>
+<p>And define the usual parameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pywapor</span>
+
+<span class="n">project_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks&quot;</span>
+<span class="n">latlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">28.9</span><span class="p">,</span> <span class="mf">29.7</span><span class="p">]</span>
+<span class="n">lonlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">30.2</span><span class="p">,</span> <span class="mf">31.2</span><span class="p">]</span>
+<span class="n">startdate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-01&quot;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-11&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>There are two moments at which these extra functions can be applied, before and after the composites have been calculated. We can check the functions that get applied before the compositer like this.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source_enhancements</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">pre_defaults</span><span class="o">.</span><span class="n">source_enhancements_defaults</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">source_enhancements</span></code> is a dictionary, with the following keys.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">source_enhancements</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(&#39;MERRA2&#39;, &#39;t_air_24&#39;),
+ (&#39;MERRA2&#39;, &#39;t_air_min_24&#39;),
+ (&#39;MERRA2&#39;, &#39;t_air_max_24&#39;),
+ (&#39;GEOS5&#39;, &#39;t_air_24&#39;),
+ (&#39;GEOS5&#39;, &#39;t_air_min_24&#39;),
+ (&#39;GEOS5&#39;, &#39;t_air_max_24&#39;),
+ (&#39;GLOBCOVER&#39;, &#39;lulc&#39;),
+ (&#39;WAPOR&#39;, &#39;lulc&#39;)]
+</pre></div></div>
+</div>
+<p>As you can see, the keys specify not only variables, but also their sources. Meaning these source enhancements are applied to variables stemming from specific source. This means, for example, that you can choose to apply a function only to <code class="docutils literal notranslate"><span class="pre">ndvi</span></code> coming from Landsat, and not to <code class="docutils literal notranslate"><span class="pre">ndvi</span></code> coming from MODIS etc.</p>
+<p>Now let’s have a look at some of the values in the dictionary.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source_enhancements</span><span class="p">[(</span><span class="s1">&#39;GEOS5&#39;</span><span class="p">,</span><span class="s1">&#39;t_air_24&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;function pywapor.enhancers.temperature.kelvin_to_celsius(ds, var, out_var=None)&gt;]
+</pre></div></div>
+</div>
+<p>As you can see, the value for <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> from <code class="docutils literal notranslate"><span class="pre">GEOS5</span></code> is a list (with length 1) that contains a function called <code class="docutils literal notranslate"><span class="pre">kelvin_to_celsius</span></code>. This means that, by default, this function is applied to all <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> data coming from <code class="docutils literal notranslate"><span class="pre">MERRA2</span></code>, before the <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> composite is calculated.</p>
+<p>This is important because <code class="docutils literal notranslate"><span class="pre">et_look</span></code> needs <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> to be degrees Celcius. It also important that this conversion happens before the calculation of the composite, because if we would select multiple sources for this variable, it’s important they all have the same unit before combining them in a composite!</p>
+<p>Now let’s have a look at the functions that get applied by default to the variables after the composites have been calculated.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">composite_enhancements</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">pre_defaults</span><span class="o">.</span><span class="n">composite_enhancements_defaults</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">composite_enhancements</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;t_air_24&#39;, &#39;t_air_min_24&#39;, &#39;t_air_max_24&#39;, &#39;z&#39;]
+</pre></div></div>
+</div>
+<p>As you see, now the keys are just simple strings defining some variables that will have some extra function applied to them (instead of the tuples of two strings we saw before for <code class="docutils literal notranslate"><span class="pre">source_enhancements</span></code>).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">composite_enhancements</span><span class="p">[</span><span class="s1">&#39;t_air_24&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;function pywapor.enhancers.temperature.lapse_rate(ds, var, out_var=None, lapse_var=&#39;z&#39;, radius=0.25, lapse_rate=-0.006)&gt;]
+</pre></div></div>
+</div>
+<p>Here you can see that after the composites for <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> have been calculated, another “enhancement” called <code class="docutils literal notranslate"><span class="pre">lapse_rate</span></code> is applied to it. This function applies a correction to the temperatures based on the difference between the local and local-mean altitude.</p>
+<p>Before we start adjusting the default enhancers, let’s first do a <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> to have a point of reference. Instead of running <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> for all variables, we will only process <code class="docutils literal notranslate"><span class="pre">ndvi</span></code>, <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> in order to save some time (i.e. the output will thus not be sufficient to run <code class="docutils literal notranslate"><span class="pre">et_look</span></code>) by passing a keyword argument called <code class="docutils literal notranslate"><span class="pre">process_vars</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">process_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ndvi&quot;</span><span class="p">,</span> <span class="s2">&quot;t_air_24&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span>
+    <span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span>
+                                            <span class="n">enddate</span><span class="p">,</span> <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span>
+                                            <span class="n">process_vars</span> <span class="o">=</span> <span class="n">process_vars</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Downloading MOD13.
+Tile: 3 / 3: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Downloading MYD13.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling resolution is ~205 meter.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_24
+    --&gt; Downloading GEOS5 (daily), t2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # z
+    --&gt; Downloading SRTM.
+    --&gt; Resampling datasets.
+    &gt; Composite enhancers.
+        # t_air_24
+        --&gt; Calculating local means (r = 0.25°) of `z`.
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_24`.
+        # z
+        --&gt; Creating new variable `slope`.
+        --&gt; Creating new variable `aspect`.
+        --&gt; Creating new variable `lat_deg`.
+        --&gt; Creating new variable `lon_deg`.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">t_air_24</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fbd6a8ec880&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_5_enhancers_21_1.png" src="../../_images/notebooks_2.4.1_5_enhancers_21_1.png" />
+</div>
+</div>
+<p>Notice how <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> is given in degrees Celcius and that the altitude is clearly visible in the map (make a plot of <code class="docutils literal notranslate"><span class="pre">z</span></code> by yourself to compare!).</p>
+<p>Now let’s do a run where we turn of the <code class="docutils literal notranslate"><span class="pre">lapse_rate</span></code> correction for <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code>. We can simply override the composite enhancements for <code class="docutils literal notranslate"><span class="pre">t_air_24</span></code> by passing it an empty list.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">extra_composite_enhancements</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;t_air_24&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span>
+                                        <span class="n">enddate</span><span class="p">,</span> <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span>
+                                        <span class="n">process_vars</span> <span class="o">=</span> <span class="n">process_vars</span><span class="p">,</span>
+                                        <span class="n">extra_composite_enhancements</span> <span class="o">=</span> <span class="n">extra_composite_enhancements</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Downloading MOD13.
+Tile: 3 / 3: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Downloading MYD13.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling resolution is ~205 meter.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_24
+    --&gt; Downloading GEOS5 (daily), t2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # z
+    --&gt; Downloading SRTM.
+    --&gt; Resampling datasets.
+    &gt; Composite enhancers.
+        # t_air_24
+        # z
+        --&gt; Creating new variable `slope`.
+        --&gt; Creating new variable `aspect`.
+        --&gt; Creating new variable `lat_deg`.
+        --&gt; Creating new variable `lon_deg`.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">t_air_24</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fbd4f0d9eb0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_5_enhancers_26_1.png" src="../../_images/notebooks_2.4.1_5_enhancers_26_1.png" />
+</div>
+</div>
+<p>Notice that the temperature is still given in degrees Celcius, but is much smoother now compared to the temperature map with the <code class="docutils literal notranslate"><span class="pre">lapse_rate</span></code> correction we saw above.</p>
+<section id="Gap-filling">
+<h2>Gap-filling<a class="headerlink" href="#Gap-filling" title="Permalink to this heading"></a></h2>
+<p>Now let’s see how to implement your own functions. The Landsat-7 scene we used in the previous notebook had many stripes of missing data. Here we are going to write a function that fills up these lines and ingest that function into <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>. Lets first create a point of reference again (this code was explained in the previous notebook).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">landsat_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="s2">&quot;my_landsat_folder&quot;</span><span class="p">)</span>
+<span class="n">test_file</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">collect</span><span class="o">.</span><span class="n">Landsat</span><span class="o">.</span><span class="n">C2L2SP</span><span class="o">.</span><span class="n">dl_landsat_test</span><span class="p">(</span><span class="n">landsat_folder</span><span class="p">)</span>
+<span class="n">all_files</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">collect</span><span class="o">.</span><span class="n">Landsat</span><span class="o">.</span><span class="n">C2L2SP</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">landsat_folder</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="p">(</span><span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">))</span>
+<span class="n">my_custom_level</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ndvi&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;LS7&quot;</span><span class="p">],</span>
+                   <span class="s2">&quot;level_name&quot;</span><span class="p">:</span> <span class="s2">&quot;gap_filling_level&quot;</span><span class="p">}</span>
+<span class="n">extra_source_locations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s2">&quot;LS7&quot;</span><span class="p">,</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">):</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">landsat_folder</span><span class="p">,</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span>
+                                    <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">my_custom_level</span><span class="p">,</span>
+                                    <span class="n">extra_source_locations</span> <span class="o">=</span> <span class="n">extra_source_locations</span><span class="p">,</span>
+                                    <span class="n">process_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ndvi&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 27.6M/27.6M [00:00&lt;00:00, 211MBytes/s]
+--&gt; Processing: LE07_L2SP_177040_20210707_20210802_02_T1.tar.
+No scale/offset found for /Users/hmcoerver/pywapor_notebooks/my_landsat_folder/LE07_L2SP_177040_20210707_20210802_02_T1/LE07_L2SP_177040_20210707_20210802_02_T1_ST_QA.TIF, setting to 1 and 0.
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Collected 1 LS7 file(s).
+    --&gt; Resampling resolution is ~30 meter.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    &gt; Composite enhancers.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">ndvi</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">1700</span><span class="p">,</span> <span class="mi">2400</span><span class="p">),</span>
+             <span class="n">lat</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1500</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fbd4f0ada90&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_5_enhancers_30_1.png" src="../../_images/notebooks_2.4.1_5_enhancers_30_1.png" />
+</div>
+</div>
+<p>The function we will create here, will use GDALs <a class="reference external" href="https://gdal.org/programs/gdal_fillnodata.html">fillnodata</a> function. Every enhancement function we pass to <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> needs to follow the following format.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">general_enhancement_function</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">out_var</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+    <span class="c1"># Do your calculations here.</span>
+    <span class="n">new_data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_var</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">out_var</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
+
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<p>So, the function takes in the original <code class="docutils literal notranslate"><span class="pre">xr.Dataset</span></code> (i.e. <code class="docutils literal notranslate"><span class="pre">ds</span></code>), runs some calculations which create a new <code class="docutils literal notranslate"><span class="pre">xr.DataArray</span></code> (i.e. <code class="docutils literal notranslate"><span class="pre">new_data</span></code>) and finally puts that <code class="docutils literal notranslate"><span class="pre">new_data</span></code> back into the original <code class="docutils literal notranslate"><span class="pre">ds</span></code>, either overwriting the original <code class="docutils literal notranslate"><span class="pre">var</span></code> or adding a new variable (<code class="docutils literal notranslate"><span class="pre">out_var</span></code>), and returns it.</p>
+<p>So what we need to do now is add some calculations to that template function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">osgeo</span> <span class="kn">import</span> <span class="n">gdal</span>
+
+<span class="k">def</span> <span class="nf">gap_fill</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">out_var</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">maxSearchDist</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+
+    <span class="c1"># Create an empty xr.DataArray to store our results.</span>
+    <span class="n">new_data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># Since gdal.FillNodata can only handle one band at a time, we have to loop over each scene.</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">:</span>
+
+        <span class="c1"># Select the data at time t.</span>
+        <span class="n">da_slice</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">t</span><span class="p">)</span>
+
+        <span class="c1"># Convert the data to a np.array with numeric no-data-value</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">da_slice</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">da_slice</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">ndv</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">ndv</span>
+
+        <span class="c1"># Create an in-memory gdal.Dataset.</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">GetDriverByName</span><span class="p">(</span><span class="s2">&quot;MEM&quot;</span><span class="p">)</span>
+        <span class="n">gdal_ds</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">gdal</span><span class="o">.</span><span class="n">GDT_Float32</span><span class="p">)</span>
+        <span class="n">band</span> <span class="o">=</span> <span class="n">gdal_ds</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">band</span><span class="o">.</span><span class="n">SetNoDataValue</span><span class="p">(</span><span class="n">ndv</span><span class="p">)</span>
+        <span class="n">band</span><span class="o">.</span><span class="n">WriteArray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Pass the gdal.Dataset to the gap filling algorithm.</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">FillNodata</span><span class="p">(</span><span class="n">targetBand</span> <span class="o">=</span> <span class="n">band</span><span class="p">,</span> <span class="n">maskBand</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">maxSearchDist</span> <span class="o">=</span> <span class="n">maxSearchDist</span><span class="p">,</span> <span class="n">smoothingIterations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Read the results and replace the no-data-values again.</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">band</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">()</span>
+        <span class="n">array</span><span class="p">[</span><span class="n">array</span> <span class="o">==</span> <span class="n">ndv</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># Release the gdal.Dataset.</span>
+        <span class="n">gdal_ds</span> <span class="o">=</span> <span class="n">gdal_ds</span><span class="o">.</span><span class="n">FlushCache</span><span class="p">()</span>
+
+        <span class="c1"># Put the results back into the xr.DataArray.</span>
+        <span class="n">new_data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">new_data</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">t</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">new_data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_var</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">out_var</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
+
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">extra_source_enhancements</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">&quot;LS7&quot;</span><span class="p">,</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">):</span> <span class="p">[</span><span class="n">gap_fill</span><span class="p">]}</span>
+
+<span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span>
+                                    <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">my_custom_level</span><span class="p">,</span>
+                                    <span class="n">extra_source_locations</span> <span class="o">=</span> <span class="n">extra_source_locations</span><span class="p">,</span>
+                                    <span class="n">extra_source_enhancements</span> <span class="o">=</span> <span class="n">extra_source_enhancements</span><span class="p">,</span>
+                                    <span class="n">process_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ndvi&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Collected 1 LS7 file(s).
+    --&gt; Resampling resolution is ~30 meter.
+    --&gt; Applying &#39;gap_fill&#39; to `ndvi` from LS7.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    &gt; Composite enhancers.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">ndvi</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">1700</span><span class="p">,</span> <span class="mi">2400</span><span class="p">),</span>
+             <span class="n">lat</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1500</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fbd4ef65940&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_5_enhancers_36_1.png" src="../../_images/notebooks_2.4.1_5_enhancers_36_1.png" />
+</div>
+</div>
+<p>As you can see, the lines of missing-data have become smaller, but didn’t disappear completely. By increasing the <code class="docutils literal notranslate"><span class="pre">gdal.FillNodata</span></code> parameter called <code class="docutils literal notranslate"><span class="pre">maxSearchDist</span></code>, we can control how far the function will fill pixels. We can bind values to keyword arguments before handing the function over to <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> like this.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="n">extra_source_enhancements</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">&quot;LS7&quot;</span><span class="p">,</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">):</span> <span class="p">[</span><span class="n">partial</span><span class="p">(</span><span class="n">gap_fill</span><span class="p">,</span> <span class="n">maxSearchDist</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)]}</span>
+
+<span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span>
+                                    <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">my_custom_level</span><span class="p">,</span>
+                                    <span class="n">extra_source_locations</span> <span class="o">=</span> <span class="n">extra_source_locations</span><span class="p">,</span>
+                                    <span class="n">extra_source_enhancements</span> <span class="o">=</span> <span class="n">extra_source_enhancements</span><span class="p">,</span>
+                                    <span class="n">process_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ndvi&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Collected 1 LS7 file(s).
+    --&gt; Resampling resolution is ~30 meter.
+    --&gt; Applying &#39;gap_fill&#39; to `ndvi` from LS7.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    &gt; Composite enhancers.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">ndvi</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">1700</span><span class="p">,</span> <span class="mi">2400</span><span class="p">),</span>
+             <span class="n">lat</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1500</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fbd030830d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_5_enhancers_39_1.png" src="../../_images/notebooks_2.4.1_5_enhancers_39_1.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

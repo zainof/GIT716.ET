@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>thermal_sharpener &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="pywapor.general" href="../../general.html" />
+    <link rel="prev" title="pyDMS" href="pydms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../_pywapor_api.html">pyWaPOR API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../pre_et_look.html">pywapor.pre_et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../et_look.html">pywapor.et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../pre_se_root.html">pywapor.pre_se_root</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../se_root.html">pywapor.se_root</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../enhancers.html">pywapor.enhancers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dem.html">dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gap_fill.html">gap_fill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lulc.html">lulc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apply_enhancers.html">apply_enhancers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other.html">other</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pressure.html">pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../wind.html">wind</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dms.html">dms</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pydms.html">pyDMS</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">thermal_sharpener</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../general.html">pywapor.general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../collect.html">pywapor.collect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../_pywapor_api.html">pyWaPOR API</a></li>
+          <li class="breadcrumb-item"><a href="../../enhancers.html">pywapor.enhancers</a></li>
+          <li class="breadcrumb-item"><a href="../dms.html">dms</a></li>
+      <li class="breadcrumb-item active">thermal_sharpener</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pywapor.enhancers.dms.thermal_sharpener">
+<span id="thermal-sharpener"></span><h1>thermal_sharpener<a class="headerlink" href="#module-pywapor.enhancers.dms.thermal_sharpener" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.highres_inputs">
+<span class="sig-name descname"><span class="pre">highres_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal_hr_input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_hr_input_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.highres_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Create VRT files with all highres inputs per datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>workdir</strong> (<em>str</em>) – Folder in which to store the VRT files.</p></li>
+<li><p><strong>temporal_hr_input_data</strong> (<em>list</em>) – Paths to the input highres data.</p></li>
+<li><p><strong>static_hr_input_data</strong> (<em>list</em>) – Paths to static highres data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Paths to VRT files.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.lowres_inputs">
+<span class="sig-name descname"><span class="pre">lowres_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal_lr_input_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.lowres_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Create VRT files with all lowres inputs per datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>workdir</strong> (<em>str</em>) – Folder in which to store the VRT files.</p></li>
+<li><p><strong>temporal_hr_input_data</strong> (<em>list</em>) – Paths to the input lowres data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Paths to VRT files.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.preprocess">
+<span class="sig-name descname"><span class="pre">preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.preprocess" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a time dimension to <cite>ds</cite>. Used internally by <cite>sharpen</cite> when calling <cite>xr.open_mfdataset</cite> to create
+a stacking dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input dataset.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataset with added time dimension.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xr.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.plot_sharpening">
+<span class="sig-name descname"><span class="pre">plot_sharpening</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hr_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.plot_sharpening" title="Permalink to this definition"></a></dt>
+<dd><p>Create a plot of a sharpened image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr_fn</strong> (<em>str</em>) – Path to lowres file.</p></li>
+<li><p><strong>hr_fn</strong> (<em>str</em>) – Path to highres file.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Name of var.</p></li>
+<li><p><strong>workdir</strong> (<em>str</em>) – Path to folder in which to save graphs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.sharpen">
+<span class="sig-name descname"><span class="pre">sharpen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_plots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars_for_sharpening</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['nmdi',</span> <span class="pre">'bsi',</span> <span class="pre">'mndwi',</span> <span class="pre">'cos_solar_zangle',</span> <span class="pre">'vari_red_edge',</span> <span class="pre">'psri',</span> <span class="pre">'nir',</span> <span class="pre">'green',</span> <span class="pre">'z',</span> <span class="pre">'aspect',</span> <span class="pre">'slope']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.sharpen" title="Permalink to this definition"></a></dt>
+<dd><p>Thermal sharpen datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dict</em>) – Keys are variable names, values are xr.Datasets which contain the lowres and highres input data.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Variable name of the lowres input data (usually <cite>lst</cite>).</p></li>
+<li><p><strong>folder</strong> (<em>str</em>) – Path to folder in which to store (intermediate) files.</p></li>
+<li><p><strong>make_plots</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to create plots, by default False.</p></li>
+<li><p><strong>vars_for_sharpening</strong> (<em>list</em><em>, </em><em>optional</em>) – Variables to use as sharpening features, by default [‘nmdi’, ‘bsi’, ‘mndwi’, ‘cos_solar_zangle’, ‘vari_red_edge’, ‘psri’, ‘nir’, ‘green’, ‘z’, ‘aspect’, ‘slope’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Keys are variable names, values are (sharpened) datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.get_cos_solar_zangle">
+<span class="sig-name descname"><span class="pre">get_cos_solar_zangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.get_cos_solar_zangle" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the cosine solar zenith angle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dict</em>) – Keys are variables, values are datasets.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Variable from which the time is used to calculate <cite>cos_solar_zangle</cite> at.</p></li>
+<li><p><strong>folder</strong> (<em>str</em>) – Path to folder to store files.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Keys are variables, values are datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pydms.html" class="btn btn-neutral float-left" title="pyDMS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../general.html" class="btn btn-neutral float-right" title="pywapor.general" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resistance &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Roughness" href="roughness.html" />
+    <link rel="prev" title="Radiation" href="radiation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../_etlook.html">ETLook</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="clear_sky_radiation.html">Clear Sky Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soil_moisture.html">Soil Moisture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evapotranspiration.html">Evapotranspiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="leaf.html">Leaf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteo.html">Meteo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neutral.html">Neutral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiation.html">Radiation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Resistance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.resistance.atmospheric_canopy_resistance"><code class="docutils literal notranslate"><span class="pre">atmospheric_canopy_resistance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.resistance.canopy_resistance"><code class="docutils literal notranslate"><span class="pre">canopy_resistance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.resistance.soil_resistance"><code class="docutils literal notranslate"><span class="pre">soil_resistance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="roughness.html">Roughness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar_radiation.html">Solar Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stress.html">Stress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unstable.html">Unstable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biomass.html">Biomass</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_etlook.html">ETLook</a></li>
+      <li class="breadcrumb-item active">Resistance</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pywapor.et_look_v2_v3.resistance">
+<span id="resistance"></span><h1>Resistance<a class="headerlink" href="#module-pywapor.et_look_v2_v3.resistance" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.resistance.atmospheric_canopy_resistance">
+<span class="sig-name descname"><span class="pre">atmospheric_canopy_resistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai_eff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stress_rad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stress_vpd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stress_temp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rs_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">70</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcan_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.resistance.atmospheric_canopy_resistance" title="Permalink to this definition"></a></dt>
+<dd><p>Computes canopy resistance excluding soil moisture stress.</p>
+<div class="math notranslate nohighlight">
+\[r_{canopy,0}=\left(\frac{r_{s,min}}{I_{lai, eff}}\right)\cdot
+\left(\frac{1}{S_{T} \cdot S_{V} \cdot S_{r}}\right)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lai_eff</strong> (<em>float</em>) – effective leaf area index,
+<span class="math notranslate nohighlight">\(I_{lai,eff}\)</span>
+[-]</p></li>
+<li><p><strong>stress_temp</strong> (<em>float</em>) – stress factor for air temperature,
+<span class="math notranslate nohighlight">\(S_{t}\)</span>
+[-]</p></li>
+<li><p><strong>stress_vpd</strong> (<em>float</em>) – stress factor for vapour pressure deficit,
+<span class="math notranslate nohighlight">\(S_{v}\)</span>
+[-]</p></li>
+<li><p><strong>stress_rad</strong> (<em>float</em>) – stress factor for radiation,
+<span class="math notranslate nohighlight">\(S_{r}\)</span>
+[-]</p></li>
+<li><p><strong>rs_min</strong> (<em>float</em>) – Minimal stomatal resistance,
+<span class="math notranslate nohighlight">\(r_{s_min}\)</span>
+[sm-1]</p></li>
+<li><p><strong>rcan_max</strong> (<em>float</em>) – Maximum stomatal resistance,
+<span class="math notranslate nohighlight">\(r_{can_max}\)</span>
+[sm-1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>r_canopy_0</strong> – atmospheric canopy resistance,
+<span class="math notranslate nohighlight">\(r_{canopy,0}\)</span>
+[sm-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.resistance</span> <span class="k">as</span> <span class="nn">res</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">atmospheric_canopy_resistance</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">)</span>
+<span class="go">229.839768846861</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.resistance.canopy_resistance">
+<span class="sig-name descname"><span class="pre">canopy_resistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r_canopy_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stress_moist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcan_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.resistance.canopy_resistance" title="Permalink to this definition"></a></dt>
+<dd><p>Computes canopy resistance.</p>
+<div class="math notranslate nohighlight">
+\[r_{canopy}=\frac{r_{canopy,0}}{S_{m}}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r_canopy_0</strong> (<em>float</em>) – Atmospheric canopy resistance,
+<span class="math notranslate nohighlight">\(r_{canopy_0}\)</span>
+[sm-1]</p></li>
+<li><p><strong>stress_moist</strong> (<em>float</em>) – stress factor for root zone soil moisture,
+<span class="math notranslate nohighlight">\(S_{m}\)</span>
+[-]</p></li>
+<li><p><strong>rcan_max</strong> (<em>float</em>) – Maximum stomatal resistance,
+<span class="math notranslate nohighlight">\(r_{can_max}\)</span>
+[sm-1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>r_canopy</strong> – canopy resistance,
+<span class="math notranslate nohighlight">\(r_{canopy}\)</span>
+[sm-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.resistance</span> <span class="k">as</span> <span class="nn">res</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">canopy_resistance</span><span class="p">(</span><span class="mi">218</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="go">272.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.resistance.soil_resistance">
+<span class="sig-name descname"><span class="pre">soil_resistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_soil_pow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-2.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_soil_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.resistance.soil_resistance" title="Permalink to this definition"></a></dt>
+<dd><p>Computes soil resistance.</p>
+<div class="math notranslate nohighlight">
+\[r_{soil}=r_{soil, min}\cdot \left(S_{e,top}\right)^{a}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r_soil_min</strong> (<em>float</em>) – Minimum soil resistance,
+<span class="math notranslate nohighlight">\(r_{soil,min}\)</span>
+[sm-1]</p></li>
+<li><p><strong>se_top</strong> (<em>float</em>) – Top soil effective saturation,
+<span class="math notranslate nohighlight">\(S_{e,top}\)</span>
+[-]</p></li>
+<li><p><strong>r_soil_pow</strong> (<em>float</em>) – Power soil resistance function,
+<span class="math notranslate nohighlight">\(a\)</span>
+[-]</p></li>
+<li><p><strong>land_mask</strong> (<em>int</em>) – land use classification,
+<span class="math notranslate nohighlight">\(l\)</span>
+[-]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>r_soil</strong> – soil resistance,
+<span class="math notranslate nohighlight">\(r_{soil}\)</span>
+[sm-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.resistance</span> <span class="k">as</span> <span class="nn">res</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">soil_resistance</span><span class="p">(</span><span class="n">se_top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="go">998.1153098304111</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="radiation.html" class="btn btn-neutral float-left" title="Radiation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="roughness.html" class="btn btn-neutral float-right" title="Roughness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

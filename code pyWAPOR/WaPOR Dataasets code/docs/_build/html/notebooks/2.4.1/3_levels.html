@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Levels &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Levels</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://bitbucket.org///src/notebooks/2.4.1/3_levels.ipynb?mode=view" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Levels">
+<h1>Levels<a class="headerlink" href="#Levels" title="Permalink to this heading"></a></h1>
+<p>In this notebook we’ll take a look at how to run <code class="docutils literal notranslate"><span class="pre">et_look</span></code> at different levels than the standard <code class="docutils literal notranslate"><span class="pre">level_1</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">pywapor</span><span class="o">==</span><span class="m">2</span>.4.1<span class="w"> </span>--quiet
+</pre></div>
+</div>
+</div>
+<p>First we redefine some of the basic inputs variables that we’ve also seen in the previous notebooks. This time however, we will choose a period of 1 day and a <code class="docutils literal notranslate"><span class="pre">composite_length</span></code> of 1 day, in order to keep download times down.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pywapor</span>
+
+<span class="n">project_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks&quot;</span>
+<span class="n">latlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">28.9</span><span class="p">,</span> <span class="mf">29.7</span><span class="p">]</span>
+<span class="n">lonlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">30.2</span><span class="p">,</span> <span class="mf">31.2</span><span class="p">]</span>
+<span class="n">startdate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-06&quot;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-07&quot;</span>
+<span class="n">composite_length</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<section id="Level-2-inputs">
+<h2>Level-2 inputs<a class="headerlink" href="#Level-2-inputs" title="Permalink to this heading"></a></h2>
+<p>Now that we have run ETLook for a simple use case, we’ll have a look at how to run it at different levels and with different input datasets.</p>
+<p>When downloading input data with <code class="docutils literal notranslate"><span class="pre">pywapor.pre_et_look.main</span></code> as we did before, it is possible to select a level for which to download data. By default, this level is set to <code class="docutils literal notranslate"><span class="pre">level_1</span></code>.</p>
+<p>We can have a closer look at what this actually means by running the following functions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;level_1&quot;</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">get_source_level_selections</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">levels</span></code> now contains a dictionary with the source-selections for each ET_Look input variable at each level. E.g. to see the sources for the data used at level-1, we can do the following.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="p">[</span><span class="s2">&quot;level_1&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;ndvi&#39;: [&#39;MOD13&#39;, &#39;MYD13&#39;],
+ &#39;r0&#39;: [&#39;MCD43&#39;],
+ &#39;lst&#39;: [&#39;MOD11&#39;, &#39;MYD11&#39;],
+ &#39;lulc&#39;: [&#39;WAPOR&#39;],
+ &#39;z&#39;: [&#39;SRTM&#39;],
+ &#39;p_24&#39;: [&#39;CHIRPS&#39;],
+ &#39;ra_24&#39;: [&#39;MERRA2&#39;],
+ &#39;t_air_24&#39;: [&#39;GEOS5&#39;],
+ &#39;t_air_min_24&#39;: [&#39;GEOS5&#39;],
+ &#39;t_air_max_24&#39;: [&#39;GEOS5&#39;],
+ &#39;u2m_24&#39;: [&#39;GEOS5&#39;],
+ &#39;v2m_24&#39;: [&#39;GEOS5&#39;],
+ &#39;p_air_0_24&#39;: [&#39;GEOS5&#39;],
+ &#39;qv_24&#39;: [&#39;GEOS5&#39;],
+ &#39;t_air_i&#39;: [&#39;GEOS5&#39;],
+ &#39;u2m_i&#39;: [&#39;GEOS5&#39;],
+ &#39;v2m_i&#39;: [&#39;GEOS5&#39;],
+ &#39;qv_i&#39;: [&#39;GEOS5&#39;],
+ &#39;wv_i&#39;: [&#39;GEOS5&#39;],
+ &#39;p_air_i&#39;: [&#39;GEOS5&#39;],
+ &#39;p_air_0_i&#39;: [&#39;GEOS5&#39;],
+ &#39;lw_offset&#39;: [&#39;STATICS&#39;],
+ &#39;lw_slope&#39;: [&#39;STATICS&#39;],
+ &#39;r0_bare&#39;: [&#39;STATICS&#39;],
+ &#39;r0_full&#39;: [&#39;STATICS&#39;],
+ &#39;rn_offset&#39;: [&#39;STATICS&#39;],
+ &#39;rn_slope&#39;: [&#39;STATICS&#39;],
+ &#39;t_amp_year&#39;: [&#39;STATICS&#39;],
+ &#39;t_opt&#39;: [&#39;STATICS&#39;],
+ &#39;vpd_slope&#39;: [&#39;STATICS&#39;],
+ &#39;z_oro&#39;: [&#39;STATICS&#39;]}
+</pre></div></div>
+</div>
+<p>You can see that at level-1, e.g. <code class="docutils literal notranslate"><span class="pre">ndvi</span></code> data comes from <code class="docutils literal notranslate"><span class="pre">MOD13</span></code> and <code class="docutils literal notranslate"><span class="pre">MYD13</span></code>, while daily precipitation (<code class="docutils literal notranslate"><span class="pre">p_24</span></code>) comes from the <code class="docutils literal notranslate"><span class="pre">CHIRPS</span></code> dataset. So by checking the keys of this dictionary, we can see which pre-defined levels are available in this version of pyWAPOR.</p>
+<blockquote>
+<div><p>If you want to find some more information about these variables, you can get a dictionary with definitions and units for each variable by running <code class="docutils literal notranslate"><span class="pre">defs</span> <span class="pre">=</span> <span class="pre">pywapor.general.variables.get_var_definitions()</span></code> and then e.g. <code class="docutils literal notranslate"><span class="pre">defs[&quot;rn_offset&quot;]</span></code>.</p>
+</div></blockquote>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">levels</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;level_1&#39;, &#39;level_2&#39;])
+</pre></div></div>
+</div>
+<p>Let’s have a look at the datasets used for <code class="docutils literal notranslate"><span class="pre">level_2</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="p">[</span><span class="s2">&quot;level_2&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;ndvi&#39;: [&#39;PROBAV&#39;],
+ &#39;r0&#39;: [&#39;PROBAV&#39;],
+ &#39;lst&#39;: [&#39;MOD11&#39;, &#39;MYD11&#39;],
+ &#39;lulc&#39;: [&#39;WAPOR&#39;],
+ &#39;z&#39;: [&#39;SRTM&#39;],
+ &#39;p_24&#39;: [&#39;CHIRPS&#39;],
+ &#39;ra_24&#39;: [&#39;MERRA2&#39;],
+ &#39;t_air_24&#39;: [&#39;GEOS5&#39;],
+ &#39;t_air_min_24&#39;: [&#39;GEOS5&#39;],
+ &#39;t_air_max_24&#39;: [&#39;GEOS5&#39;],
+ &#39;u2m_24&#39;: [&#39;GEOS5&#39;],
+ &#39;v2m_24&#39;: [&#39;GEOS5&#39;],
+ &#39;p_air_0_24&#39;: [&#39;GEOS5&#39;],
+ &#39;qv_24&#39;: [&#39;GEOS5&#39;],
+ &#39;t_air_i&#39;: [&#39;GEOS5&#39;],
+ &#39;u2m_i&#39;: [&#39;GEOS5&#39;],
+ &#39;v2m_i&#39;: [&#39;GEOS5&#39;],
+ &#39;qv_i&#39;: [&#39;GEOS5&#39;],
+ &#39;wv_i&#39;: [&#39;GEOS5&#39;],
+ &#39;p_air_i&#39;: [&#39;GEOS5&#39;],
+ &#39;p_air_0_i&#39;: [&#39;GEOS5&#39;],
+ &#39;lw_offset&#39;: [&#39;STATICS&#39;],
+ &#39;lw_slope&#39;: [&#39;STATICS&#39;],
+ &#39;r0_bare&#39;: [&#39;STATICS&#39;],
+ &#39;r0_full&#39;: [&#39;STATICS&#39;],
+ &#39;rn_offset&#39;: [&#39;STATICS&#39;],
+ &#39;rn_slope&#39;: [&#39;STATICS&#39;],
+ &#39;t_amp_year&#39;: [&#39;STATICS&#39;],
+ &#39;t_opt&#39;: [&#39;STATICS&#39;],
+ &#39;vpd_slope&#39;: [&#39;STATICS&#39;],
+ &#39;z_oro&#39;: [&#39;STATICS&#39;]}
+</pre></div></div>
+</div>
+<p>As you can see, the difference between <code class="docutils literal notranslate"><span class="pre">level_1</span></code> and <code class="docutils literal notranslate"><span class="pre">level_2</span></code> is the dataset used to create the NDVI and ALBEDO inputs. For <code class="docutils literal notranslate"><span class="pre">level_2</span></code>, they are derived from PROBA-V images, which have a higher resolution (~100m) than the MODIS products (~250m for NDVI).</p>
+<p>Let’s give <code class="docutils literal notranslate"><span class="pre">level_2</span></code> a try! Beware though, that the downloading of the PROBA-V images can take some time!</p>
+<blockquote>
+<div><p>⚠️</p>
+<p>You’ll notice that you’ll be prompted for another username and password. This time for a <a class="reference external" href="https://www.vito-eodata.be/PDF/portal/Application.html">VITO account</a>. We could set this account up by running <code class="docutils literal notranslate"><span class="pre">pywapor.collect.setup_dl_accounts.setup_account(&quot;VITO&quot;)</span></code> as well (like we did before for the NASA and WAPOR accounts). But <code class="docutils literal notranslate"><span class="pre">pywapor.pre_et_look.main</span></code> also checks if the required accounts can be found and gives a prompt if thats’s not the case.</p>
+<p>You can create a VITO account <a class="reference external" href="https://www.vito-eodata.be/PDF/portal/Application.html">here</a>.</p>
+<p>⚠️</p>
+</div></blockquote>
+<p>We run <code class="docutils literal notranslate"><span class="pre">pywapor.pre_et_look.main</span></code> the same way as we’ve done previously, but now we add the parameter specifying the level (which has a default value of <code class="docutils literal notranslate"><span class="pre">&quot;level_1&quot;</span></code>) and the composite_length of 1 day (instead of the default <code class="docutils literal notranslate"><span class="pre">&quot;DEKAD&quot;</span></code>).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;level_2&quot;</span>
+
+<span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span>
+                                    <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="p">,</span>
+                                    <span class="n">composite_length</span> <span class="o">=</span> <span class="n">composite_length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Testing VITO un/pw.
+    --&gt; VITO un/pw working.
+    --&gt; Downloading PROBAV.
+100%|██████████| 375M/375M [04:57&lt;00:00, 1.26MBytes/s]
+2021.07.06: Saving finals.    : 100%|██████████| 10.0/10.0 [13:35&lt;00:00, 81.5s/it]
+    --&gt; Resampling resolution is ~103 meter.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_24
+    --&gt; Downloading CHIRPS.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # se_root
+    &gt; PRE_SE_ROOT
+        # ndvi
+        --&gt; Downloading PROBAV.
+2021.07.06:               : 100%|██████████| 10.0/10.0 [00:00&lt;00:00, 3.37kit/s]
+        --&gt; Resampling resolution is ~103 meter.
+        --&gt; Resampling datasets.
+        # lst
+        --&gt; Downloading MOD11.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Downloading MYD11.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Resampling datasets.
+        &gt; METEO
+            # t_air_i
+            --&gt; Downloading GEOS5 (3-hourly), t2m.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+            --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_i` from GEOS5.
+            # u2m_i
+            --&gt; Downloading GEOS5 (3-hourly), u2m.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+            # v2m_i
+            --&gt; Downloading GEOS5 (3-hourly), v2m.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+            # qv_i
+            --&gt; Downloading GEOS5 (3-hourly), qv2m.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+            # wv_i
+            --&gt; Downloading GEOS5 (3-hourly), tqv.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+            # p_air_i
+            --&gt; Downloading GEOS5 (3-hourly), ps.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+            # p_air_0_i
+            --&gt; Downloading GEOS5 (3-hourly), slp.
+Tile: 7 / 7: 0.00Bytes [00:00, ?Bytes/s]
+        &lt; METEO
+        --&gt; Interpolating datasets.
+    &lt; PRE_SE_ROOT
+    &gt; SE_ROOT
+        --&gt; Running SEroot_v2.
+        --&gt; Saving outputs.
+    &lt; SE_ROOT
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # r0
+    --&gt; Downloading PROBAV.
+2021.07.06:               : 100%|██████████| 10.0/10.0 [00:00&lt;00:00, 3.43kit/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # z
+    --&gt; Downloading SRTM.
+    --&gt; Resampling datasets.
+    # lulc
+    --&gt; Downloading WAPOR.
+    --&gt; Creating new variable `land_mask`.
+    --&gt; Creating new variable `rs_min`.
+    --&gt; Creating new variable `lue_max`.
+    --&gt; Creating new variable `z_obst_max`.
+    --&gt; Applying &#39;remove_var&#39; to `lulc` from WAPOR.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # ra_24
+    --&gt; Downloading MERRA2 (daily), swgnet.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_24
+    --&gt; Downloading GEOS5 (daily), t2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_min_24
+    --&gt; Downloading GEOS5 (daily), t2m-min.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_min_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_max_24
+    --&gt; Downloading GEOS5 (daily), t2m-max.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_max_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # u2m_24
+    --&gt; Downloading GEOS5 (daily), u2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # v2m_24
+    --&gt; Downloading GEOS5 (daily), v2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_air_0_24
+    --&gt; Downloading GEOS5 (daily), slp.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # qv_24
+    --&gt; Downloading GEOS5 (daily), qv2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # lw_offset
+    --&gt; Resampling datasets.
+    # lw_slope
+    --&gt; Resampling datasets.
+    # r0_bare
+    --&gt; Resampling datasets.
+    # r0_full
+    --&gt; Resampling datasets.
+    # rn_offset
+    --&gt; Resampling datasets.
+    # rn_slope
+    --&gt; Resampling datasets.
+    # t_amp_year
+    --&gt; Resampling datasets.
+    # t_opt
+    --&gt; Resampling datasets.
+    # vpd_slope
+    --&gt; Resampling datasets.
+    # z_oro
+    --&gt; Resampling datasets.
+    &gt; Composite enhancers.
+        # t_air_24
+        --&gt; Calculating local means (r = 0.25°) of `z`.
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_24`.
+        # t_air_min_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_min_24`.
+        # t_air_max_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_max_24`.
+        # z
+        --&gt; Creating new variable `slope`.
+        --&gt; Creating new variable `aspect`.
+        --&gt; Creating new variable `lat_deg`.
+        --&gt; Creating new variable `lon_deg`.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<p>We can check the contents of our <code class="docutils literal notranslate"><span class="pre">project_folder</span></code> again by running the following code.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls<span class="w"> </span>*
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+log.txt
+
+RAW:
+<span class="ansi-blue-fg">CHIRPS</span>  <span class="ansi-blue-fg">GEOS5</span>   <span class="ansi-blue-fg">MERRA2</span>  <span class="ansi-blue-fg">MODIS</span>   <span class="ansi-blue-fg">PROBAV</span>  <span class="ansi-blue-fg">SRTM</span>    <span class="ansi-blue-fg">STATICS</span> <span class="ansi-blue-fg">WAPOR</span>
+
+level_2:
+et_look_input.nc  se_root_input.nc  <span class="ansi-blue-fg">se_root_output</span>    se_root_output.nc
+</pre></div></div>
+</div>
+<p>And inspect the xarray.Dataset like this. Notice the <code class="docutils literal notranslate"><span class="pre">pixel_size</span></code> and the size of the <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> dimensions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:       (epoch: 1, lon: 1009, lat: 807)
+Coordinates:
+  * epoch         (epoch) int64 0
+  * lon           (lon) float64 30.2 30.2 30.2 30.2 30.2 ... 31.2 31.2 31.2 31.2
+  * lat           (lat) float64 29.7 29.7 29.7 29.7 29.7 ... 28.9 28.9 28.9 28.9
+    epoch_starts  (epoch) datetime64[ns] 2021-07-06
+    epoch_ends    (epoch) datetime64[ns] 2021-07-07
+Data variables: (12/32)
+    ndvi          (epoch, lat, lon) float32 ...
+    p_24          (epoch, lat, lon) float32 ...
+    se_root       (epoch, lat, lon) float32 ...
+    r0            (epoch, lat, lon) float32 ...
+    z             (lat, lon) float32 ...
+    land_mask     (epoch, lat, lon) float32 ...
+    ...            ...
+    z_oro         (lat, lon) float32 ...
+    t_diff        (lat, lon) float32 ...
+    slope         (lat, lon) float32 ...
+    aspect        (lat, lon) float32 ...
+    lat_deg       (lat, lon) float32 ...
+    lon_deg       (lat, lon) float32 ...
+Attributes:
+    geotransform:  [ 3.01994050e+01  9.92063500e-04  0.00000000e+00  2.970039...
+    projection:    GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137...
+    pixel_size:    103.25558167780254
+    example_file:  /Users/hmcoerver/pywapor_notebooks/RAW/PROBAV/NDVI/NDVI_PR...</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-0f812939-0bbc-4596-b0d0-34705275d4bb' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-0f812939-0bbc-4596-b0d0-34705275d4bb' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>epoch</span>: 1</li><li><span class='xr-has-index'>lon</span>: 1009</li><li><span class='xr-has-index'>lat</span>: 807</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-570fbfa6-8cea-47f1-95d4-09a76b996e43' class='xr-section-summary-in' type='checkbox'  checked><label for='section-570fbfa6-8cea-47f1-95d4-09a76b996e43' class='xr-section-summary' >Coordinates: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>epoch</span></div><div class='xr-var-dims'>(epoch)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0</div><input id='attrs-cc0cc3d9-8fd6-40e4-8e80-8b8c397f0ede' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-cc0cc3d9-8fd6-40e4-8e80-8b8c397f0ede' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a25117cd-f60b-42f3-be71-b31018c154c0' class='xr-var-data-in' type='checkbox'><label for='data-a25117cd-f60b-42f3-be71-b31018c154c0' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([0])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lon</span></div><div class='xr-var-dims'>(lon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>30.2 30.2 30.2 ... 31.2 31.2 31.2</div><input id='attrs-d2d92689-4314-4880-99b3-f9e3078b6738' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d2d92689-4314-4880-99b3-f9e3078b6738' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-787b0b9d-edc4-4eae-98f2-1eff2c3a5b4d' class='xr-var-data-in' type='checkbox'><label for='data-787b0b9d-edc4-4eae-98f2-1eff2c3a5b4d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>units :</span></dt><dd>degrees</dd></dl></div><div class='xr-var-data'><pre>array([30.199901, 30.200893, 30.201885, ..., 31.197917, 31.198909, 31.199901])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lat</span></div><div class='xr-var-dims'>(lat)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>29.7 29.7 29.7 ... 28.9 28.9 28.9</div><input id='attrs-6ec75b2e-acd2-424e-9023-030add22869a' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6ec75b2e-acd2-424e-9023-030add22869a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6efc597b-c75c-4648-a332-b24abda9d4b3' class='xr-var-data-in' type='checkbox'><label for='data-6efc597b-c75c-4648-a332-b24abda9d4b3' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>units :</span></dt><dd>degrees</dd></dl></div><div class='xr-var-data'><pre>array([29.699901, 29.698909, 29.697917, ..., 28.902282, 28.90129 , 28.900298])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>epoch_starts</span></div><div class='xr-var-dims'>(epoch)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-3fabb246-55cd-4052-b3fd-3c64506b0be8' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-3fabb246-55cd-4052-b3fd-3c64506b0be8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8814ae8c-1195-4303-868e-a0068fa0364b' class='xr-var-data-in' type='checkbox'><label for='data-8814ae8c-1195-4303-868e-a0068fa0364b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;2021-07-06T00:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>epoch_ends</span></div><div class='xr-var-dims'>(epoch)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-de39b336-d01f-4d6d-a295-883eae857a7d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-de39b336-d01f-4d6d-a295-883eae857a7d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a7e626e7-9e7e-4c3e-b083-0e6287dbdbfe' class='xr-var-data-in' type='checkbox'><label for='data-a7e626e7-9e7e-4c3e-b083-0e6287dbdbfe' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;2021-07-07T00:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-66592f72-9e14-4a2a-a28c-1eacfe021f61' class='xr-section-summary-in' type='checkbox'  ><label for='section-66592f72-9e14-4a2a-a28c-1eacfe021f61' class='xr-section-summary' >Data variables: <span>(32)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>ndvi</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-89200294-02d8-4a96-b970-e3fa7cb8a771' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-89200294-02d8-4a96-b970-e3fa7cb8a771' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c353e958-3a8c-41ed-877d-e25e52d36440' class='xr-var-data-in' type='checkbox'><label for='data-c353e958-3a8c-41ed-877d-e25e52d36440' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>PROBAV</dd><dt><span>long_name :</span></dt><dd>Normalized difference vegetation index</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>p_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-09887d42-70eb-4d07-9d96-38970f7390b2' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-09887d42-70eb-4d07-9d96-38970f7390b2' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9e2f0a92-97fe-45e1-9db1-46fa8f42fa4c' class='xr-var-data-in' type='checkbox'><label for='data-9e2f0a92-97fe-45e1-9db1-46fa8f42fa4c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>CHIRPS.v2.0</dd><dt><span>long_name :</span></dt><dd>Daily precipitation</dd><dt><span>units :</span></dt><dd>mm day-1</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>se_root</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-bb67ae1a-180e-4481-9c9e-8bffdd4e0e27' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-bb67ae1a-180e-4481-9c9e-8bffdd4e0e27' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-95af686e-2d9d-48c1-96ea-118e2708da78' class='xr-var-data-in' type='checkbox'><label for='data-95af686e-2d9d-48c1-96ea-118e2708da78' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>-</dd><dt><span>long_name :</span></dt><dd>Relative root zone soil moisture</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>r0</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-f281748a-8936-40bb-b84d-678f0c24fcf0' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f281748a-8936-40bb-b84d-678f0c24fcf0' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1413ce2b-1ad8-47d6-84cd-2edd5d086191' class='xr-var-data-in' type='checkbox'><label for='data-1413ce2b-1ad8-47d6-84cd-2edd5d086191' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>PROBAV</dd><dt><span>long_name :</span></dt><dd>Albedo</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-e91cb852-9ded-4259-9e78-447720b6cbe5' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e91cb852-9ded-4259-9e78-447720b6cbe5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cc9bea1b-5ad0-403b-a7b2-6d7e8e92c055' class='xr-var-data-in' type='checkbox'><label for='data-cc9bea1b-5ad0-403b-a7b2-6d7e8e92c055' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>SRTM</dd><dt><span>long_name :</span></dt><dd>Elevation above sea level</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>land_mask</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-ca1c110f-824e-42f6-8801-e45534212460' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-ca1c110f-824e-42f6-8801-e45534212460' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ffccd0e9-6f01-4deb-816a-5c3016c17eed' class='xr-var-data-in' type='checkbox'><label for='data-ffccd0e9-6f01-4deb-816a-5c3016c17eed' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>WAPOR</dd><dt><span>long_name :</span></dt><dd>Land use classification</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>rs_min</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-42caa5a9-180f-4ff4-952b-4c3c98cf04da' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-42caa5a9-180f-4ff4-952b-4c3c98cf04da' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9088302e-64e7-475d-ab11-b5407dc99264' class='xr-var-data-in' type='checkbox'><label for='data-9088302e-64e7-475d-ab11-b5407dc99264' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>WAPOR</dd><dt><span>long_name :</span></dt><dd>Minimal stomatal resistance</dd><dt><span>units :</span></dt><dd>s m-1</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>lue_max</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-93be5e12-8e79-4b7c-af5a-5f82cc89dc1e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-93be5e12-8e79-4b7c-af5a-5f82cc89dc1e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7454b0f8-f11c-4f87-9b9d-32a111511288' class='xr-var-data-in' type='checkbox'><label for='data-7454b0f8-f11c-4f87-9b9d-32a111511288' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>WAPOR</dd><dt><span>long_name :</span></dt><dd></dd><dt><span>units :</span></dt><dd></dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_obst_max</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-2719e2ca-3f73-4073-86f0-7b96508fffdf' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-2719e2ca-3f73-4073-86f0-7b96508fffdf' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c533774d-1ff5-407a-be61-9e962fbb27cd' class='xr-var-data-in' type='checkbox'><label for='data-c533774d-1ff5-407a-be61-9e962fbb27cd' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>WAPOR</dd><dt><span>long_name :</span></dt><dd>Maximum obstacle height</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ra_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-969b9838-40ee-49eb-a2a3-8b5f650ac979' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-969b9838-40ee-49eb-a2a3-8b5f650ac979' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e43be102-942e-455b-9a98-576a7415c78a' class='xr-var-data-in' type='checkbox'><label for='data-e43be102-942e-455b-9a98-576a7415c78a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>MERRA2</dd><dt><span>long_name :</span></dt><dd>Daily solar radiation</dd><dt><span>units :</span></dt><dd>W m-2</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t_air_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-e66f247b-3892-4ac6-9c3e-abcb16ad4f15' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e66f247b-3892-4ac6-9c3e-abcb16ad4f15' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ff71b341-85c0-4780-9287-091c05774f1a' class='xr-var-data-in' type='checkbox'><label for='data-ff71b341-85c0-4780-9287-091c05774f1a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily air temperature</dd><dt><span>units :</span></dt><dd>C</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t_air_min_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-595839c7-cf34-4153-abc1-f3dd5d9675c9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-595839c7-cf34-4153-abc1-f3dd5d9675c9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6eca4414-2d54-4436-834d-f9cd1ec49a2d' class='xr-var-data-in' type='checkbox'><label for='data-6eca4414-2d54-4436-834d-f9cd1ec49a2d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily minimum temperature</dd><dt><span>units :</span></dt><dd>C</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t_air_max_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-31f63ae0-f2dd-4de9-9e38-0dfc15bdfe3e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-31f63ae0-f2dd-4de9-9e38-0dfc15bdfe3e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ec79fbc9-674c-48b1-9eb7-524a4d1ccd87' class='xr-var-data-in' type='checkbox'><label for='data-ec79fbc9-674c-48b1-9eb7-524a4d1ccd87' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily maximum temperature</dd><dt><span>units :</span></dt><dd>C</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>u2m_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-1feda989-fa30-469f-8d1b-1cb535686623' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-1feda989-fa30-469f-8d1b-1cb535686623' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a9bf7987-6fc7-4a5d-97f4-cc8282b6f56c' class='xr-var-data-in' type='checkbox'><label for='data-a9bf7987-6fc7-4a5d-97f4-cc8282b6f56c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily average eastward wind speed at 2 meter</dd><dt><span>units :</span></dt><dd>m s-1</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>v2m_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-f245c457-34d6-4a87-b4ca-a96086a2e1de' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f245c457-34d6-4a87-b4ca-a96086a2e1de' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f543315d-67f4-4d2b-9734-1a22109fbd0a' class='xr-var-data-in' type='checkbox'><label for='data-f543315d-67f4-4d2b-9734-1a22109fbd0a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily average northward wind speed at 2 meter</dd><dt><span>units :</span></dt><dd>m s-1</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>p_air_0_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-083ab82a-14cd-4233-8eb3-6d4352fa978b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-083ab82a-14cd-4233-8eb3-6d4352fa978b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-685a2a28-dfb8-4296-934f-fd1e7230fb1c' class='xr-var-data-in' type='checkbox'><label for='data-685a2a28-dfb8-4296-934f-fd1e7230fb1c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily air pressure at sea level</dd><dt><span>units :</span></dt><dd>mbar</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>qv_24</span></div><div class='xr-var-dims'>(epoch, lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-48fc7d59-a6b4-4b10-b796-99dbf7f0850f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-48fc7d59-a6b4-4b10-b796-99dbf7f0850f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-80539f4b-c15b-4e0d-a92b-881bbd25957a' class='xr-var-data-in' type='checkbox'><label for='data-80539f4b-c15b-4e0d-a92b-881bbd25957a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>GEOS5</dd><dt><span>long_name :</span></dt><dd>Daily specific humidity</dd><dt><span>units :</span></dt><dd>kg kg-1</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>lw_offset</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-76904572-f911-4e1c-9f64-870c7209f6dc' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-76904572-f911-4e1c-9f64-870c7209f6dc' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-34389df9-61f9-4b04-9be4-98cfb3c05632' class='xr-var-data-in' type='checkbox'><label for='data-34389df9-61f9-4b04-9be4-98cfb3c05632' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Offset of the tau-term in the FAO-56 longwave radiation relationship</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>lw_slope</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-d56b5420-67f7-4258-9416-6e5bfb3e1cae' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d56b5420-67f7-4258-9416-6e5bfb3e1cae' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cc40247e-9bdd-4456-9c0e-9045ec4fd49a' class='xr-var-data-in' type='checkbox'><label for='data-cc40247e-9bdd-4456-9c0e-9045ec4fd49a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Slope of the tau-term in the FAO-56 longwave radiation relationship</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>r0_bare</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-5687b997-2354-4a1d-adcd-a3309ab6ff70' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-5687b997-2354-4a1d-adcd-a3309ab6ff70' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3c918fd3-ed92-46dc-a3c4-d0464dd3755a' class='xr-var-data-in' type='checkbox'><label for='data-3c918fd3-ed92-46dc-a3c4-d0464dd3755a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Dry bare soil surface albedo</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>r0_full</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-b83d1ca3-4e88-4a9d-be3e-c54c868fb4cd' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b83d1ca3-4e88-4a9d-be3e-c54c868fb4cd' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-64604f7f-42cb-4a46-9d14-10ea872c54d1' class='xr-var-data-in' type='checkbox'><label for='data-64604f7f-42cb-4a46-9d14-10ea872c54d1' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Surface albedo under full vegetation cover</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>rn_offset</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-eb55c6d8-face-48d1-9ff7-5c59d289612e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-eb55c6d8-face-48d1-9ff7-5c59d289612e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0f12a7de-fa01-44ec-b034-da54df4adfc9' class='xr-var-data-in' type='checkbox'><label for='data-0f12a7de-fa01-44ec-b034-da54df4adfc9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Offset rn/g0-relation water</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>rn_slope</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-5dbdf20e-e5c4-4f3d-a502-24acd53500d5' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-5dbdf20e-e5c4-4f3d-a502-24acd53500d5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-020041f8-c29e-4341-ba34-90c09e95cb1a' class='xr-var-data-in' type='checkbox'><label for='data-020041f8-c29e-4341-ba34-90c09e95cb1a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Slope rn/g0-relation water</dd><dt><span>units :</span></dt><dd>-</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t_amp_year</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-a54d6e33-f69b-4b1d-b3ff-ca918905fe03' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-a54d6e33-f69b-4b1d-b3ff-ca918905fe03' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e81b3fdc-5fcc-4dd4-86e5-d6fc84b35762' class='xr-var-data-in' type='checkbox'><label for='data-e81b3fdc-5fcc-4dd4-86e5-d6fc84b35762' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Yearly air temperature amplitude</dd><dt><span>units :</span></dt><dd>K</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t_opt</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-3cd56fcb-1229-445a-a1dc-c6297c7075d4' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-3cd56fcb-1229-445a-a1dc-c6297c7075d4' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d0c40e19-2936-4565-acf0-54114c625955' class='xr-var-data-in' type='checkbox'><label for='data-d0c40e19-2936-4565-acf0-54114c625955' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Optimum air temperature for plant growth</dd><dt><span>units :</span></dt><dd>C</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>vpd_slope</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-62e2f901-c941-40f9-a64b-be38711712ff' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-62e2f901-c941-40f9-a64b-be38711712ff' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-34b58617-64e0-4b46-8c83-00248cf219c5' class='xr-var-data-in' type='checkbox'><label for='data-34b58617-64e0-4b46-8c83-00248cf219c5' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Vapour pressure stress curve slope</dd><dt><span>units :</span></dt><dd>mbar-1</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_oro</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-8ad13e25-b560-4162-a591-65bfdc8f8d21' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-8ad13e25-b560-4162-a591-65bfdc8f8d21' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3494710a-4f0d-49ef-bcff-f023abed778e' class='xr-var-data-in' type='checkbox'><label for='data-3494710a-4f0d-49ef-bcff-f023abed778e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>STATICS</dd><dt><span>long_name :</span></dt><dd>Orographic roughness</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t_diff</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-0573bac4-5f63-4e73-8212-93d601efbb38' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0573bac4-5f63-4e73-8212-93d601efbb38' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f635c643-b150-42a8-a76c-684eb47c0d74' class='xr-var-data-in' type='checkbox'><label for='data-f635c643-b150-42a8-a76c-684eb47c0d74' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>temperature.lapse_rate()</dd><dt><span>long_name :</span></dt><dd>Lapse-rate temperature adjustment</dd><dt><span>units :</span></dt><dd>C</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>slope</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-abb77575-37cd-4656-bafc-4d9ce08384ca' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-abb77575-37cd-4656-bafc-4d9ce08384ca' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8468f30d-944c-4ac6-8e4b-c60e60830539' class='xr-var-data-in' type='checkbox'><label for='data-8468f30d-944c-4ac6-8e4b-c60e60830539' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>dem.to_slope()</dd><dt><span>long_name :</span></dt><dd>Slope</dd><dt><span>units :</span></dt><dd>radians</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>aspect</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-8da76bf9-77c6-496b-922d-32aaa93c90f0' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-8da76bf9-77c6-496b-922d-32aaa93c90f0' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5dc23ff9-59ae-4f5d-8083-4fada40af69a' class='xr-var-data-in' type='checkbox'><label for='data-5dc23ff9-59ae-4f5d-8083-4fada40af69a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>dem.to_aspect()</dd><dt><span>long_name :</span></dt><dd>Aspect (0 is north; pi is south)</dd><dt><span>units :</span></dt><dd>radians</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>lat_deg</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-c4064aa0-3996-4a87-a3d6-179f219e08d9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c4064aa0-3996-4a87-a3d6-179f219e08d9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-acc65b60-65ea-4773-b860-a07afa1dfac9' class='xr-var-data-in' type='checkbox'><label for='data-acc65b60-65ea-4773-b860-a07afa1dfac9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>dem.to_lat()</dd><dt><span>long_name :</span></dt><dd>Latitude in degrees</dd><dt><span>units :</span></dt><dd>degrees</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>lon_deg</span></div><div class='xr-var-dims'>(lat, lon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-ecd0ffb7-bc0a-47ed-867b-934c8504e8c6' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-ecd0ffb7-bc0a-47ed-867b-934c8504e8c6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9ef93180-cdcc-422a-af75-66352cfb1ad9' class='xr-var-data-in' type='checkbox'><label for='data-9ef93180-cdcc-422a-af75-66352cfb1ad9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>sources :</span></dt><dd>dem.to_lon()</dd><dt><span>long_name :</span></dt><dd>Longitude in degrees</dd><dt><span>units :</span></dt><dd>degrees</dd></dl></div><div class='xr-var-data'><pre>[814263 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-dc046438-64c3-4fce-a0f0-5b2ffc2109e4' class='xr-section-summary-in' type='checkbox'  checked><label for='section-dc046438-64c3-4fce-a0f0-5b2ffc2109e4' class='xr-section-summary' >Attributes: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>geotransform :</span></dt><dd>[ 3.01994050e+01  9.92063500e-04  0.00000000e+00  2.97003971e+01
+  0.00000000e+00 -9.92063500e-04]</dd><dt><span>projection :</span></dt><dd>GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</dd><dt><span>pixel_size :</span></dt><dd>103.25558167780254</dd><dt><span>example_file :</span></dt><dd>/Users/hmcoerver/pywapor_notebooks/RAW/PROBAV/NDVI/NDVI_PROBAV_-_5-daily_2021.07.06.tif</dd></dl></div></li></ul></div></div></div>
+</div>
+<p>Next, we can run ETLook using the <code class="docutils literal notranslate"><span class="pre">level_2</span></code> data just like we did for <code class="docutils literal notranslate"><span class="pre">level_1</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--&gt; Running ETLook_v2
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+--&gt; Saving outputs.
+</pre></div></div>
+</div>
+<p>We can calculate some statistic, like we did before.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">et_data</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">et_24_mm</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">epoch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;resolution:&quot;</span><span class="p">,</span> <span class="n">et_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total pixels:&quot;</span><span class="p">,</span> <span class="n">et_data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of pixels with missing data:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">et_data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;maximum value: </span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">et_data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;minimum value: </span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">et_data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean: </span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">et_data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;median: </span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">et_data</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+resolution: (807, 1009)
+total pixels: 814263
+number of pixels with missing data: 328446
+maximum value: 8.34
+minimum value: 0.00
+mean: 0.85
+median: 0.15
+</pre></div></div>
+</div>
+<p>Notice that the amount of pixels with missing data is now much higher. Which we can also see on a map of the higher resolution daily ET.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">ds</span><span class="o">.</span><span class="n">et_24_mm</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">epoch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fb5ec308d00&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_3_levels_24_1.png" src="../../_images/notebooks_2.4.1_3_levels_24_1.png" />
+</div>
+</div>
+<p>Since we used a very short <code class="docutils literal notranslate"><span class="pre">composite_length</span></code> in this notebook (to keep the time required to download the data down), the chances of a pixel having no valid data increases (e.g. there is less time per composite to acquire a cloudfree measurement). Also, since we only processed one epoch, temporal interpolation wasn’t possible.</p>
+</section>
+<section id="Custom-inputs">
+<h2>Custom inputs<a class="headerlink" href="#Custom-inputs" title="Permalink to this heading"></a></h2>
+<p>Besides using the predefined levels, it is also possible to create your own custom level. Instead of passing a string to the <code class="docutils literal notranslate"><span class="pre">level</span></code> input parameter of <code class="docutils literal notranslate"><span class="pre">pywapor.pre_et_look.main</span></code>, we can also pass a dictionary that specifies which products we would like to use.</p>
+<p>Lets start by creating such a dictionary by choosing some sources from this table.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Temporal Availability</p></th>
+<th class="head"><p>Temporal Resolution</p></th>
+<th class="head"><p>Spatial Resolution</p></th>
+<th class="head"><p>Used For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://lpdaac.usgs.gov/products/mod13q1v006/">MOD13</a></p></td>
+<td><p>2000-02-18 - ongoing</p></td>
+<td><p>16-Daily</p></td>
+<td><p>250m</p></td>
+<td><p>NDVI</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://lpdaac.usgs.gov/products/myd13q1v006/">MYD13</a></p></td>
+<td><p>2002-07-04 - ongoing</p></td>
+<td><p>16-Daily</p></td>
+<td><p>250m</p></td>
+<td><p>NDVI</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://lpdaac.usgs.gov/products/mcd43a1v006/">MCD43</a></p></td>
+<td><p>2000-02-16 - ongoing</p></td>
+<td><p>Daily</p></td>
+<td><p>500m</p></td>
+<td><p>Albedo</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://lpdaac.usgs.gov/products/mod11a1v006/">MOD11</a></p></td>
+<td><p>2000-02-24 - ongoing</p></td>
+<td><p>Daily</p></td>
+<td><p>1000m</p></td>
+<td><p>LST</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://lpdaac.usgs.gov/products/myd11a1v006/">MYD11</a></p></td>
+<td><p>2002-07-04 - ongoing</p></td>
+<td><p>Daily</p></td>
+<td><p>1000m</p></td>
+<td><p>LST</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.vito-eodata.be/collectioncatalogue/srv/eng/catalog.search#/metadata/urn:ogc:def:EOP:VITO:PROBAV_S5-TOC_100M_V001">PROBAV</a></p></td>
+<td><p>2014-03-11 - ongoing</p></td>
+<td><p>5-Daily</p></td>
+<td><p>100m</p></td>
+<td><p>NDVI, Albedo</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://geos5.org">GEOS5</a></p></td>
+<td><p>2017-12-01 - ongoing</p></td>
+<td><p>3-Hourly</p></td>
+<td><p>0.3125°×0.25°</p></td>
+<td><p>Meteo</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/">MERRA2</a></p></td>
+<td><p>1980-01-01 - ongoing</p></td>
+<td><p>Hourly</p></td>
+<td><p>0.625°×0.5°</p></td>
+<td><p>Meteo</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://www.chc.ucsb.edu/data/chirps">CHIRPS</a></p></td>
+<td><p>1981-01-01 - ongoing</p></td>
+<td><p>Daily</p></td>
+<td><p>0.05°</p></td>
+<td><p>Precipitation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://wapor.apps.fao.org/catalog/WAPOR_2/1/L1_LCC_A">WAPOR</a></p></td>
+<td><p>2009 - 2020</p></td>
+<td><p>Yearly</p></td>
+<td><p>250m</p></td>
+<td><p>Landcover</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="http://due.esrin.esa.int/page_globcover.php">GLOBCOVER</a></p></td>
+<td><p>2009</p></td>
+<td><p>Single</p></td>
+<td><p>250m</p></td>
+<td><p>Landcover</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://srtm.csi.cgiar.org">SRTM</a></p></td>
+<td><p>2009</p></td>
+<td><p>Single</p></td>
+<td><p>90m</p></td>
+<td><p>DEM</p></td>
+</tr>
+</tbody>
+</table>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_custom_level</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Main inputs</span>
+        <span class="s2">&quot;ndvi&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;PROBAV&quot;</span><span class="p">,</span> <span class="s2">&quot;MOD13&quot;</span><span class="p">,</span> <span class="s2">&quot;MYD13&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;r0&quot;</span><span class="p">:</span>           <span class="p">[</span><span class="s2">&quot;PROBAV&quot;</span><span class="p">,</span> <span class="s2">&quot;MCD43&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lst&quot;</span><span class="p">:</span>          <span class="p">[</span><span class="s2">&quot;MOD11&quot;</span><span class="p">,</span> <span class="s2">&quot;MYD11&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lulc&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;GLOBCOVER&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;z&quot;</span><span class="p">:</span>            <span class="p">[</span><span class="s2">&quot;SRTM&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;p_24&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;CHIRPS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ra_24&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Daily meteo</span>
+        <span class="s1">&#39;t_air_24&#39;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">,</span> <span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;t_air_min_24&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;t_air_max_24&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;u2m_24&#39;</span><span class="p">:</span>       <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;v2m_24&#39;</span><span class="p">:</span>       <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;p_air_0_24&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;qv_24&#39;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">,</span> <span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Instanteneous meteo</span>
+        <span class="s2">&quot;t_air_i&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;u2m_i&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;v2m_i&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;qv_i&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;wv_i&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;p_air_i&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;p_air_0_i&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Temporal Constants</span>
+        <span class="s2">&quot;lw_offset&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lw_slope&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;r0_bare&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;r0_full&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;rn_offset&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;rn_slope&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;t_amp_year&quot;</span><span class="p">:</span>   <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;t_opt&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;vpd_slope&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;z_oro&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Finally, we can give a name to the custom level (although this is not required, the default name is <code class="docutils literal notranslate"><span class="pre">custom</span></code>) and then start downloading the required data.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_custom_level</span><span class="p">[</span><span class="s2">&quot;level_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;my_first_custom_level&quot;</span>
+
+<span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span>
+                                    <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">my_custom_level</span><span class="p">,</span>
+                                    <span class="n">composite_length</span> <span class="o">=</span> <span class="n">composite_length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Downloading PROBAV.
+2021.07.06:               : 100%|██████████| 10.0/10.0 [00:00&lt;00:00, 4.67kit/s]
+    --&gt; Downloading MOD13.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Downloading MYD13.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling resolution is ~103 meter.
+    --&gt; Resampling datasets.
+    --&gt; Interpolating 1,139,719 of 1,139,719 missing pixels.
+    --&gt; Calculating composites.
+    # p_24
+    --&gt; Downloading CHIRPS.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # se_root
+    &gt; PRE_SE_ROOT
+        # ndvi
+        --&gt; Downloading PROBAV.
+2021.07.06:               : 100%|██████████| 10.0/10.0 [00:00&lt;00:00, 5.02kit/s]
+        --&gt; Downloading MOD13.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Downloading MYD13.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Resampling resolution is ~103 meter.
+        --&gt; Resampling datasets.
+        # lst
+        --&gt; Downloading MOD11.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Downloading MYD11.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Resampling datasets.
+        &gt; METEO
+            # t_air_i
+            --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_i` from MERRA2.
+            # u2m_i
+            # v2m_i
+            # qv_i
+            # wv_i
+            # p_air_i
+            # p_air_0_i
+        &lt; METEO
+        --&gt; Interpolating datasets.
+    &lt; PRE_SE_ROOT
+    &gt; SE_ROOT
+        --&gt; Running SEroot_v2.
+        --&gt; Saving outputs.
+    &lt; SE_ROOT
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # r0
+    --&gt; Downloading PROBAV.
+2021.07.06:               : 100%|██████████| 10.0/10.0 [00:00&lt;00:00, 1.52kit/s]
+    --&gt; Downloading MCD43.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # z
+    --&gt; Downloading SRTM.
+    --&gt; Resampling datasets.
+    # lulc
+    --&gt; Downloading GLOBCOVER.
+    --&gt; Creating new variable `land_mask`.
+    --&gt; Creating new variable `rs_min`.
+    --&gt; Creating new variable `lue_max`.
+    --&gt; Creating new variable `z_obst_max`.
+    --&gt; Applying &#39;remove_var&#39; to `lulc` from GLOBCOVER.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # ra_24
+    --&gt; Downloading MERRA2 (daily), swgnet.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_24
+    --&gt; Downloading MERRA2 (daily), t2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Downloading GEOS5 (daily), t2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from MERRA2.
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_min_24
+    --&gt; Downloading MERRA2 (daily), t2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_min_24` from MERRA2.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_max_24
+    --&gt; Downloading MERRA2 (daily), t2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_max_24` from MERRA2.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # u2m_24
+    --&gt; Downloading GEOS5 (daily), u2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # v2m_24
+    --&gt; Downloading GEOS5 (daily), v2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_air_0_24
+    --&gt; Downloading MERRA2 (daily), slp.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # qv_24
+    --&gt; Downloading MERRA2 (daily), q2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Downloading GEOS5 (daily), qv2m.
+Tile: 2 / 2: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # lw_offset
+    --&gt; Resampling datasets.
+    # lw_slope
+    --&gt; Resampling datasets.
+    # r0_bare
+    --&gt; Resampling datasets.
+    # r0_full
+    --&gt; Resampling datasets.
+    # rn_offset
+    --&gt; Resampling datasets.
+    # rn_slope
+    --&gt; Resampling datasets.
+    # t_amp_year
+    --&gt; Resampling datasets.
+    # t_opt
+    --&gt; Resampling datasets.
+    # vpd_slope
+    --&gt; Resampling datasets.
+    # z_oro
+    --&gt; Resampling datasets.
+    &gt; Composite enhancers.
+        # t_air_24
+        --&gt; Calculating local means (r = 0.25°) of `z`.
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_24`.
+        # t_air_min_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_min_24`.
+        # t_air_max_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_max_24`.
+        # z
+        --&gt; Creating new variable `slope`.
+        --&gt; Creating new variable `aspect`.
+        --&gt; Creating new variable `lat_deg`.
+        --&gt; Creating new variable `lon_deg`.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<p>Notice how we are now combining PROBAV and MODIS datasets and even GEOS5 and MERRA2 for several meteo-datasets!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ndvi&quot;</span><span class="p">,</span> <span class="s2">&quot;qv_24&quot;</span><span class="p">,</span> <span class="s2">&quot;t_air_24&quot;</span><span class="p">,</span> <span class="s2">&quot;r0&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">&#39;-composites are made from: </span><span class="si">{</span><span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;ndvi&#39;-composites are made from: [&#39;PROBAV&#39;, &#39;MOD13Q1&#39;, &#39;MYD13Q1&#39;]
+
+&#39;qv_24&#39;-composites are made from: [&#39;MERRA2&#39;, &#39;GEOS5&#39;]
+
+&#39;t_air_24&#39;-composites are made from: [&#39;MERRA2&#39;, &#39;GEOS5&#39;]
+
+&#39;r0&#39;-composites are made from: [&#39;PROBAV&#39;, &#39;MCD43A3&#39;]
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">ndvi</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">epoch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fb5ebef3bb0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_3_levels_32_1.png" src="../../_images/notebooks_2.4.1_3_levels_32_1.png" />
+</div>
+</div>
+<p>And then again, run <code class="docutils literal notranslate"><span class="pre">pwapor.et_look.main</span></code> like this.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--&gt; Running ETLook_v2
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+--&gt; Saving outputs.
+</pre></div></div>
+</div>
+<p>Notice how the nodata areas from before have been filled in thanks to temporal interpolation!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">et_24_mm</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">epoch</span> <span class="o">=</span><span class="mi">0</span> <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7fb5ebf370d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_3_levels_36_1.png" src="../../_images/notebooks_2.4.1_3_levels_36_1.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

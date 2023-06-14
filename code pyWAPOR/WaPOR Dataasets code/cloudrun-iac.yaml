@@ -1,0 +1,28 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: $NAME
+  labels:
+    cloud.googleapis.com/location: europe-west3
+  annotations:
+      # run.googleapis.com/ingress: internal-and-cloud-load-balancing
+      # run.googleapis.com/ingress-status: internal-and-cloud-load-balancing
+spec:
+  template:
+    metadata:
+      annotations: 
+        autoscaling.knative.dev/maxScale: '20'
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      containers:
+      - image: gcr.io/$PROJECT_ID/$NAME:$VERSION
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+  traffic:
+  - percent: 100
+    latestRevision: true

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyWaPOR vs. WaPOR &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pyWaPOR vs. WaPOR</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://bitbucket.org///src/notebooks/2.4.1/6_wapor_vs_pywapor.ipynb?mode=view" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pyWaPOR-vs.-WaPOR">
+<h1>pyWaPOR vs. WaPOR<a class="headerlink" href="#pyWaPOR-vs.-WaPOR" title="Permalink to this heading"></a></h1>
+<p>In this notebook we’ll make an comparison between dekadal Evapotranspiration data from WaPOR and from pyWaPOR.</p>
+<p>First we install pywapor, in case it’s not installed yet.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">pywapor</span><span class="o">==</span><span class="m">2</span>.4.1<span class="w"> </span>--quiet
+</pre></div>
+</div>
+</div>
+<p>Next we’ll define a couple of basic variables, which were explained in the introduction notebook.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pywapor</span>
+
+<span class="n">project_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks&quot;</span>
+<span class="n">latlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">28.9</span><span class="p">,</span> <span class="mf">29.7</span><span class="p">]</span>
+<span class="n">lonlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">30.2</span><span class="p">,</span> <span class="mf">31.2</span><span class="p">]</span>
+<span class="n">startdate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-01&quot;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-11&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Then we run <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>, to generate an ET map for the first dekad of July 2021. If you already ran another notebook on this instance, you should already have all the data in your RAW folder and this should take only a few minutes.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="p">,</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span> <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Downloading MOD13.
+Tile: 3 / 3: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Downloading MYD13.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling resolution is ~205 meter.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_24
+    --&gt; Downloading CHIRPS.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # se_root
+    &gt; PRE_SE_ROOT
+        # ndvi
+        --&gt; Downloading MOD13.
+Tile: 3 / 3: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Downloading MYD13.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Resampling resolution is ~205 meter.
+        --&gt; Resampling datasets.
+        # lst
+        --&gt; Downloading MOD11.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Downloading MYD11.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+        --&gt; Resampling datasets.
+        &gt; METEO
+            # t_air_i
+            --&gt; Downloading GEOS5 (3-hourly), t2m.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+            --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_i` from GEOS5.
+            # u2m_i
+            --&gt; Downloading GEOS5 (3-hourly), u2m.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+            # v2m_i
+            --&gt; Downloading GEOS5 (3-hourly), v2m.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+            # qv_i
+            --&gt; Downloading GEOS5 (3-hourly), qv2m.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+            # wv_i
+            --&gt; Downloading GEOS5 (3-hourly), tqv.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+            # p_air_i
+            --&gt; Downloading GEOS5 (3-hourly), ps.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+            # p_air_0_i
+            --&gt; Downloading GEOS5 (3-hourly), slp.
+Tile: 35 / 35: 0.00Bytes [00:00, ?Bytes/s]
+        &lt; METEO
+        --&gt; Interpolating datasets.
+    &lt; PRE_SE_ROOT
+    &gt; SE_ROOT
+        --&gt; Running SEroot_v2.
+        --&gt; Saving outputs.
+    &lt; SE_ROOT
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # r0
+    --&gt; Downloading MCD43.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Interpolating 4 of 4 missing pixels.
+    --&gt; Calculating composites.
+    # z
+    --&gt; Downloading SRTM.
+    --&gt; Resampling datasets.
+    # lulc
+    --&gt; Downloading WAPOR.
+    --&gt; Creating new variable `land_mask`.
+    --&gt; Creating new variable `rs_min`.
+    --&gt; Creating new variable `lue_max`.
+    --&gt; Creating new variable `z_obst_max`.
+    --&gt; Applying &#39;remove_var&#39; to `lulc` from WAPOR.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # ra_24
+    --&gt; Downloading MERRA2 (daily), swgnet.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_24
+    --&gt; Downloading GEOS5 (daily), t2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_min_24
+    --&gt; Downloading GEOS5 (daily), t2m-min.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_min_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_max_24
+    --&gt; Downloading GEOS5 (daily), t2m-max.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_max_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # u2m_24
+    --&gt; Downloading GEOS5 (daily), u2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # v2m_24
+    --&gt; Downloading GEOS5 (daily), v2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_air_0_24
+    --&gt; Downloading GEOS5 (daily), slp.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # qv_24
+    --&gt; Downloading GEOS5 (daily), qv2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # lw_offset
+    --&gt; Resampling datasets.
+    # lw_slope
+    --&gt; Resampling datasets.
+    # r0_bare
+    --&gt; Resampling datasets.
+    # r0_full
+    --&gt; Resampling datasets.
+    # rn_offset
+    --&gt; Resampling datasets.
+    # rn_slope
+    --&gt; Resampling datasets.
+    # t_amp_year
+    --&gt; Resampling datasets.
+    # t_opt
+    --&gt; Resampling datasets.
+    # vpd_slope
+    --&gt; Resampling datasets.
+    # z_oro
+    --&gt; Resampling datasets.
+    &gt; Composite enhancers.
+        # t_air_24
+        --&gt; Calculating local means (r = 0.25°) of `z`.
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_24`.
+        # t_air_min_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_min_24`.
+        # t_air_max_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_max_24`.
+        # z
+        --&gt; Creating new variable `slope`.
+        --&gt; Creating new variable `aspect`.
+        --&gt; Creating new variable `lat_deg`.
+        --&gt; Creating new variable `lon_deg`.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+<p>Then we run <code class="docutils literal notranslate"><span class="pre">et_look</span></code>. In order to get a good match with WaPOR we’ll adjust some of the default constants used by pyWaPOR. The WaPOR dataset is generated with different values for these constants per region, see the WaPOR documentation for more information.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pywapor_files</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">export_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;et_24_mm&quot;</span><span class="p">],</span> <span class="n">export_to_tif</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">pywapor_file</span> <span class="o">=</span> <span class="n">pywapor_files</span><span class="p">[</span><span class="s2">&quot;et_24_mm&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--&gt; Running ETLook_v2
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+--&gt; Saving outputs.
+</pre></div></div>
+</div>
+<p>Now that we have the pyWaPOR ET map, we still need the WaPOR map in order to make a comparison. We can download it like this.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">raw_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="s2">&quot;RAW&quot;</span><span class="p">)</span>
+<span class="n">dl_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw_folder</span><span class="p">,</span> <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span> <span class="s2">&quot;L1_AETI_D&quot;</span><span class="p">)</span>
+
+<span class="n">wapor_file</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">collect</span><span class="o">.</span><span class="n">WAPOR</span><span class="o">.</span><span class="n">Get_Layer</span><span class="p">(</span><span class="o">*</span><span class="n">dl_args</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>For the rest of this notebook we’ll work on comparing the values within these two geoTIFFs.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;wapor_file   : </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">wapor_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pywapor_file : </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">pywapor_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+wapor_file   : L1_AETI_D_WAPOR_DEKAD_2021.07.01.tif
+pywapor_file : et-24-mm_-_-_10_2021.07.01.tif
+</pre></div></div>
+</div>
+<p>We start by opening the data and comparing some basic information. From the geotransforms of the geoTIFFs we can see that the pixel sizes are similar, but not identical. Furthermore, the number of pixels is unequal as well.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wapor_data</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">open_as_array</span><span class="p">(</span><span class="n">wapor_file</span><span class="p">)</span>
+<span class="n">wapor_geot</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">get_geoinfo</span><span class="p">(</span><span class="n">wapor_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">pywapor_data</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">open_as_array</span><span class="p">(</span><span class="n">pywapor_file</span><span class="p">)</span>
+<span class="n">pywapor_geot</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">get_geoinfo</span><span class="p">(</span><span class="n">pywapor_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pixel_size pywapor  : </span><span class="si">{</span><span class="n">pywapor_geot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pixel_size wapor    : </span><span class="si">{</span><span class="n">wapor_geot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array_shape pywapor : </span><span class="si">{</span><span class="n">pywapor_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array_shape wapor   : </span><span class="si">{</span><span class="n">wapor_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+pixel_size pywapor  : 0.0020
+pixel_size wapor    : 0.0022
+array_shape pywapor : (408, 510)
+array_shape wapor   : (539, 629)
+</pre></div></div>
+</div>
+<p>We’ll have to do something about these differences, but let’s first create some maps to get a better idea of what we are dealing with.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mf">9.69</span><span class="p">,</span> <span class="mf">5.27</span><span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pywapor_data</span><span class="p">,</span> <span class="s2">&quot;pywapor&quot;</span><span class="p">,</span> <span class="s2">&quot;ET [mm/day]&quot;</span><span class="p">)</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wapor_data</span><span class="p">,</span> <span class="s2">&quot;wapor&quot;</span><span class="p">,</span> <span class="s2">&quot;ET [mm/day]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_16_0.png" src="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_16_0.png" />
+</div>
+</div>
+<p>You’ll see that the spatial extent of the WaPOR geoTIFF is larger than pyWaPORs, e.g. clearly a larger part of the Nile delta is visible on the WaPOR map. This shouldn’t be a surprise though, as we’ve just seen that (1) the WaPOR pixels are larger and (2) the WaPOR geoTIFF has more pixels.</p>
+<p>Nevertheless, in order to really compare the two files, we’ll have to reproject one of them to match all the pixels with eachother. We’ll reproject the WaPOR file to match with the pyWaPOR file using a nearest-neighbor interpolation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">reproject_dataset_example</span><span class="p">(</span><span class="n">wapor_file</span><span class="p">,</span> <span class="n">pywapor_file</span><span class="p">)</span>
+
+<span class="n">wapor_data</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">open_as_array</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="n">wapor_geot</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">get_geoinfo</span><span class="p">(</span><span class="n">ds</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pixel_size pywapor  : </span><span class="si">{</span><span class="n">pywapor_geot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pixel_size wapor    : </span><span class="si">{</span><span class="n">wapor_geot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array_shape pywapor : </span><span class="si">{</span><span class="n">pywapor_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array_shape wapor   : </span><span class="si">{</span><span class="n">wapor_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+pixel_size pywapor  : 0.0020
+pixel_size wapor    : 0.0020
+array_shape pywapor : (408, 510)
+array_shape wapor   : (408, 510)
+</pre></div></div>
+</div>
+<p>Now the pixels have the same size and the arrays have the same shape (i.e. the same amount of pixels).</p>
+<p>In the figure we’ve created earlier, you might also have noticed that the ET values on the WaPOR map were extremely high compared to the pyWaPOR map. As you can read in the WaPOR documentation, we need to apply a scale-factor of 0.1 to the pixel values to get the correct values.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wapor_data</span> <span class="o">*=</span> <span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+<p>Now that we have reprojected the data and applied the scale-factor, lets plot the maps again.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mf">9.69</span><span class="p">,</span> <span class="mf">5.27</span><span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pywapor_data</span><span class="p">,</span> <span class="s2">&quot;pywapor&quot;</span><span class="p">,</span> <span class="s2">&quot;ET [mm/day]&quot;</span><span class="p">)</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wapor_data</span><span class="p">,</span> <span class="s2">&quot;wapor&quot;</span><span class="p">,</span> <span class="s2">&quot;ET [mm/day]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_24_0.png" src="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_24_0.png" />
+</div>
+</div>
+<p>You’ll see that the spatial extent of the two maps and the range of the ET values is similar now. The pyWaPOR file contains some pixels without any data though (the white patches). To make a fair comparison, we’ll mask those pixels in the WaPOR dataset as well.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pywapor_data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">wapor_data</span><span class="p">)],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">pywapor_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">wapor_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="n">pywapor_data_1d</span> <span class="o">=</span> <span class="n">pywapor_data</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">wapor_data_1d</span> <span class="o">=</span> <span class="n">wapor_data</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array_shape pywapor : </span><span class="si">{</span><span class="n">pywapor_data_1d</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array_shape wapor   : </span><span class="si">{</span><span class="n">wapor_data_1d</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array_shape pywapor : (207937,)
+array_shape wapor   : (207937,)
+</pre></div></div>
+</div>
+<p>Now we have 207236 values per dataset to compare with eachother.</p>
+<p>Let’s plot our maps again, this time fixing the colorbars of the two maps to be identical.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mf">9.69</span><span class="p">,</span> <span class="mf">5.27</span><span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pywapor_data</span><span class="p">,</span> <span class="s2">&quot;pywapor&quot;</span><span class="p">,</span> <span class="s2">&quot;ET [mm/day]&quot;</span><span class="p">,</span> <span class="n">cb_limits</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wapor_data</span><span class="p">,</span> <span class="s2">&quot;wapor&quot;</span><span class="p">,</span> <span class="s2">&quot;ET [mm/day]&quot;</span><span class="p">,</span> <span class="n">cb_limits</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_29_0.png" src="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_29_0.png" />
+</div>
+</div>
+<p>The maps look very similar, although it looks like the WaPOR values are slightly higher. we can also calculate some statistics now.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">calc_pearson_correlation</span><span class="p">([</span><span class="n">pywapor_data_1d</span><span class="p">,</span> <span class="n">wapor_data_1d</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">nse</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">calc_nash_sutcliffe</span><span class="p">([</span><span class="n">pywapor_data_1d</span><span class="p">,</span> <span class="n">wapor_data_1d</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">calc_rmse</span><span class="p">([</span><span class="n">pywapor_data_1d</span><span class="p">,</span> <span class="n">wapor_data_1d</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;r   : </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;nse : </span><span class="si">{</span><span class="n">nse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rmse: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> [mm/day]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+r   : 0.978
+nse : 0.953
+rmse: 0.596 [mm/day]
+</pre></div></div>
+</div>
+<p>And create a scatterplot.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_hexbin</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">pywapor_data_1d</span><span class="p">,</span> <span class="n">wapor_data_1d</span><span class="p">],</span>
+                                 <span class="n">xlabel</span> <span class="o">=</span> <span class="s2">&quot;ET (pywapor) [mm/day]&quot;</span><span class="p">,</span>
+                                 <span class="n">ylabel</span> <span class="o">=</span> <span class="s2">&quot;ET (wapor) [mm/day]&quot;</span><span class="p">,</span>
+                                 <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;r: </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, nse : </span><span class="si">{</span><span class="n">nse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, rmse: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> [mm/day]&quot;</span><span class="p">)</span>
+
+<span class="n">title</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">startdate</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">enddate</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_33_0.png" src="../../_images/notebooks_2.4.1_6_wapor_vs_pywapor_33_0.png" />
+</div>
+</div>
+<p>Although there is some variance, the two maps are very similar. <code class="docutils literal notranslate"><span class="pre">et_look</span></code> is identical to the model used to create the WaPOR data, but <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> is not. The solar-radiation (ra_24) product used in pyWaPOR is differnt from WaPOR as well. This variance can thus mainly be explained by differences in the preprocessing of the <code class="docutils literal notranslate"><span class="pre">et_look</span></code> input data.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

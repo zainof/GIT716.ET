@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyDMS &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="thermal_sharpener" href="thermal_sharpener.html" />
+    <link rel="prev" title="dms" href="../dms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../_pywapor_api.html">pyWaPOR API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../pre_et_look.html">pywapor.pre_et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../et_look.html">pywapor.et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../pre_se_root.html">pywapor.pre_se_root</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../se_root.html">pywapor.se_root</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../enhancers.html">pywapor.enhancers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dem.html">dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gap_fill.html">gap_fill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lulc.html">lulc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apply_enhancers.html">apply_enhancers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other.html">other</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pressure.html">pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../wind.html">wind</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dms.html">dms</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pyDMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thermal_sharpener.html">thermal_sharpener</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../general.html">pywapor.general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../collect.html">pywapor.collect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../_pywapor_api.html">pyWaPOR API</a></li>
+          <li class="breadcrumb-item"><a href="../../enhancers.html">pywapor.enhancers</a></li>
+          <li class="breadcrumb-item"><a href="../dms.html">dms</a></li>
+      <li class="breadcrumb-item active">pyDMS</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pywapor.enhancers.dms.pyDMS">
+<span id="pydms"></span><h1>pyDMS<a class="headerlink" href="#module-pywapor.enhancers.dms.pyDMS" title="Permalink to this heading"></a></h1>
+<p>&#64;author: Radoslaw Guzinski
+Copyright: (C) 2017, Radoslaw Guzinski</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linearRegressionExtrapolationRatio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decisionTreeRegressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression" title="Permalink to this definition"></a></dt>
+<dd><p>Decision tree regressor with added linear (bayesian ridge) regression
+for all the data points falling within each decision tree leaf node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linearRegressionExtrapolationRatio</strong> (<em>float</em><em> (</em><em>optional</em><em>, </em><em>default: 0.25</em><em>)</em>) – A limit on extrapolation allowed in the per-leaf linear regressions.
+The ratio is multiplied by the range of values present in each leaves’
+training dataset and added (substracted) to the maxiumum (minimum)
+value.</p></li>
+<li><p><strong>decisionTreeRegressorOpt</strong> (<em>dictionary</em><em> (</em><em>optional</em><em>, </em><em>default: {}</em><em>)</em>) – Options to pass to DecisionTreeRegressor constructor. See
+<a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html">http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html</a>
+for possibilities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Build a decision tree regressor from the training set (X, y).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em> or </em><em>sparse matrix</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The training input samples. Internally, it will be converted to
+dtype=np.float32 and if a sparse matrix is provided to a sparse
+csc_matrix.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>] or </em><em>[</em><em>n_samples</em><em>, </em><em>n_outputs</em><em>]</em>) – The target values (real numbers). Use dtype=np.float64 and
+order=’C’ for maximum efficiency.</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>] or </em><em>None</em>) – Sample weights. If None, then samples are equally weighted. Splits
+that would create child nodes with net zero or negative weight are
+ignored while searching for a split in each node.</p></li>
+<li><p><strong>fitOpt</strong> (<em>dictionary</em><em> (</em><em>optional</em><em>, </em><em>default: {}</em><em>)</em>) – Options to pass to DecisionTreeRegressor fit function. See
+<a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html">http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html</a>
+for possibilities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Self</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Predict class or regression value for X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em><em> or </em><em>sparse matrix</em><em> of </em><em>shape =</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The input samples. Internally, it will be converted to
+dtype=np.float32 and if a sparse matrix is provided to a sparse
+csr_matrix.</p></li>
+<li><p><strong>predictOpt</strong> (<em>dictionary</em><em> (</em><em>optional</em><em>, </em><em>default: {}</em><em>)</em>) – Options to pass to DecisionTreeRegressor predict function. See
+<a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html">http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html</a>
+for possibilities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>y</strong> – The predicted classes, or the predict values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array of shape = [n_samples] or [n_samples, n_outputs]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecisionTreeSharpener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highResFiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResQualityFiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResGoodQualityFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvHomogeneityThreshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movingWindowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disaggregatingTemperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perLeafLinearRegression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearRegressionExtrapolationRatio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baggingRegressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener" title="Permalink to this definition"></a></dt>
+<dd><p>Decision tree based sharpening (disaggregation) of low-resolution
+images using high-resolution images. The implementation is mostly based on Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id1">1</a>, 2012.</p>
+<p>Decision tree based regressor is trained with high-resolution data resampled to
+low resolution and low-resolution data and then applied
+directly to high-resolution data to obtain high-resolution representation
+of the low-resolution data.</p>
+<p>The implementation includes selecting training data based on homogeneity
+statistics and using the homogeneity as weight factor (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id2">1</a>, 2012, section 2.2),
+performing linear regression with samples located within each regression
+tree leaf node (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id3">1</a>, 2012, section 2.1), using an ensemble of regression trees
+(Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id4">1</a>, 2012, section 2.1), performing local (moving window) and global regression and
+combining them based on residuals (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id5">1</a>, 2012, section 2.3) and performing residual
+analysis and bias correction (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id6">1</a>, 2012, section 2.4)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>highResFiles</strong> (<em>list</em><em> of </em><em>strings</em>) – A list of file paths to high-resolution images to be used during the
+training of the sharpener.</p></li>
+<li><p><strong>lowResFiles</strong> (<em>list</em><em> of </em><em>strings</em>) – A list of file paths to low-resolution images to be used during the
+training of the sharpener. There must be one low-resolution image
+for each high-resolution image.</p></li>
+<li><p><strong>lowResQualityFiles</strong> (<em>list</em><em> of </em><em>strings</em><em> (</em><em>optional</em><em>, </em><em>default:</em><em> [</em><em>]</em><em>)</em>) – A list of file paths to low-resolution quality images to be used to
+mask out low-quality low-resolution pixels during training. If provided
+there must be one quality image for each low-resolution image.</p></li>
+<li><p><strong>lowResGoodQualityFlags</strong> (<em>list</em><em> of </em><em>integers</em><em> (</em><em>optional</em><em>, </em><em>default:</em><em> [</em><em>]</em><em>)</em>) – A list of values indicating which pixel values in the low-resolution
+quality images should be considered as good quality.</p></li>
+<li><p><strong>cvHomogeneityThreshold</strong> (<em>float</em><em> (</em><em>optional</em><em>, </em><em>default: 0</em><em>)</em>) – A threshold of coeficient of variation below which high-resolution
+pixels resampled to low-resolution are considered homogeneous and
+usable during the training of the disaggregator. If threshold is 0 or
+negative then it is set automatically such that 80% of pixels are below
+it.</p></li>
+<li><p><strong>movingWindowSize</strong> (<em>integer</em><em> (</em><em>optional</em><em>, </em><em>default: 0</em><em>)</em>) – The size of local regression moving window in low-resolution pixels. If
+set to 0 then only global regression is performed.</p></li>
+<li><p><strong>disaggregatingTemperature</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – Flag indicating whether the parameter to be disaggregated is
+temperature (e.g. land surface temperature). If that is the case then
+at some points it needs to be converted into radiance. This is becasue
+sensors measure energy, not temperature, plus radiance is the physical
+measurements it makes sense to average, while radiometric temperature
+behaviour is not linear.</p></li>
+<li><p><strong>perLeafLinearRegression</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – Flag indicating if linear regression should be performed on all data
+points falling within each regression tree leaf node.</p></li>
+<li><p><strong>linearRegressionExtrapolationRatio</strong> (<em>float</em><em> (</em><em>optional</em><em>, </em><em>default: 0.25</em><em>)</em>) – A limit on extrapolation allowed in the per-leaf linear regressions.
+The ratio is multiplied by the range of values present in each leaves’
+training dataset and added (substracted) to the maxiumum (minimum)
+value.</p></li>
+<li><p><strong>regressorOpt</strong> (<em>dictionary</em><em> (</em><em>optional</em><em>, </em><em>default: {}</em><em>)</em>) – Options to pass to DecisionTreeRegressor constructor See
+<a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html">http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html</a>
+for possibilities. Note that max_leaf_nodes and min_samples_leaf
+parameters will beoverwritten in the code.</p></li>
+<li><p><strong>baggingRegressorOpt</strong> (<em>dictionary</em><em> (</em><em>optional</em><em>, </em><em>default: {}</em><em>)</em>) – Options to pass to BaggingRegressor constructor. See
+<a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingRegressor.html">http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingRegressor.html</a>
+for possibilities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.trainSharpener">
+<span class="sig-name descname"><span class="pre">trainSharpener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.trainSharpener" title="Permalink to this definition"></a></dt>
+<dd><p>Train the sharpener using high- and low-resolution input files
+and settings specified in the constructor. Local (moving window) and
+global regression decision trees are trained with high-resolution data
+resampled to low resolution and low-resolution data. The training
+dataset is selected based on homogeneity of resampled high-resolution
+data being below specified threshold and quality mask (if given) of
+low resolution data. The homogeneity statistics are also used as weight
+factors for the training samples (more homogenous - higher weight).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.applySharpener">
+<span class="sig-name descname"><span class="pre">applySharpener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highResFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.applySharpener" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the trained sharpener to a given high-resolution image to
+derive corresponding disaggregated low-resolution image. If local
+regressions were used during training then they will only be applied
+where their moving window extent overlaps with the high resolution
+image passed to this function. Global regression will be applied to the
+whole high-resolution image wihtout geographic constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>highResFilename</strong> (<em>string</em>) – Path to the high-resolution image file do be used during
+disaggregation.</p></li>
+<li><p><strong>lowResFilename</strong> (<em>string</em><em> (</em><em>optional</em><em>, </em><em>default: None</em><em>)</em>) – Path to the low-resolution image file corresponding to the
+high-resolution input file. If local regressions
+were trained and low-resolution filename is given then the local
+and global regressions will be combined based on residual values of
+the different regressions to the low-resolution image (see Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id7">1</a>, 2012,
+section 2.3). If local regressions were trained and low-resolution
+filename is not given then only the local regressions will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>outImage</strong> – The file object contains an in-memory, georeferenced disaggregator
+output.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GDAL memory file object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.residualAnalysis">
+<span class="sig-name descname"><span class="pre">residualAnalysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disaggregatedFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResQualityFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doCorrection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.residualAnalysis" title="Permalink to this definition"></a></dt>
+<dd><p>Perform residual analysis and (optional) correction on the
+disaggregated file (see Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id8">1</a>, 2012, section 2.4).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>disaggregatedFile</strong> (<em>string</em><em> or </em><em>GDAL file object</em>) – If string, path to the disaggregated image file; if gdal file
+object, the disaggregated image.</p></li>
+<li><p><strong>lowResFilename</strong> (<em>string</em>) – Path to the low-resolution image file corresponding to the
+high-resolution disaggregated image.</p></li>
+<li><p><strong>lowResQualityFilename</strong> (<em>string</em><em> (</em><em>optional</em><em>, </em><em>default: None</em><em>)</em>) – Path to low-resolution quality image file. If provided then low
+quality values are masked out during residual analysis. Otherwise
+all values are considered to be of good quality.</p></li>
+<li><p><strong>doCorrection</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – Flag indication whether residual (bias) correction should be
+performed or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>residualImage</strong> (<em>GDAL memory file object</em>) – The file object contains an in-memory, georeferenced residual image.</p></li>
+<li><p><strong>correctedImage</strong> (<em>GDAL memory file object</em>) – The file object contains an in-memory, georeferenced residual
+corrected disaggregated image, or None if doCorrection was set to
+False.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="docutils container" id="id9">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-gao2012"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>,<a href="#id5">5</a>,<a href="#id6">6</a>,<a href="#id7">7</a>,<a href="#id8">8</a>)</span></dt>
+<dd><p>Feng Gao, William P Kustas, and Martha C Anderson. A data mining approach for sharpening thermal satellite imagery over land. <em>Remote Sensing</em>, 4(11):3287–3319, 2012.</p>
+</dd>
+</dl>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../dms.html" class="btn btn-neutral float-left" title="dms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thermal_sharpener.html" class="btn btn-neutral float-right" title="thermal_sharpener" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

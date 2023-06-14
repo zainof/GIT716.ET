@@ -1,0 +1,66 @@
+div.vis-network div.vis-navigation div.vis-button.vis-up, 
+div.vis-network div.vis-navigation div.vis-button.vis-down, 
+div.vis-network div.vis-navigation div.vis-button.vis-left, 
+div.vis-network div.vis-navigation div.vis-button.vis-right, 
+div.vis-network div.vis-navigation div.vis-button.vis-zoomIn, 
+div.vis-network div.vis-navigation div.vis-button.vis-zoomOut, 
+div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
+background-image: none !important;
+background-color: rgb(22, 21, 21);
+}
+
+div.vis-network div.vis-navigation div.vis-button:hover {
+box-shadow: none !important;
+}
+
+.vis-button:after {
+font-size: 2em;
+color: gray;
+}
+
+.vis-button:hover:after {
+font-size: 2em;
+color: lightgray;
+}
+
+.vis-button.vis-up {
+visibility: hidden;
+}
+
+.vis-button.vis-down {
+visibility: hidden;
+}
+
+.vis-button.vis-left {
+visibility: hidden;
+}
+
+.vis-button.vis-right {
+visibility: hidden;
+}
+
+.vis-button.vis-zoomExtends {
+visibility: hidden;
+}
+
+.vis-button.vis-zoomIn:after {
+content: "+";
+font-weight: bold;
+}
+
+.vis-button.vis-zoomOut:after {
+content: "\2010";
+font-weight: bold;
+}
+
+.vis-button.vis-zoomOut {
+text-align: center;
+line-height: 33px;
+vertical-align: middle;
+}
+
+.vis-button.vis-zoomIn {
+text-align: center;
+line-height: 32px;
+vertical-align: middle;
+}

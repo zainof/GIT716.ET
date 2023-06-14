@@ -1,0 +1,11 @@
+.wy-table-responsive table td, .wy-table-responsive table th {
+    white-space: inherit;
+}
+
+.output_area {
+    max-height: 500px;
+    }
+
+div.nboutput.container div.output_area.stderr {
+    background: #ededed !important;
+    }

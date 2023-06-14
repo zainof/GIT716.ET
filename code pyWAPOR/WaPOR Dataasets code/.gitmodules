@@ -1,0 +1,3 @@
+[submodule "pywapor_notebooks"]
+	path = docs/notebooks
+	url = https://github.com/bertcoerver/pywapor_notebooks.git

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sideloading data &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sideloading data</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://bitbucket.org///src/notebooks/2.4.1/4_sideloading.ipynb?mode=view" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Sideloading-data">
+<h1>Sideloading data<a class="headerlink" href="#Sideloading-data" title="Permalink to this heading"></a></h1>
+<p>In this notebook we’ll learn how to add data from sources other than the automated ones into pyWaPOR. We start by creating NDVI, Albedo and LST maps from a manually downloaded Landsat tile and then continue to incorporate that data into <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>.</p>
+<section id="Landsat">
+<h2>Landsat<a class="headerlink" href="#Landsat" title="Permalink to this heading"></a></h2>
+<p>First we install pywapor, in case it’s not installed yet.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">pywapor</span><span class="o">==</span><span class="m">2</span>.4.1<span class="w"> </span>--quiet
+</pre></div>
+</div>
+</div>
+<p>Then we’ll define the usual parameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pywapor</span>
+
+<span class="n">project_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks&quot;</span>
+<span class="n">latlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">28.9</span><span class="p">,</span> <span class="mf">29.7</span><span class="p">]</span>
+<span class="n">lonlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">30.2</span><span class="p">,</span> <span class="mf">31.2</span><span class="p">]</span>
+<span class="n">startdate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-01&quot;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s2">&quot;2021-07-11&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>The function that transforms Landsat Collection-2 Level-2 scenes into <code class="docutils literal notranslate"><span class="pre">ndvi</span></code>, <code class="docutils literal notranslate"><span class="pre">r0</span></code> and <code class="docutils literal notranslate"><span class="pre">lst</span></code> maps, takes one mandatory input variable, which describes in which folder it should look for <code class="docutils literal notranslate"><span class="pre">tar</span></code>-files containing Landsat scenes. So let’s start by defining that variable. Note that this folder can be inside your <code class="docutils literal notranslate"><span class="pre">project_folder</span></code>, but doesn’t have to be.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">landsat_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>For now the folder is empty (and perhaps doesn’t even exist yet). Normally, you would put the files you’ve downloaded from for example the (Earth Explorer)[<a class="reference external" href="https://earthexplorer.usgs.gov">https://earthexplorer.usgs.gov</a>] in this folder. But for this notebook we’ll use an (much smaller) example file, that we can download like this.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_file</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">collect</span><span class="o">.</span><span class="n">Landsat</span><span class="o">.</span><span class="n">C2L2SP</span><span class="o">.</span><span class="n">dl_landsat_test</span><span class="p">(</span><span class="n">landsat_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 27.6M/27.6M [00:00&lt;00:00, 89.8MBytes/s]
+</pre></div></div>
+</div>
+<p>We can check the contents of our <code class="docutils literal notranslate"><span class="pre">landsat_folder</span></code> like this.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls<span class="w"> </span><span class="nv">$landsat_folder</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+LE07_L2SP_177040_20210707_20210802_02_T1.tar
+</pre></div></div>
+</div>
+<p>Now that we have our Landsat scene, we can convert it into <code class="docutils literal notranslate"><span class="pre">ndvi</span></code>, <code class="docutils literal notranslate"><span class="pre">r0</span></code> and <code class="docutils literal notranslate"><span class="pre">lst</span></code> maps.</p>
+<p>Besides the path to our <code class="docutils literal notranslate"><span class="pre">landsat_folder</span></code> we will also pass a bounding-box parameter to <code class="docutils literal notranslate"><span class="pre">pywapor.collect.Landsat.C2L2SP.main</span></code>, which will reproject the data to <code class="docutils literal notranslate"><span class="pre">epsg:4326</span></code> and clip the scene to our AOI.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_files</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">collect</span><span class="o">.</span><span class="n">Landsat</span><span class="o">.</span><span class="n">C2L2SP</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">landsat_folder</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="p">(</span><span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+No scale/offset found for /Users/hmcoerver/pywapor_notebooks/my_landsat_folder/LE07_L2SP_177040_20210707_20210802_02_T1/LE07_L2SP_177040_20210707_20210802_02_T1_ST_QA.TIF, setting to 1 and 0.
+</pre></div></div>
+</div>
+<p>the output, <code class="docutils literal notranslate"><span class="pre">all_files</span></code>, contains three lists, with the paths to any tif-files that have been created.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_files</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+([&#39;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder/ndvi/ndvi_LS7_-_-_2021.07.07.07.33.tif&#39;],
+ [&#39;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder/r0/r0_LS7_-_-_2021.07.07.07.33.tif&#39;],
+ [&#39;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder/lst/lst_LS7_K_-_2021.07.07.07.33.tif&#39;])
+</pre></div></div>
+</div>
+<p>Let’s have a quick look at them before we continue.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">ndvi_data</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">open_as_array</span><span class="p">(</span><span class="n">all_files</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">r0_data</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">open_as_array</span><span class="p">(</span><span class="n">all_files</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">lst_data</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">processing_functions</span><span class="o">.</span><span class="n">open_as_array</span><span class="p">(</span><span class="n">all_files</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mf">9.69</span><span class="p">,</span> <span class="mf">5.27</span><span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ndvi_data</span><span class="p">,</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">,</span> <span class="s2">&quot;NDVI [-]&quot;</span><span class="p">)</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r0_data</span><span class="p">,</span> <span class="s2">&quot;r0&quot;</span><span class="p">,</span> <span class="s2">&quot;Albedo [-]&quot;</span><span class="p">)</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">lst_data</span><span class="p">,</span> <span class="s2">&quot;lst&quot;</span><span class="p">,</span> <span class="s2">&quot;LST [K]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_4_sideloading_16_0.png" src="../../_images/notebooks_2.4.1_4_sideloading_16_0.png" />
+</div>
+</div>
+<p>That doesn’t look good, does it? Landsat 7 has some scanline problems, as a result of which many scenes have stripes of missing data. Because we are zoomed out quite far in these plots, it looks as if there is no data at all. Lets zoom in a little.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mf">9.69</span><span class="p">,</span> <span class="mf">5.27</span><span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">xslice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">1200</span><span class="p">)</span>
+<span class="n">yslice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">1300</span><span class="p">,</span> <span class="mi">1900</span><span class="p">)</span>
+
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ndvi_data</span><span class="p">[</span><span class="n">xslice</span><span class="p">,</span> <span class="n">yslice</span><span class="p">],</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">,</span> <span class="s2">&quot;NDVI [-]&quot;</span><span class="p">)</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r0_data</span><span class="p">[</span><span class="n">xslice</span><span class="p">,</span> <span class="n">yslice</span><span class="p">],</span> <span class="s2">&quot;r0&quot;</span><span class="p">,</span> <span class="s2">&quot;Albedo [-]&quot;</span><span class="p">)</span>
+<span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">lst_data</span><span class="p">[</span><span class="n">xslice</span><span class="p">,</span> <span class="n">yslice</span><span class="p">],</span> <span class="s2">&quot;lst&quot;</span><span class="p">,</span> <span class="s2">&quot;LST [K]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_2.4.1_4_sideloading_18_0.png" src="../../_images/notebooks_2.4.1_4_sideloading_18_0.png" />
+</div>
+</div>
+<p>Now you can see that there actually is data.</p>
+<p>Also notice the circle of missing data in the lst-map. Each level-2 Landsat scene comes with a map indicating the uncertainty in the given lst-values. By default, <code class="docutils literal notranslate"><span class="pre">pywapor.collect.Landsat.C2L2SP.main</span></code> automatically masks out any <code class="docutils literal notranslate"><span class="pre">lst</span></code> values that have an uncertainty greater than 2.5 K. You can adjust this value by passing the keyword argument <code class="docutils literal notranslate"><span class="pre">max_lst_uncertainty</span></code> to the function. For example like this:
+<code class="docutils literal notranslate"><span class="pre">all_files</span> <span class="pre">=</span> <span class="pre">pywapor.collect.Landsat.C2L2SP.main(landsat_folder,</span> <span class="pre">max_lst_uncertainty</span> <span class="pre">=</span> <span class="pre">5.0)</span></code>.</p>
+<p>We can check our Landsat folder again.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">ls</span> $landsat_folder
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+LE07_L2SP_177040_20210707_20210802_02_T1.tar
+<span class="ansi-blue-fg">lst</span>/
+<span class="ansi-blue-fg">ndvi</span>/
+<span class="ansi-blue-fg">r0</span>/
+</pre></div></div>
+</div>
+<p>As you can see, there are now three folders next to our tar-file, which contain the maps that have been created.</p>
+</section>
+<section id="Sideloading">
+<h2>Sideloading<a class="headerlink" href="#Sideloading" title="Permalink to this heading"></a></h2>
+<p>Now that we have some data that we would like to include in <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>, we can define a custom level like we’ve done in the previous notebook.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_custom_level</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Main inputs</span>
+        <span class="s2">&quot;ndvi&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;LS7&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;r0&quot;</span><span class="p">:</span>           <span class="p">[</span><span class="s2">&quot;LS7&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lst&quot;</span><span class="p">:</span>          <span class="p">[</span><span class="s2">&quot;LS7&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lulc&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;WAPOR&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;z&quot;</span><span class="p">:</span>            <span class="p">[</span><span class="s2">&quot;SRTM&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;p_24&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;CHIRPS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ra_24&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;MERRA2&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Daily meteo</span>
+        <span class="s1">&#39;t_air_24&#39;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;t_air_min_24&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;t_air_max_24&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;u2m_24&#39;</span><span class="p">:</span>       <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;v2m_24&#39;</span><span class="p">:</span>       <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;p_air_0_24&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;qv_24&#39;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Instanteneous meteo</span>
+        <span class="s2">&quot;t_air_i&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;u2m_i&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;v2m_i&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;qv_i&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;wv_i&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;p_air_i&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;p_air_0_i&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;GEOS5&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Temporal constants</span>
+        <span class="s2">&quot;lw_offset&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lw_slope&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;r0_bare&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;r0_full&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;rn_offset&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;rn_slope&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;t_amp_year&quot;</span><span class="p">:</span>   <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;t_opt&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;vpd_slope&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;z_oro&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;STATICS&quot;</span><span class="p">],</span>
+
+        <span class="c1"># Level name</span>
+        <span class="s2">&quot;level_name&quot;</span><span class="p">:</span> <span class="s2">&quot;sideloading_level&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>What’s different from the previous notebook however, is that now we also need to tell <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> where to find these new sources (i.e. <code class="docutils literal notranslate"><span class="pre">&quot;LS7&quot;</span></code>). We do that with another dictionary.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">extra_source_locations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s2">&quot;LS7&quot;</span><span class="p">,</span> <span class="s2">&quot;ndvi&quot;</span><span class="p">):</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder/ndvi&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;LS7&quot;</span><span class="p">,</span> <span class="s2">&quot;r0&quot;</span><span class="p">):</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder/r0&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;LS7&quot;</span><span class="p">,</span> <span class="s2">&quot;lst&quot;</span><span class="p">):</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks/my_landsat_folder/lst&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>For each entry of the form “(<code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">parameter</span></code>): <code class="docutils literal notranslate"><span class="pre">folder_path</span></code>”, <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> will look for files in the folder given by <code class="docutils literal notranslate"><span class="pre">folder_path</span></code> which look like <code class="docutils literal notranslate"><span class="pre">{parameter}_{source}_*_%Y.%m.%d.%H.%M.tif</span></code> and then treat those files a any other source.</p>
+<p>So now we can run <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_in</span><span class="p">,</span> <span class="n">fh_in</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">startdate</span><span class="p">,</span> <span class="n">enddate</span><span class="p">,</span>
+    <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">my_custom_level</span><span class="p">,</span> <span class="n">extra_source_locations</span> <span class="o">=</span> <span class="n">extra_source_locations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    # ndvi
+    --&gt; Collected 1 LS7 file(s).
+    --&gt; Resampling resolution is ~30 meter.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_24
+    --&gt; Downloading CHIRPS.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # se_root
+    &gt; PRE_SE_ROOT
+        # ndvi
+        --&gt; Collected 1 LS7 file(s).
+        --&gt; Resampling resolution is ~30 meter.
+        --&gt; Resampling datasets.
+        # lst
+        --&gt; Collected 1 LS7 file(s).
+        --&gt; Resampling datasets.
+        &gt; METEO
+            # t_air_i
+            --&gt; Downloading GEOS5 (3-hourly), t2m.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+            --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_i` from GEOS5.
+            # u2m_i
+            --&gt; Downloading GEOS5 (3-hourly), u2m.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+            # v2m_i
+            --&gt; Downloading GEOS5 (3-hourly), v2m.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+            # qv_i
+            --&gt; Downloading GEOS5 (3-hourly), qv2m.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+            # wv_i
+            --&gt; Downloading GEOS5 (3-hourly), tqv.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+            # p_air_i
+            --&gt; Downloading GEOS5 (3-hourly), ps.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+            # p_air_0_i
+            --&gt; Downloading GEOS5 (3-hourly), slp.
+Tile: 1 / 1: 0.00Bytes [00:00, ?Bytes/s]
+        &lt; METEO
+        --&gt; Interpolating datasets.
+    &lt; PRE_SE_ROOT
+    &gt; SE_ROOT
+        --&gt; Running SEroot_v2.
+        --&gt; Saving outputs.
+    &lt; SE_ROOT
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # r0
+    --&gt; Collected 1 LS7 file(s).
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # z
+    --&gt; Downloading SRTM.
+    --&gt; Resampling datasets.
+    # lulc
+    --&gt; Downloading WAPOR.
+    --&gt; Creating new variable `land_mask`.
+    --&gt; Creating new variable `rs_min`.
+    --&gt; Creating new variable `lue_max`.
+    --&gt; Creating new variable `z_obst_max`.
+    --&gt; Applying &#39;remove_var&#39; to `lulc` from WAPOR.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # ra_24
+    --&gt; Downloading MERRA2 (daily), swgnet.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_24
+    --&gt; Downloading GEOS5 (daily), t2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_min_24
+    --&gt; Downloading GEOS5 (daily), t2m-min.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_min_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # t_air_max_24
+    --&gt; Downloading GEOS5 (daily), t2m-max.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_max_24` from GEOS5.
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # u2m_24
+    --&gt; Downloading GEOS5 (daily), u2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # v2m_24
+    --&gt; Downloading GEOS5 (daily), v2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # p_air_0_24
+    --&gt; Downloading GEOS5 (daily), slp.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # qv_24
+    --&gt; Downloading GEOS5 (daily), qv2m.
+Tile: 11 / 11: 0.00Bytes [00:00, ?Bytes/s]
+    --&gt; Resampling datasets.
+    --&gt; Calculating composites.
+    # lw_offset
+    --&gt; Resampling datasets.
+    # lw_slope
+    --&gt; Resampling datasets.
+    # r0_bare
+    --&gt; Resampling datasets.
+    # r0_full
+    --&gt; Resampling datasets.
+    # rn_offset
+    --&gt; Resampling datasets.
+    # rn_slope
+    --&gt; Resampling datasets.
+    # t_amp_year
+    --&gt; Resampling datasets.
+    # t_opt
+    --&gt; Resampling datasets.
+    # vpd_slope
+    --&gt; Resampling datasets.
+    # z_oro
+    --&gt; Resampling datasets.
+    &gt; Composite enhancers.
+        # t_air_24
+        --&gt; Calculating local means (r = 0.25°) of `z`.
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_24`.
+        # t_air_min_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_min_24`.
+        # t_air_max_24
+        --&gt; Applying &#39;lapse_rate&#39; to `t_air_max_24`.
+        # z
+        --&gt; Creating new variable `slope`.
+        --&gt; Creating new variable `aspect`.
+        --&gt; Creating new variable `lat_deg`.
+        --&gt; Creating new variable `lon_deg`.
+    &lt; Composite enhancers.
+    --&gt; Saving results.
+&lt; PRE_ET_LOOK
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

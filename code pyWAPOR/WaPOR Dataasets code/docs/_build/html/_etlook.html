@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETLook &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clear Sky Radiation" href="et_look_rsts/clear_sky_radiation.html" />
+    <link rel="prev" title="sentinelapi" href="pywapor_api_rsts/collect/protocol/sentinelapi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ETLook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html">Clear Sky Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html">Soil Moisture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/evapotranspiration.html">Evapotranspiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/leaf.html">Leaf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html">Meteo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html">Neutral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html">Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/resistance.html">Resistance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/roughness.html">Roughness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html">Solar Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/stress.html">Stress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html">Unstable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html">Biomass</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ETLook</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="etlook">
+<h1>ETLook<a class="headerlink" href="#etlook" title="Permalink to this heading"></a></h1>
+<p>The method for calculating evapotranspiration is based on the ETLook model developed by eLEAF in 2010.</p>
+<p>The method for calculating total biomass production is based on the C-Fix model.</p>
+<p>The code in the <cite>pywapor.et_look_v2</cite> module of this repository, containing all core physical functions used by ETLook, was written by Henk Pelgrum (eLEAF) and Rutger Kassies (eLEAF).</p>
+<p>The remaining modules have been developed by Bert Coerver (FAO), Tim Hessels (WaterSat), and, in the framework of the ESA-funded ET4FAO project, Radoslaw Guzinski (DHI-GRAS), Hector Nieto (Complutig) and Laust Faerch (DHI-GRAS).</p>
+<div height="100%", width="100%">
+<iframe width="100%" height="500vh" src="et_look_v2_network.html" title="et_look_model" style="border:0px" scrolling="no"></iframe>
+</div><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html">Clear Sky Radiation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.extraterrestrial_irradiance_normal"><code class="docutils literal notranslate"><span class="pre">extraterrestrial_irradiance_normal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.inverse_earth_sun_distance"><code class="docutils literal notranslate"><span class="pre">inverse_earth_sun_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.day_angle"><code class="docutils literal notranslate"><span class="pre">day_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.solar_constant"><code class="docutils literal notranslate"><span class="pre">solar_constant()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.declination"><code class="docutils literal notranslate"><span class="pre">declination()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.relative_optical_airmass"><code class="docutils literal notranslate"><span class="pre">relative_optical_airmass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle_refracted"><code class="docutils literal notranslate"><span class="pre">solar_elevation_angle_refracted()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.hour_angle"><code class="docutils literal notranslate"><span class="pre">hour_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle"><code class="docutils literal notranslate"><span class="pre">solar_elevation_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.rayleigh_optical_thickness"><code class="docutils literal notranslate"><span class="pre">rayleigh_optical_thickness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_normal_clear"><code class="docutils literal notranslate"><span class="pre">beam_irradiance_normal_clear()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_horizontal_clear"><code class="docutils literal notranslate"><span class="pre">beam_irradiance_horizontal_clear()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.linke_turbidity"><code class="docutils literal notranslate"><span class="pre">linke_turbidity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.diffuse_irradiance_horizontal_clear"><code class="docutils literal notranslate"><span class="pre">diffuse_irradiance_horizontal_clear()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/clear_sky_radiation.html#pywapor.et_look_v2_v3.clear_sky_radiation.ra_clear_horizontal"><code class="docutils literal notranslate"><span class="pre">ra_clear_horizontal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/soil_moisture.html">Soil Moisture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst"><code class="docutils literal notranslate"><span class="pre">wet_bulb_temperature_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst_new"><code class="docutils literal notranslate"><span class="pre">wet_bulb_temperature_inst_new()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_inst"><code class="docutils literal notranslate"><span class="pre">dew_point_temperature_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_coarse_inst"><code class="docutils literal notranslate"><span class="pre">dew_point_temperature_coarse_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.psi_m"><code class="docutils literal notranslate"><span class="pre">psi_m()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.psi_h"><code class="docutils literal notranslate"><span class="pre">psi_h()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst"><code class="docutils literal notranslate"><span class="pre">initial_friction_velocity_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.atmospheric_emissivity_inst"><code class="docutils literal notranslate"><span class="pre">atmospheric_emissivity_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.net_radiation_bare"><code class="docutils literal notranslate"><span class="pre">net_radiation_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.net_radiation_full"><code class="docutils literal notranslate"><span class="pre">net_radiation_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_bare"><code class="docutils literal notranslate"><span class="pre">sensible_heat_flux_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_full"><code class="docutils literal notranslate"><span class="pre">sensible_heat_flux_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_bare"><code class="docutils literal notranslate"><span class="pre">wind_speed_blending_height_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_full_inst"><code class="docutils literal notranslate"><span class="pre">wind_speed_blending_height_full_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.friction_velocity_full_inst"><code class="docutils literal notranslate"><span class="pre">friction_velocity_full_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.friction_velocity_bare_inst"><code class="docutils literal notranslate"><span class="pre">friction_velocity_bare_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_bare"><code class="docutils literal notranslate"><span class="pre">monin_obukhov_length_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_full"><code class="docutils literal notranslate"><span class="pre">monin_obukhov_length_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_full"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_forced_convection_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_bare"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_forced_convection_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.wind_speed_soil_inst"><code class="docutils literal notranslate"><span class="pre">wind_speed_soil_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_full"><code class="docutils literal notranslate"><span class="pre">maximum_temperature_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_bare"><code class="docutils literal notranslate"><span class="pre">maximum_temperature_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature"><code class="docutils literal notranslate"><span class="pre">maximum_temperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.minimum_temperature"><code class="docutils literal notranslate"><span class="pre">minimum_temperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.soil_moisture_from_maximum_temperature"><code class="docutils literal notranslate"><span class="pre">soil_moisture_from_maximum_temperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_soil"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_forced_convection_soil()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_bare"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_free_convection_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_full"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_free_convection_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_bare"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_bare()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/soil_moisture.html#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_full"><code class="docutils literal notranslate"><span class="pre">aerodynamical_resistance_full()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/evapotranspiration.html">Evapotranspiration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/evapotranspiration.html#pywapor.et_look_v2_v3.evapotranspiration.interception_mm"><code class="docutils literal notranslate"><span class="pre">interception_mm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/evapotranspiration.html#pywapor.et_look_v2_v3.evapotranspiration.et_reference"><code class="docutils literal notranslate"><span class="pre">et_reference()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/evapotranspiration.html#pywapor.et_look_v2_v3.evapotranspiration.et_reference_mm"><code class="docutils literal notranslate"><span class="pre">et_reference_mm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/evapotranspiration.html#pywapor.et_look_v2_v3.evapotranspiration.et_actual_mm"><code class="docutils literal notranslate"><span class="pre">et_actual_mm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/leaf.html">Leaf</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/leaf.html#pywapor.et_look_v2_v3.leaf.vegetation_cover"><code class="docutils literal notranslate"><span class="pre">vegetation_cover()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/leaf.html#pywapor.et_look_v2_v3.leaf.leaf_area_index"><code class="docutils literal notranslate"><span class="pre">leaf_area_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/leaf.html#pywapor.et_look_v2_v3.leaf.effective_leaf_area_index"><code class="docutils literal notranslate"><span class="pre">effective_leaf_area_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/meteo.html">Meteo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.mean_temperature_kelvin_daytime"><code class="docutils literal notranslate"><span class="pre">mean_temperature_kelvin_daytime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_temperature_kelvin"><code class="docutils literal notranslate"><span class="pre">air_temperature_kelvin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_temperature_kelvin_daily"><code class="docutils literal notranslate"><span class="pre">air_temperature_kelvin_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_temperature_kelvin_inst"><code class="docutils literal notranslate"><span class="pre">air_temperature_kelvin_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.wet_bulb_temperature_kelvin_inst"><code class="docutils literal notranslate"><span class="pre">wet_bulb_temperature_kelvin_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.disaggregate_air_temperature"><code class="docutils literal notranslate"><span class="pre">disaggregate_air_temperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.disaggregate_air_temperature_daily"><code class="docutils literal notranslate"><span class="pre">disaggregate_air_temperature_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.disaggregate_air_temperature_inst"><code class="docutils literal notranslate"><span class="pre">disaggregate_air_temperature_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.disaggregate_dew_point_temperature_inst"><code class="docutils literal notranslate"><span class="pre">disaggregate_dew_point_temperature_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_from_specific_humidity"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_from_specific_humidity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.specific_humidity_from_vapour_pressure"><code class="docutils literal notranslate"><span class="pre">specific_humidity_from_vapour_pressure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_from_specific_humidity_daily"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_from_specific_humidity_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_from_dewpoint"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_from_dewpoint()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_from_dewpoint_daily"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_from_dewpoint_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_from_dewpoint_inst"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_from_dewpoint_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.saturated_vapour_pressure_minimum"><code class="docutils literal notranslate"><span class="pre">saturated_vapour_pressure_minimum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.saturated_vapour_pressure_maximum"><code class="docutils literal notranslate"><span class="pre">saturated_vapour_pressure_maximum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.saturated_vapour_pressure_average"><code class="docutils literal notranslate"><span class="pre">saturated_vapour_pressure_average()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_from_specific_humidity_inst"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_from_specific_humidity_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.saturated_vapour_pressure"><code class="docutils literal notranslate"><span class="pre">saturated_vapour_pressure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.saturated_vapour_pressure_daily"><code class="docutils literal notranslate"><span class="pre">saturated_vapour_pressure_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.saturated_vapour_pressure_inst"><code class="docutils literal notranslate"><span class="pre">saturated_vapour_pressure_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure"><code class="docutils literal notranslate"><span class="pre">vapour_pressure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.slope_saturated_vapour_pressure"><code class="docutils literal notranslate"><span class="pre">slope_saturated_vapour_pressure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.slope_saturated_vapour_pressure_daily"><code class="docutils literal notranslate"><span class="pre">slope_saturated_vapour_pressure_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.slope_saturated_vapour_pressure_inst"><code class="docutils literal notranslate"><span class="pre">slope_saturated_vapour_pressure_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_deficit"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_deficit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.vapour_pressure_deficit_daily"><code class="docutils literal notranslate"><span class="pre">vapour_pressure_deficit_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_pressure"><code class="docutils literal notranslate"><span class="pre">air_pressure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_pressure_daily"><code class="docutils literal notranslate"><span class="pre">air_pressure_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.dry_air_density"><code class="docutils literal notranslate"><span class="pre">dry_air_density()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.dry_air_density_daily"><code class="docutils literal notranslate"><span class="pre">dry_air_density_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.dry_air_density_inst"><code class="docutils literal notranslate"><span class="pre">dry_air_density_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.moist_air_density"><code class="docutils literal notranslate"><span class="pre">moist_air_density()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.moist_air_density_daily"><code class="docutils literal notranslate"><span class="pre">moist_air_density_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.moist_air_density_inst"><code class="docutils literal notranslate"><span class="pre">moist_air_density_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_density"><code class="docutils literal notranslate"><span class="pre">air_density()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_density_daily"><code class="docutils literal notranslate"><span class="pre">air_density_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_density_inst"><code class="docutils literal notranslate"><span class="pre">air_density_inst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.latent_heat"><code class="docutils literal notranslate"><span class="pre">latent_heat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.latent_heat_daily"><code class="docutils literal notranslate"><span class="pre">latent_heat_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.psychrometric_constant"><code class="docutils literal notranslate"><span class="pre">psychrometric_constant()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.psychrometric_constant_daily"><code class="docutils literal notranslate"><span class="pre">psychrometric_constant_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.wind_speed_blending_height"><code class="docutils literal notranslate"><span class="pre">wind_speed_blending_height()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.wind_speed_blending_height_daily"><code class="docutils literal notranslate"><span class="pre">wind_speed_blending_height_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.wind_speed"><code class="docutils literal notranslate"><span class="pre">wind_speed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/meteo.html#pywapor.et_look_v2_v3.meteo.air_pressure_kpa2mbar"><code class="docutils literal notranslate"><span class="pre">air_pressure_kpa2mbar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/neutral.html">Neutral</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html#pywapor.et_look_v2_v3.neutral.initial_soil_aerodynamic_resistance"><code class="docutils literal notranslate"><span class="pre">initial_soil_aerodynamic_resistance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html#pywapor.et_look_v2_v3.neutral.initial_daily_evaporation"><code class="docutils literal notranslate"><span class="pre">initial_daily_evaporation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html#pywapor.et_look_v2_v3.neutral.initial_daily_evaporation_mm"><code class="docutils literal notranslate"><span class="pre">initial_daily_evaporation_mm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html#pywapor.et_look_v2_v3.neutral.initial_canopy_aerodynamic_resistance"><code class="docutils literal notranslate"><span class="pre">initial_canopy_aerodynamic_resistance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html#pywapor.et_look_v2_v3.neutral.initial_daily_transpiration"><code class="docutils literal notranslate"><span class="pre">initial_daily_transpiration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/neutral.html#pywapor.et_look_v2_v3.neutral.initial_daily_transpiration_mm"><code class="docutils literal notranslate"><span class="pre">initial_daily_transpiration_mm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/radiation.html">Radiation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.interception_wm2"><code class="docutils literal notranslate"><span class="pre">interception_wm2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.soil_fraction"><code class="docutils literal notranslate"><span class="pre">soil_fraction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.longwave_radiation_fao_etref"><code class="docutils literal notranslate"><span class="pre">longwave_radiation_fao_etref()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.longwave_radiation_fao"><code class="docutils literal notranslate"><span class="pre">longwave_radiation_fao()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.net_radiation"><code class="docutils literal notranslate"><span class="pre">net_radiation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.net_radiation_canopy"><code class="docutils literal notranslate"><span class="pre">net_radiation_canopy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.net_radiation_soil"><code class="docutils literal notranslate"><span class="pre">net_radiation_soil()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.net_radiation_grass"><code class="docutils literal notranslate"><span class="pre">net_radiation_grass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.volumetric_heat_capacity"><code class="docutils literal notranslate"><span class="pre">volumetric_heat_capacity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.soil_thermal_conductivity"><code class="docutils literal notranslate"><span class="pre">soil_thermal_conductivity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.damping_depth"><code class="docutils literal notranslate"><span class="pre">damping_depth()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.bare_soil_heat_flux"><code class="docutils literal notranslate"><span class="pre">bare_soil_heat_flux()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/radiation.html#pywapor.et_look_v2_v3.radiation.soil_heat_flux"><code class="docutils literal notranslate"><span class="pre">soil_heat_flux()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/resistance.html">Resistance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/resistance.html#pywapor.et_look_v2_v3.resistance.atmospheric_canopy_resistance"><code class="docutils literal notranslate"><span class="pre">atmospheric_canopy_resistance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/resistance.html#pywapor.et_look_v2_v3.resistance.canopy_resistance"><code class="docutils literal notranslate"><span class="pre">canopy_resistance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/resistance.html#pywapor.et_look_v2_v3.resistance.soil_resistance"><code class="docutils literal notranslate"><span class="pre">soil_resistance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/roughness.html">Roughness</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/roughness.html#pywapor.et_look_v2_v3.roughness.roughness_length"><code class="docutils literal notranslate"><span class="pre">roughness_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/roughness.html#pywapor.et_look_v2_v3.roughness.obstacle_height"><code class="docutils literal notranslate"><span class="pre">obstacle_height()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/roughness.html#pywapor.et_look_v2_v3.roughness.displacement_height"><code class="docutils literal notranslate"><span class="pre">displacement_height()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/solar_radiation.html">Solar Radiation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.longitude_rad"><code class="docutils literal notranslate"><span class="pre">longitude_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.latitude_rad"><code class="docutils literal notranslate"><span class="pre">latitude_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.slope_rad"><code class="docutils literal notranslate"><span class="pre">slope_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.aspect_rad"><code class="docutils literal notranslate"><span class="pre">aspect_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.declination"><code class="docutils literal notranslate"><span class="pre">declination()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.earth_sun_distance"><code class="docutils literal notranslate"><span class="pre">earth_sun_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.inverse_earth_sun_distance"><code class="docutils literal notranslate"><span class="pre">inverse_earth_sun_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.actual_earth_sun_distance"><code class="docutils literal notranslate"><span class="pre">actual_earth_sun_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.seasonal_correction"><code class="docutils literal notranslate"><span class="pre">seasonal_correction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.sunset_hour_angle"><code class="docutils literal notranslate"><span class="pre">sunset_hour_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.hour_angle"><code class="docutils literal notranslate"><span class="pre">hour_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.inst_solar_radiation_toa"><code class="docutils literal notranslate"><span class="pre">inst_solar_radiation_toa()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.daily_solar_radiation_toa"><code class="docutils literal notranslate"><span class="pre">daily_solar_radiation_toa()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.cosine_solar_zenith_angle"><code class="docutils literal notranslate"><span class="pre">cosine_solar_zenith_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.transmissivity"><code class="docutils literal notranslate"><span class="pre">transmissivity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.daily_solar_radiation_toa_flat"><code class="docutils literal notranslate"><span class="pre">daily_solar_radiation_toa_flat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.daily_solar_radiation_flat"><code class="docutils literal notranslate"><span class="pre">daily_solar_radiation_flat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.diffusion_index"><code class="docutils literal notranslate"><span class="pre">diffusion_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/solar_radiation.html#pywapor.et_look_v2_v3.solar_radiation.daily_total_solar_radiation"><code class="docutils literal notranslate"><span class="pre">daily_total_solar_radiation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/stress.html">Stress</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/stress.html#pywapor.et_look_v2_v3.stress.stress_radiation"><code class="docutils literal notranslate"><span class="pre">stress_radiation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/stress.html#pywapor.et_look_v2_v3.stress.stress_moisture"><code class="docutils literal notranslate"><span class="pre">stress_moisture()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/stress.html#pywapor.et_look_v2_v3.stress.stress_temperature"><code class="docutils literal notranslate"><span class="pre">stress_temperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/stress.html#pywapor.et_look_v2_v3.stress.stress_vpd"><code class="docutils literal notranslate"><span class="pre">stress_vpd()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/unstable.html">Unstable</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_canopy_daily"><code class="docutils literal notranslate"><span class="pre">initial_sensible_heat_flux_canopy_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_soil_daily"><code class="docutils literal notranslate"><span class="pre">initial_sensible_heat_flux_soil_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.initial_friction_velocity_daily"><code class="docutils literal notranslate"><span class="pre">initial_friction_velocity_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.initial_friction_velocity_soil_daily"><code class="docutils literal notranslate"><span class="pre">initial_friction_velocity_soil_daily()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.monin_obukhov_length"><code class="docutils literal notranslate"><span class="pre">monin_obukhov_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.stability_parameter"><code class="docutils literal notranslate"><span class="pre">stability_parameter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.stability_factor"><code class="docutils literal notranslate"><span class="pre">stability_factor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.stability_parameter_obs"><code class="docutils literal notranslate"><span class="pre">stability_parameter_obs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.stability_correction_heat_obs"><code class="docutils literal notranslate"><span class="pre">stability_correction_heat_obs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.friction_velocity"><code class="docutils literal notranslate"><span class="pre">friction_velocity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.ra_canopy"><code class="docutils literal notranslate"><span class="pre">ra_canopy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.transpiration"><code class="docutils literal notranslate"><span class="pre">transpiration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.ra_soil"><code class="docutils literal notranslate"><span class="pre">ra_soil()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.evaporation"><code class="docutils literal notranslate"><span class="pre">evaporation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.transpiration_mm"><code class="docutils literal notranslate"><span class="pre">transpiration_mm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/unstable.html#pywapor.et_look_v2_v3.unstable.evaporation_mm"><code class="docutils literal notranslate"><span class="pre">evaporation_mm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="et_look_rsts/biomass.html">Biomass</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.fpar"><code class="docutils literal notranslate"><span class="pre">fpar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.par"><code class="docutils literal notranslate"><span class="pre">par()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.co2_level_annual"><code class="docutils literal notranslate"><span class="pre">co2_level_annual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.temperature_dependency"><code class="docutils literal notranslate"><span class="pre">temperature_dependency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.co2_o2_specificity_ratio"><code class="docutils literal notranslate"><span class="pre">co2_o2_specificity_ratio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.inhibition_constant_o2"><code class="docutils literal notranslate"><span class="pre">inhibition_constant_o2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.affinity_constant_co2"><code class="docutils literal notranslate"><span class="pre">affinity_constant_co2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.co2_fertilisation"><code class="docutils literal notranslate"><span class="pre">co2_fertilisation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.autotrophic_respiration"><code class="docutils literal notranslate"><span class="pre">autotrophic_respiration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.net_primary_production_max"><code class="docutils literal notranslate"><span class="pre">net_primary_production_max()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look_rsts/biomass.html#pywapor.et_look_v2_v3.biomass.net_primary_production"><code class="docutils literal notranslate"><span class="pre">net_primary_production()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pywapor_api_rsts/collect/protocol/sentinelapi.html" class="btn btn-neutral float-left" title="sentinelapi" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="et_look_rsts/clear_sky_radiation.html" class="btn btn-neutral float-right" title="Clear Sky Radiation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyWaPOR vs. WaPOR &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pyWaPOR API" href="../_pywapor_api.html" />
+    <link rel="prev" title="Enhancing data" href="5_enhancers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_sources.html">Data</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../_user_guide.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="1_introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_levels.html">Levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_composites.html">Composites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_enhancers.html">Enhancing data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyWaPOR vs. WaPOR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_user_guide.html">User Guide</a></li>
+      <li class="breadcrumb-item active">pyWaPOR vs. WaPOR</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://bitbucket.org///src/notebooks/6_wapor_vs_pywapor.ipynb?mode=view" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pyWaPOR-vs.-WaPOR">
+<h1>pyWaPOR vs. WaPOR<a class="headerlink" href="#pyWaPOR-vs.-WaPOR" title="Permalink to this heading"></a></h1>
+<p>In this notebook we’ll make an comparison between dekadal Evapotranspiration data from WaPOR and from pyWaPOR.</p>
+<p>First we install pywapor, in case it’s not installed yet.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pywapor<span class="w"> </span>--quiet
+</pre></div>
+</div>
+</div>
+<p>Next we’ll define a couple of basic variables, which were explained in the introduction notebook.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pywapor</span>
+
+<span class="n">project_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/Users/hmcoerver/pywapor_notebooks_6&quot;</span>
+<span class="n">timelim</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;2021-07-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-07-11&quot;</span><span class="p">]</span>
+<span class="n">latlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">28.9</span><span class="p">,</span> <span class="mf">29.7</span><span class="p">]</span>
+<span class="n">lonlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">30.2</span><span class="p">,</span> <span class="mf">31.2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+</pre></div></div>
+</div>
+<p>Then we run <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code>, to generate an ET map for the first dekad of July 2021.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_in</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">pre_et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">latlim</span><span class="p">,</span> <span class="n">lonlim</span><span class="p">,</span> <span class="n">timelim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; PRE_ET_LOOK
+    --&gt; Collecting `ndvi` from `MODIS.MOD13Q1.061`.
+        --&gt; Applying &#39;mask_qa&#39; to `ndvi`.
+        --&gt; Saving merged data.
+            &gt; peak-memory-usage: 4.6MB, execution-time: 0:00:02.407964.
+            &gt; chunksize|dimsize: [time: 2|2, y: 403|403, x: 506|506]
+            &gt; timesize: 2 [2021-07-04T00:00, ..., 2021-07-20T00:00]
+    --&gt; Collecting `ndvi` from `MODIS.MYD13Q1.061`.
+        --&gt; Applying &#39;mask_qa&#39; to `ndvi`.
+        --&gt; Saving merged data.
+            &gt; peak-memory-usage: 2.3MB, execution-time: 0:00:02.064262.
+            &gt; chunksize|dimsize: [time: 1|1, y: 403|403, x: 506|506]
+            &gt; timesize: 1 [2021-07-12T00:00, ..., 2021-07-12T00:00]
+    --&gt; Collecting `r0` from `MODIS.MCD43A3.061`.
+        --&gt; Applying &#39;shortwave_r0&#39; to `r0`.
+        --&gt; Applying &#39;mask_qa&#39; to `r0`.
+        --&gt; Saving merged data.
+            &gt; peak-memory-usage: 10.4MB, execution-time: 0:00:02.107342.
+            &gt; chunksize|dimsize: [time: 17|17, y: 207|207, x: 258|258]
+            &gt; timesize: 17 [2021-06-28T12:00, ..., 2021-07-14T12:00]
+    --&gt; Collecting `p` from `CHIRPS.P05`.
+        --&gt; Saving merged data.
+            &gt; peak-memory-usage: 85.5KB, execution-time: 0:00:02.042592.
+            &gt; chunksize|dimsize: [time: 17|17, y: 18|18, x: 22|22]
+            &gt; timesize: 17 [2021-06-28T00:30, ..., 2021-07-14T00:30]
+    --&gt; Collecting `z` from `SRTM.30M`.
+        --&gt; Saving merged data.
+            &gt; peak-memory-usage: 118.8MB, execution-time: 0:00:02.756133.
+            &gt; chunksize|dimsize: [time: 1|1, y: 2883|2883, x: 3603|3603]
+            &gt; timesize: 1 [2000-02-11T00:00, ..., 2000-02-11T00:00]
+    --&gt; Collecting `ra` from `MERRA2.M2T1NXRAD.5.12.4`.
+        --&gt; Saving merged data.
+            &gt; peak-memory-usage: 588.0KB, execution-time: 0:00:02.050872.
+            &gt; chunksize|dimsize: [time: 408|408, y: 4|4, x: 3|3]
+            &gt; timesize: 408 [2021-06-28T01:00, ..., 2021-07-15T00:00]
+    --&gt; Collecting `t_air`, `t_air_max`, `t_air_min`, `u2m`, `v2m`, `qv`, `p_air`, `p_air_0`, `wv` from `GEOS5.inst3_2d_asm_Nx`.
+        --&gt; Downloading data.
+            &gt; peak-memory-usage: 1.3MB, execution-time: 0:00:42.143596.
+            &gt; chunksize|dimsize: [time: 129|129, y: 5|5, x: 5|5]
+        --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air`.
+        --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_max`.
+        --&gt; Applying &#39;kelvin_to_celsius&#39; to `t_air_min`.
+        --&gt; Applying &#39;pa_to_kpa&#39; to `p_air`.
+        --&gt; Applying &#39;pa_to_kpa&#39; to `p_air_0`.
+        --&gt; Saving netCDF.
+            &gt; peak-memory-usage: 1.9MB, execution-time: 0:00:02.125794.
+            &gt; chunksize|dimsize: [time: 129|129, y: 5|5, x: 5|5]
+            &gt; timesize: 129 [2021-06-28T01:30, ..., 2021-07-14T01:30]
+    --&gt; Collecting `land_mask`, `rs_min`, `z_obst_max` from `GLOBCOVER.2009_V2.3_Global`.
+        --&gt; Calculating `land_mask` from `lulc`.
+        --&gt; Calculating `rs_min` from `lulc`.
+        --&gt; Calculating `z_obst_max` from `lulc`.
+        --&gt; Saving 2009_V2.3_Global.nc.
+            &gt; peak-memory-usage: 4.8MB, execution-time: 0:00:02.076793.
+            &gt; chunksize|dimsize: [y: 295|295, x: 367|367]
+    --&gt; Collecting `lw_offset`, `lw_slope`, `z_oro`, `rn_offset`, `rn_slope`, `t_amp_year`, `t_opt`, `vpd_slope` from `STATICS.WaPOR2`.
+        --&gt; Saving WaPOR2.nc.
+            &gt; peak-memory-usage: 21.3MB, execution-time: 0:00:02.137228.
+            &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+    --&gt; Collecting `se_root` from `se_root.v2`.
+        &gt; PRE_SE_ROOT
+            --&gt; Collecting `lst` from `MODIS.MOD11A1.061`.
+                --&gt; Applying &#39;mask_bitwise_qa&#39; to `lst`.
+                --&gt; Applying &#39;expand_time_dim&#39; to `lst`.
+                --&gt; Saving merged data.
+                    &gt; peak-memory-usage: 4.5MB, execution-time: 0:00:02.055363.
+                    &gt; chunksize|dimsize: [time: 22|22, y: 104|104, x: 130|130]
+                    &gt; timesize: 22 [2021-06-28T10:54, ..., 2021-07-14T10:54]
+            --&gt; Collecting `lst` from `MODIS.MYD11A1.061`.
+                --&gt; Applying &#39;mask_bitwise_qa&#39; to `lst`.
+                --&gt; Applying &#39;expand_time_dim&#39; to `lst`.
+                --&gt; Saving merged data.
+                    &gt; peak-memory-usage: 6.6MB, execution-time: 0:00:02.075634.
+                    &gt; chunksize|dimsize: [time: 32|32, y: 104|104, x: 130|130]
+                    &gt; timesize: 32 [2021-06-28T12:30, ..., 2021-07-14T12:36]
+            --&gt; Collecting `ndvi` from `MODIS.MOD13Q1.061`.
+                    &gt; timesize: 2 [2021-07-04T00:00, ..., 2021-07-20T00:00]
+            --&gt; Collecting `ndvi` from `MODIS.MYD13Q1.061`.
+                    &gt; timesize: 1 [2021-07-12T00:00, ..., 2021-07-12T00:00]
+            --&gt; Collecting `t_air`, `t_air_max`, `t_air_min`, `u2m`, `v2m`, `qv`, `wv`, `p_air`, `p_air_0` from `GEOS5.inst3_2d_asm_Nx`.
+                    &gt; timesize: 129 [2021-06-28T01:30, ..., 2021-07-14T01:30]
+            --&gt; Collecting `r0_bare`, `r0_full` from `STATICS.WaPOR2`.
+                --&gt; Saving WaPOR2.nc.
+                    --&gt; Appending data to an existing file.
+                    &gt; peak-memory-usage: 7.5MB, execution-time: 0:00:02.076309.
+                    &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+            --&gt; Spatially aligning 2 `lst` products together.
+                --&gt; Using `MYD11A1.061.nc` as reprojecting example.
+                    &gt; shape: (104, 130), res: 0.0079° x 0.0079°.
+            --&gt; Spatially aligning 2 `ndvi` products together.
+                --&gt; Using `MYD13Q1.061.nc` as reprojecting example.
+                    &gt; shape: (403, 506), res: 0.0020° x 0.0020°.
+            --&gt; Aligning times in `ndvi` (3) with `lst` (54, linear).
+                &gt; peak-memory-usage: 419.7MB, execution-time: 0:00:06.528576.
+                &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 500|506]
+                &gt; shape: (54, 403, 506), kwargs: [].
+            --&gt; Aligning times in `p_air` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 590.0KB, execution-time: 0:00:02.041889.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `p_air_0` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 608.7KB, execution-time: 0:00:02.057207.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `qv` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 723.4KB, execution-time: 0:00:02.057910.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `t_air` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 608.6KB, execution-time: 0:00:02.054651.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `t_air_max` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 722.8KB, execution-time: 0:00:02.060097.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `t_air_min` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 134.0KB, execution-time: 0:00:02.059848.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `u2m` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 597.5KB, execution-time: 0:00:02.052905.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `v2m` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 723.3KB, execution-time: 0:00:02.058522.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Aligning times in `wv` (129) with `lst` (54, linear).
+                &gt; peak-memory-usage: 724.2KB, execution-time: 0:00:02.057240.
+                &gt; chunksize|dimsize: [time: 54|54, y: 5|5, x: 5|5]
+                &gt; shape: (54, 5, 5), kwargs: [].
+            --&gt; Using `MOD13Q1.061.nc` as reprojecting example.
+                &gt; shape: (403, 506), res: 0.0020° x 0.0020°.
+            --&gt; Selected `reproject_bulk` for reprojection of MOD11A1.061.nc.
+                --&gt; Applying `reproject_bulk` to MOD11A1.061.nc:lst (nearest).
+                    &gt; peak-memory-usage: 252.0MB, execution-time: 0:00:02.356091.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of p_air_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.4KB, execution-time: 0:00:00.668064.
+                --&gt; Saving reprojected data from p_air_i.nc:p_air (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.458436.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of p_air_0_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.3KB, execution-time: 0:00:00.660286.
+                --&gt; Saving reprojected data from p_air_0_i.nc:p_air_0 (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.363778.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of qv_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.3KB, execution-time: 0:00:00.678404.
+                --&gt; Saving reprojected data from qv_i.nc:qv (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.339350.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of WaPOR2.nc.
+                --&gt; Correcting src_ds.
+                    &gt; peak-memory-usage: 6.1MB, execution-time: 0:00:02.074415.
+                    &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 4.6KB, execution-time: 0:00:00.027683.
+                --&gt; Saving reprojected data from WaPOR2_fixed.nc:r0_bare (bilinear).
+                    &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.055627.
+                    &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of WaPOR2.nc.
+                --&gt; Correcting src_ds.
+                    &gt; peak-memory-usage: 6.1MB, execution-time: 0:00:02.065847.
+                    &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 4.6KB, execution-time: 0:00:00.025086.
+                --&gt; Saving reprojected data from WaPOR2_fixed.nc:r0_full (bilinear).
+                    &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.061849.
+                    &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of t_air_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.4KB, execution-time: 0:00:00.674753.
+                --&gt; Saving reprojected data from t_air_i.nc:t_air (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.507785.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of t_air_max_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.3KB, execution-time: 0:00:00.670831.
+                --&gt; Saving reprojected data from t_air_max_i.nc:t_air_max (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.528268.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of t_air_min_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.4KB, execution-time: 0:00:00.669942.
+                --&gt; Saving reprojected data from t_air_min_i.nc:t_air_min (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.508515.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of u2m_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.3KB, execution-time: 0:00:00.664672.
+                --&gt; Saving reprojected data from u2m_i.nc:u2m (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.503099.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of v2m_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.3KB, execution-time: 0:00:00.669495.
+                --&gt; Saving reprojected data from v2m_i.nc:v2m (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.505445.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Selected `reproject_chunk` for reprojection of wv_i.nc.
+                --&gt; Warping VRT to netCDF.
+                    &gt; peak-memory-usage: 6.3KB, execution-time: 0:00:00.677106.
+                --&gt; Saving reprojected data from wv_i.nc:wv (bilinear).
+                    &gt; peak-memory-usage: 420.1MB, execution-time: 0:00:02.515049.
+                    &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+            --&gt; Applying &#39;rename_meteo&#39;.
+            --&gt; Applying &#39;remove_empty_statics&#39;.
+            --&gt; Applying &#39;add_constants_new&#39;.
+            --&gt; Applying &#39;bt_to_lst&#39;.
+            --&gt; Applying &#39;drop_empty_times&#39;.
+            --&gt; Creating merged file `se_root_in.nc`.
+                &gt; peak-memory-usage: 799.0MB, execution-time: 0:00:06.414838.
+                &gt; chunksize|dimsize: [time: 54|54, y: 403|403, x: 506|506]
+        &lt; PRE_SE_ROOT (0:01:37.937393)
+        &gt; SE_ROOT
+            --&gt; Running `se_root` (v2).
+            --&gt; Calculating `seasonal_correction`.
+            --&gt; Calculating `declination`.
+            --&gt; Calculating `day_angle`.
+            --&gt; Calculating `air_pressure_kpa2mbar`.
+            --&gt; Calculating `air_pressure_kpa2mbar`.
+            --&gt; Calculating `vegetation_cover`.
+            --&gt; Calculating `air_temperature_kelvin_inst`.
+            --&gt; Calculating `air_temperature_kelvin`.
+            --&gt; Calculating `vapour_pressure_from_specific_humidity_inst`.
+            --&gt; Calculating `vapour_pressure_from_specific_humidity`.
+            --&gt; Calculating `specific_humidity_from_vapour_pressure`.
+            --&gt; Calculating `moist_air_density_inst`.
+            --&gt; Calculating `moist_air_density`.
+            --&gt; Calculating `dry_air_density_inst`.
+            --&gt; Calculating `dry_air_density`.
+            --&gt; Calculating `air_density_inst`.
+            --&gt; Calculating `air_density`.
+            --&gt; Calculating `wind_speed_blending_height_bare`.
+            --&gt; Calculating `longitude_rad`.
+            --&gt; Calculating `latitude_rad`.
+            --&gt; Calculating `hour_angle`.
+            --&gt; Calculating `inverse_earth_sun_distance`.
+            --&gt; Calculating `solar_elevation_angle`.
+            --&gt; Calculating `solar_elevation_angle_refracted`.
+            --&gt; Calculating `relative_optical_airmass`.
+            --&gt; Calculating `rayleigh_optical_thickness`.
+            --&gt; Calculating `linke_turbidity`.
+            --&gt; Calculating `extraterrestrial_irradiance_normal`.
+            --&gt; Calculating `beam_irradiance_normal_clear`.
+            --&gt; Calculating `beam_irradiance_horizontal_clear`.
+            --&gt; Calculating `diffuse_irradiance_horizontal_clear`.
+            --&gt; Calculating `ra_clear_horizontal`.
+            --&gt; Calculating `atmospheric_emissivity_inst`.
+            --&gt; Calculating `net_radiation_bare`.
+            --&gt; Calculating `net_radiation_full`.
+            --&gt; Calculating `sensible_heat_flux_bare`.
+            --&gt; Calculating `sensible_heat_flux_full`.
+            --&gt; Calculating `wind_speed_blending_height_full_inst`.
+            --&gt; Calculating `friction_velocity_bare_inst`.
+            --&gt; Calculating `friction_velocity_full_inst`.
+            --&gt; Calculating `monin_obukhov_length_bare`.
+            --&gt; Calculating `monin_obukhov_length_full`.
+            --&gt; Calculating `wind_speed_soil_inst`.
+            --&gt; Calculating `psi_m`.
+            --&gt; Calculating `aerodynamical_resistance_forced_convection_soil`.
+            --&gt; Calculating `aerodynamical_resistance_forced_convection_bare`.
+            --&gt; Calculating `psi_m`.
+            --&gt; Calculating `psi_h`.
+            --&gt; Calculating `aerodynamical_resistance_forced_convection_full`.
+            --&gt; Calculating `psi_m`.
+            --&gt; Calculating `psi_m`.
+            --&gt; Calculating `psi_h`.
+            --&gt; Calculating `psi_h`.
+            --&gt; Calculating `maximum_temperature_bare`.
+            --&gt; Calculating `maximum_temperature_full`.
+            --&gt; Calculating `wet_bulb_temperature_inst_new`.
+            --&gt; Calculating `maximum_temperature`.
+            --&gt; Calculating `wet_bulb_temperature_kelvin_inst`.
+            --&gt; Calculating `air_temperature_kelvin`.
+            --&gt; Calculating `minimum_temperature`.
+            --&gt; Calculating `soil_moisture_from_maximum_temperature`.
+/Users/hmcoerver/miniconda3/envs/pywapor/lib/python3.10/site-packages/dask/core.py:119: RuntimeWarning: invalid value encountered in power
+  return func(*(_execute_task(a, cache) for a in args))
+/Users/hmcoerver/miniconda3/envs/pywapor/lib/python3.10/site-packages/dask/core.py:119: RuntimeWarning: invalid value encountered in log
+  return func(*(_execute_task(a, cache) for a in args))
+            --&gt; Saving output to `se_root_out.nc`.
+                &gt; peak-memory-usage: 1.8GB, execution-time: 0:00:04.702192.
+                &gt; chunksize|dimsize: [time: 1|32, y: 403|403, x: 506|506]
+        &lt; SE_ROOT (0:00:07.658858)
+            &gt; timesize: 32 [2021-07-04T10:11, ..., 2021-07-13T13:30]
+    --&gt; Compositing 26 variables.
+        --&gt; (1/26) Compositing `ndvi` (mean).
+            --&gt; Using `MYD13Q1.061.nc` as reprojecting example.
+                &gt; shape: (403, 506), res: 0.0020° x 0.0020°.
+            --&gt; Saving `ndvi` composites.
+                &gt; peak-memory-usage: 14.0MB, execution-time: 0:00:04.057448.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+        --&gt; (2/26) Compositing `r0` (mean).
+            --&gt; Saving `r0` composites.
+                &gt; peak-memory-usage: 20.8MB, execution-time: 0:00:02.047886.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 207|207, x: 258|258]
+        --&gt; (3/26) Compositing `se_root` (max).
+            --&gt; Saving `se_root` composites.
+                &gt; peak-memory-usage: 105.8MB, execution-time: 0:00:02.052137.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+        --&gt; (4/26) Compositing `p` (mean).
+            --&gt; Saving `p` composites.
+                &gt; peak-memory-usage: 157.9KB, execution-time: 0:00:02.046368.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 18|18, x: 22|22]
+        --&gt; (5/26) Compositing `z` (None).
+            --&gt; Saving `z` composites.
+                &gt; peak-memory-usage: 317.0MB, execution-time: 0:00:02.228660.
+                &gt; chunksize|dimsize: [y: 2883|2883, x: 3603|3603]
+        --&gt; (6/26) Compositing `ra` (mean).
+            --&gt; Saving `ra` composites.
+                &gt; peak-memory-usage: 126.0KB, execution-time: 0:00:02.047957.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 4|4, x: 3|3]
+        --&gt; (7/26) Compositing `t_air` (mean).
+            --&gt; Saving `t_air` composites.
+                &gt; peak-memory-usage: 80.6KB, execution-time: 0:00:02.041299.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (8/26) Compositing `t_air_max` (max).
+            --&gt; Saving `t_air_max` composites.
+                &gt; peak-memory-usage: 78.9KB, execution-time: 0:00:02.034412.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (9/26) Compositing `t_air_min` (min).
+            --&gt; Saving `t_air_min` composites.
+                &gt; peak-memory-usage: 79.7KB, execution-time: 0:00:02.051839.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (10/26) Compositing `u2m` (mean).
+            --&gt; Saving `u2m` composites.
+                &gt; peak-memory-usage: 80.2KB, execution-time: 0:00:02.049376.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (11/26) Compositing `v2m` (mean).
+            --&gt; Saving `v2m` composites.
+                &gt; peak-memory-usage: 82.2KB, execution-time: 0:00:02.049165.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (12/26) Compositing `qv` (mean).
+            --&gt; Saving `qv` composites.
+                &gt; peak-memory-usage: 79.9KB, execution-time: 0:00:02.038089.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (13/26) Compositing `p_air` (mean).
+            --&gt; Saving `p_air` composites.
+                &gt; peak-memory-usage: 81.9KB, execution-time: 0:00:02.035260.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (14/26) Compositing `p_air_0` (mean).
+            --&gt; Saving `p_air_0` composites.
+                &gt; peak-memory-usage: 80.5KB, execution-time: 0:00:02.049169.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (15/26) Compositing `wv` (mean).
+            --&gt; Saving `wv` composites.
+                &gt; peak-memory-usage: 79.5KB, execution-time: 0:00:02.037950.
+                &gt; chunksize|dimsize: [time_bins: 1|1, y: 5|5, x: 5|5]
+        --&gt; (16/26) Compositing `land_mask` (None).
+            --&gt; Saving `land_mask` composites.
+                &gt; peak-memory-usage: 10.9MB, execution-time: 0:00:02.044731.
+                &gt; chunksize|dimsize: [y: 295|295, x: 367|367]
+        --&gt; (17/26) Compositing `rs_min` (None).
+            --&gt; Saving `rs_min` composites.
+                &gt; peak-memory-usage: 10.9MB, execution-time: 0:00:02.030452.
+                &gt; chunksize|dimsize: [y: 295|295, x: 367|367]
+        --&gt; (18/26) Compositing `z_obst_max` (None).
+            --&gt; Saving `z_obst_max` composites.
+                &gt; peak-memory-usage: 10.9MB, execution-time: 0:00:02.035580.
+                &gt; chunksize|dimsize: [y: 295|295, x: 367|367]
+        --&gt; (19/26) Compositing `lw_offset` (None).
+            --&gt; Saving `lw_offset` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.047438.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (20/26) Compositing `lw_slope` (None).
+            --&gt; Saving `lw_slope` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.039460.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (21/26) Compositing `z_oro` (None).
+            --&gt; Saving `z_oro` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.028499.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (22/26) Compositing `rn_offset` (None).
+            --&gt; Saving `rn_offset` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.043315.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (23/26) Compositing `rn_slope` (None).
+            --&gt; Saving `rn_slope` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.037528.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (24/26) Compositing `t_amp_year` (None).
+            --&gt; Saving `t_amp_year` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.032880.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (25/26) Compositing `t_opt` (None).
+            --&gt; Saving `t_opt` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.031085.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+        --&gt; (26/26) Compositing `vpd_slope` (None).
+            --&gt; Saving `vpd_slope` composites.
+                &gt; peak-memory-usage: 20.1MB, execution-time: 0:00:02.025334.
+                &gt; chunksize|dimsize: [y: 403|403, x: 493|493]
+    --&gt; Using `MOD13Q1.061.nc` as reprojecting example.
+        &gt; shape: (403, 506), res: 0.0020° x 0.0020°.
+    --&gt; Selected `reproject_chunk` for reprojection of r0_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.021511.
+        --&gt; Saving reprojected data from r0_bin.nc:r0 (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.043211.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of p_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.019252.
+        --&gt; Saving reprojected data from p_bin.nc:p (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.041460.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of z_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.281868.
+        --&gt; Saving reprojected data from z_bin.nc:z (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.041438.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of ra_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.7KB, execution-time: 0:00:00.017997.
+        --&gt; Saving reprojected data from ra_bin.nc:ra (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.043552.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of t_air_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.019003.
+        --&gt; Saving reprojected data from t_air_bin.nc:t_air (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.046233.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of t_air_max_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.6KB, execution-time: 0:00:00.018447.
+        --&gt; Saving reprojected data from t_air_max_bin.nc:t_air_max (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.045936.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of t_air_min_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.018329.
+        --&gt; Saving reprojected data from t_air_min_bin.nc:t_air_min (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.048257.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of u2m_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.019050.
+        --&gt; Saving reprojected data from u2m_bin.nc:u2m (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.041612.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of v2m_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.019344.
+        --&gt; Saving reprojected data from v2m_bin.nc:v2m (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.046137.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of qv_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.020039.
+        --&gt; Saving reprojected data from qv_bin.nc:qv (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.044186.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of p_air_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.018600.
+        --&gt; Saving reprojected data from p_air_bin.nc:p_air (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.045454.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of p_air_0_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.4KB, execution-time: 0:00:00.019338.
+        --&gt; Saving reprojected data from p_air_0_bin.nc:p_air_0 (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.045413.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of wv_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.6KB, execution-time: 0:00:00.018511.
+        --&gt; Saving reprojected data from wv_bin.nc:wv (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.045915.
+            &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of land_mask_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.018446.
+        --&gt; Saving reprojected data from land_mask_bin.nc:land_mask (nearest).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.038067.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of rs_min_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.018212.
+        --&gt; Saving reprojected data from rs_min_bin.nc:rs_min (nearest).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.043708.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of z_obst_max_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.020956.
+        --&gt; Saving reprojected data from z_obst_max_bin.nc:z_obst_max (nearest).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.065467.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of lw_offset_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.029715.
+        --&gt; Saving reprojected data from lw_offset_bin.nc:lw_offset (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.059265.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of lw_slope_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.031476.
+        --&gt; Saving reprojected data from lw_slope_bin.nc:lw_slope (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.068699.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of z_oro_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.030293.
+        --&gt; Saving reprojected data from z_oro_bin.nc:z_oro (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.071099.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of rn_offset_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.030181.
+        --&gt; Saving reprojected data from rn_offset_bin.nc:rn_offset (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.070886.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of rn_slope_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 5.4KB, execution-time: 0:00:00.030231.
+        --&gt; Saving reprojected data from rn_slope_bin.nc:rn_slope (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.072817.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of t_amp_year_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.5KB, execution-time: 0:00:00.032609.
+        --&gt; Saving reprojected data from t_amp_year_bin.nc:t_amp_year (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.070647.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of t_opt_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 4.6KB, execution-time: 0:00:00.034883.
+        --&gt; Saving reprojected data from t_opt_bin.nc:t_opt (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.067045.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Selected `reproject_chunk` for reprojection of vpd_slope_bin.nc.
+        --&gt; Warping VRT to netCDF.
+            &gt; peak-memory-usage: 5.4KB, execution-time: 0:00:00.030079.
+        --&gt; Saving reprojected data from vpd_slope_bin.nc:vpd_slope (bilinear).
+            &gt; peak-memory-usage: 6.2MB, execution-time: 0:00:02.052775.
+            &gt; chunksize|dimsize: [y: 403|403, x: 506|506]
+    --&gt; Calculating local means (r = 0.25°) of `z`.
+        --&gt; Filling 806 missing pixels in &#39;z&#39;.
+    --&gt; Applying &#39;lapse_rate&#39;.
+    --&gt; Applying &#39;rename_vars&#39;.
+    --&gt; Applying &#39;fill_attrs&#39;.
+    --&gt; Applying &#39;calc_doys&#39;.
+    --&gt; Applying &#39;remove_empty_statics&#39;.
+    --&gt; Applying &#39;add_constants_new&#39;.
+    --&gt; Creating merged file `et_look_in.nc`.
+        &gt; peak-memory-usage: 16.6MB, execution-time: 0:00:02.548215.
+        &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+&lt; PRE_ET_LOOK (0:06:21.305585)
+</pre></div></div>
+</div>
+<p>Then we run <code class="docutils literal notranslate"><span class="pre">et_look</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">et_look</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">ds_in</span><span class="p">,</span> <span class="n">export_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;et_24_mm&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+&gt; ET_LOOK
+    --&gt; Running `et_look` (v2).
+    --&gt; Calculating `declination`.
+    --&gt; Calculating `inverse_earth_sun_distance`.
+    --&gt; Calculating `vegetation_cover`.
+    --&gt; Calculating `leaf_area_index`.
+    --&gt; Calculating `effective_leaf_area_index`.
+    --&gt; Calculating `soil_fraction`.
+    --&gt; Calculating `latitude_rad`.
+    --&gt; Calculating `sunset_hour_angle`.
+    --&gt; Calculating `daily_solar_radiation_toa_flat`.
+    --&gt; Calculating `transmissivity`.
+    --&gt; Calculating `stress_radiation`.
+    --&gt; Calculating `air_pressure_kpa2mbar`.
+    --&gt; Calculating `air_pressure_daily`.
+    --&gt; Calculating `air_pressure`.
+    --&gt; Calculating `vapour_pressure_from_specific_humidity_daily`.
+    --&gt; Calculating `vapour_pressure_from_specific_humidity`.
+    --&gt; Calculating `saturated_vapour_pressure`.
+    --&gt; Calculating `vapour_pressure_deficit_daily`.
+    --&gt; Calculating `vapour_pressure_deficit`.
+    --&gt; Calculating `stress_vpd`.
+    --&gt; Calculating `stress_temperature`.
+    --&gt; Calculating `atmospheric_canopy_resistance`.
+    --&gt; Calculating `air_temperature_kelvin_daily`.
+    --&gt; Calculating `air_temperature_kelvin`.
+    --&gt; Calculating `longwave_radiation_fao`.
+    --&gt; Calculating `interception_mm`.
+    --&gt; Calculating `latent_heat_daily`.
+    --&gt; Calculating `latent_heat`.
+    --&gt; Calculating `interception_wm2`.
+    --&gt; Calculating `net_radiation`.
+    --&gt; Calculating `net_radiation_canopy`.
+    --&gt; Calculating `stress_moisture`.
+    --&gt; Calculating `canopy_resistance`.
+    --&gt; Calculating `obstacle_height`.
+    --&gt; Calculating `roughness_length`.
+    --&gt; Calculating `wind_speed`.
+    --&gt; Calculating `initial_canopy_aerodynamic_resistance`.
+    --&gt; Calculating `wind_speed_blending_height_daily`.
+    --&gt; Calculating `wind_speed_blending_height`.
+    --&gt; Calculating `dry_air_density_daily`.
+    --&gt; Calculating `dry_air_density`.
+    --&gt; Calculating `moist_air_density_daily`.
+    --&gt; Calculating `moist_air_density`.
+    --&gt; Calculating `air_density_daily`.
+    --&gt; Calculating `air_density`.
+    --&gt; Calculating `psychrometric_constant_daily`.
+    --&gt; Calculating `psychrometric_constant`.
+    --&gt; Calculating `slope_saturated_vapour_pressure_daily`.
+    --&gt; Calculating `slope_saturated_vapour_pressure`.
+    --&gt; Calculating `saturated_vapour_pressure`.
+    --&gt; Calculating `initial_daily_transpiration`.
+    --&gt; Calculating `initial_sensible_heat_flux_canopy_daily`.
+    --&gt; Calculating `displacement_height`.
+    --&gt; Calculating `initial_friction_velocity_daily`.
+    --&gt; Calculating `transpiration`.
+    --&gt; Calculating `transpiration_mm`.
+    --&gt; Calculating `net_radiation_soil`.
+    --&gt; Calculating `soil_resistance`.
+    --&gt; Calculating `initial_soil_aerodynamic_resistance`.
+    --&gt; Calculating `initial_friction_velocity_soil_daily`.
+    --&gt; Calculating `soil_thermal_conductivity`.
+    --&gt; Calculating `volumetric_heat_capacity`.
+    --&gt; Calculating `damping_depth`.
+    --&gt; Calculating `bare_soil_heat_flux`.
+    --&gt; Calculating `soil_heat_flux`.
+    --&gt; Calculating `initial_daily_evaporation`.
+    --&gt; Calculating `initial_sensible_heat_flux_soil_daily`.
+    --&gt; Calculating `evaporation`.
+    --&gt; Calculating `evaporation_mm`.
+    --&gt; Calculating `et_actual_mm`.
+    --&gt; Calculating `net_radiation_grass`.
+    --&gt; Calculating `et_reference`.
+    --&gt; Calculating `et_reference_mm`.
+    --&gt; Calculating `air_temperature_kelvin_daily`.
+    --&gt; Calculating `air_temperature_kelvin`.
+    --&gt; Calculating `air_temperature_kelvin_daily`.
+    --&gt; Calculating `air_temperature_kelvin`.
+    --&gt; Calculating `mean_temperature_kelvin_daytime`.
+    --&gt; Calculating `temperature_dependency`.
+    --&gt; Calculating `affinity_constant_co2`.
+    --&gt; Calculating `inhibition_constant_o2`.
+    --&gt; Calculating `co2_o2_specificity_ratio`.
+    --&gt; Calculating `co2_level_annual`.
+    --&gt; Calculating `autotrophic_respiration`.
+    --&gt; Calculating `par`.
+    --&gt; Calculating `fpar`.
+    --&gt; Calculating `co2_fertilisation`.
+    --&gt; Calculating `net_primary_production_max`.
+    --&gt; Calculating `net_primary_production`.
+    --&gt; Saving output to `et_look_out.nc`.
+        &gt; peak-memory-usage: 705.1MB, execution-time: 0:00:03.294189.
+        &gt; chunksize|dimsize: [time_bins: 1|1, y: 403|403, x: 506|506]
+&lt; ET_LOOK (0:00:07.598479)
+</pre></div></div>
+</div>
+<p>Now that we have the pyWaPOR ET map, we still need the WaPOR map in order to make a comparison. We can download this particular map like this (check <a class="reference external" href="https://colab.research.google.com/drive/1V25DILFeeEjJ4cn-VuIzdZ0O_dgtbDio?usp=sharing">this</a> notebook for a more in-depth explanation of this code).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">osgeo</span> <span class="kn">import</span> <span class="n">gdal</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
+
+<span class="n">cubecode</span> <span class="o">=</span> <span class="s2">&quot;L1_AETI_D&quot;</span>
+<span class="n">rasterid</span> <span class="o">=</span> <span class="s2">&quot;L1_AETI_2119&quot;</span>
+
+<span class="n">authorization_request_url</span> <span class="o">=</span> <span class="s2">&quot;https://io.apps.fao.org/gismgr/api/v1/iam/sign-in&quot;</span>
+<span class="n">authorization_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X-GISMGR-API-KEY&quot;</span><span class="p">:</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;WaPOR API Token:&quot;</span><span class="p">)}</span>
+<span class="n">authorization_request_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">authorization_request_url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">authorization_headers</span><span class="p">)</span>
+<span class="n">authorization_request_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="n">access_token</span> <span class="o">=</span> <span class="n">authorization_request_response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">][</span><span class="s2">&quot;accessToken&quot;</span><span class="p">]</span>
+
+<span class="n">tif_request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://io.apps.fao.org/gismgr/api/v1/download/WAPOR_2?requestType=MAPSET_RASTER&amp;cubeCode=</span><span class="si">{</span><span class="n">cubecode</span><span class="si">}</span><span class="s2">&amp;rasterId=</span><span class="si">{</span><span class="n">rasterid</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">tif_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">access_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+<span class="n">tif_request_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tif_request_url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">tif_headers</span><span class="p">)</span>
+<span class="n">tif_request_response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="n">tif_url</span> <span class="o">=</span> <span class="n">tif_request_response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">][</span><span class="s2">&quot;downloadUrl&quot;</span><span class="p">]</span>
+
+<span class="n">bounding_box</span> <span class="o">=</span> <span class="p">[</span><span class="n">lonlim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">latlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lonlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">latlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">translate_options</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">TranslateOptions</span><span class="p">(</span><span class="n">projWin</span><span class="o">=</span><span class="n">bounding_box</span><span class="p">,</span> <span class="n">bandList</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">wapor_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_folder</span><span class="p">,</span> <span class="s2">&quot;wapor_eta.tif&quot;</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">wapor_file</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;/vsicurl/</span><span class="si">{</span><span class="n">tif_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">translate_options</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">FlushCache</span><span class="p">()</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+<p>Next, lets have a look at the two datasets side by side.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">wapor_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">wapor_file</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">band</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)[</span><span class="s2">&quot;band_data&quot;</span><span class="p">]</span>
+<span class="n">pywapor_da</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">et_24_mm</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time_bins</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">wapor_da</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pywapor_da</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x1079b1420&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_6_wapor_vs_pywapor_12_1.png" src="../_images/notebooks_6_wapor_vs_pywapor_12_1.png" />
+</div>
+</div>
+<p>As you can see, the values in WaPOR seems to be about 10 times larger than pyWaPOR. We need to apply a scale factor to WaPOR.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wapor_da</span><span class="o">=</span> <span class="n">wapor_da</span> <span class="o">*</span> <span class="mf">0.1</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">wapor_da</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pywapor_da</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x164859000&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_6_wapor_vs_pywapor_14_1.png" src="../_images/notebooks_6_wapor_vs_pywapor_14_1.png" />
+</div>
+</div>
+<p>We can also have a look at some other metadata.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_raster</span><span class="p">(</span><span class="n">raster</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;shape: </span><span class="si">{</span><span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;resolution: </span><span class="si">{</span><span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">resolution</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;bounds: </span><span class="si">{</span><span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">bounds</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;count: </span><span class="si">{</span><span class="n">raster</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;CRS: </span><span class="si">{</span><span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WaPOR Raster:</span><span class="se">\n</span><span class="s2">-------------&quot;</span><span class="p">)</span>
+<span class="n">print_raster</span><span class="p">(</span><span class="n">wapor_da</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pyWaPOR Raster:</span><span class="se">\n</span><span class="s2">---------------&quot;</span><span class="p">)</span>
+<span class="n">print_raster</span><span class="p">(</span><span class="n">pywapor_da</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WaPOR Raster:
+-------------
+shape: (358, 448)
+resolution: (0.00223214286, -0.00223214286)
+bounds: (30.198660777060002, 28.901785714360003, 31.198660778340006, 29.700892858240003)
+count: 160384
+CRS: EPSG:4326
+
+pyWaPOR Raster:
+---------------
+shape: (403, 506)
+resolution: (0.001982792281130139, -0.001982792281130138)
+bounds: (30.198124670407314, 28.90197637470393, 31.201417564659167, 29.70104166399938)
+count: 171002
+CRS: EPSG:4326
+
+</pre></div></div>
+</div>
+<p>Projections are the same, but shape and pixel sizes are slighly different. Let make them match with eachother, so that we can make a comparison between the two arrays.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wapor_da</span> <span class="o">=</span> <span class="n">wapor_da</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">reproject_match</span><span class="p">(</span><span class="n">pywapor_da</span><span class="p">)</span>
+
+<span class="n">pywapor_da</span> <span class="o">=</span> <span class="n">pywapor_da</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">wapor_da</span><span class="o">.</span><span class="n">notnull</span><span class="p">())</span>
+<span class="n">wapor_da</span> <span class="o">=</span> <span class="n">wapor_da</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pywapor_da</span><span class="o">.</span><span class="n">notnull</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">wapor_da</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">pywapor_da</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WaPOR Raster:</span><span class="se">\n</span><span class="s2">-------------&quot;</span><span class="p">)</span>
+<span class="n">print_raster</span><span class="p">(</span><span class="n">wapor_da</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pyWaPOR Raster:</span><span class="se">\n</span><span class="s2">---------------&quot;</span><span class="p">)</span>
+<span class="n">print_raster</span><span class="p">(</span><span class="n">pywapor_da</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WaPOR Raster:
+-------------
+shape: (403, 506)
+resolution: (0.001982792281130139, -0.001982792281130138)
+bounds: (30.198124670407314, 28.90197637470393, 31.201417564659167, 29.70104166399938)
+count: 171002
+CRS: EPSG:4326
+
+pyWaPOR Raster:
+---------------
+shape: (403, 506)
+resolution: (0.001982792281130139, -0.001982792281130138)
+bounds: (30.198124670407314, 28.90197637470393, 31.201417564659167, 29.70104166399938)
+count: 171002
+CRS: EPSG:4326
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_6_wapor_vs_pywapor_19_1.png" src="../_images/notebooks_6_wapor_vs_pywapor_19_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">plot_hexbin</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">arrays</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">minmax</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">arrays</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">arrays</span><span class="p">)]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">minmax</span><span class="p">,</span> <span class="n">minmax</span><span class="p">,</span> <span class="s2">&quot;:k&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;1:1&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">hb</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="o">*</span><span class="n">arrays</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;viridis&#39;</span><span class="p">)(</span><span class="mf">0.0</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Number of pixels [-]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">minmax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">minmax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">nse</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">calc_nash_sutcliffe</span><span class="p">(</span><span class="n">arrays</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">calc_rmse</span><span class="p">(</span><span class="n">arrays</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">pywapor</span><span class="o">.</span><span class="n">post_et_look</span><span class="o">.</span><span class="n">calc_pearson_correlation</span><span class="p">(</span><span class="n">arrays</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;r: </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, nse: </span><span class="si">{</span><span class="n">nse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, rmse: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Finally, lets make a scatter plot to see the differences a bit better.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="n">pywapor_da</span><span class="o">.</span><span class="n">stack</span><span class="p">({</span><span class="s2">&quot;pixel&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)})</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="s2">&quot;pixel&quot;</span><span class="p">),</span>
+    <span class="n">wapor_da</span><span class="o">.</span><span class="n">stack</span><span class="p">({</span><span class="s2">&quot;pixel&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)})</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="s2">&quot;pixel&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">plot_hexbin</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">arrays</span><span class="p">,</span>
+            <span class="s2">&quot;ET (pywapor) [mm/day]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ET (wapor) [mm/day]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/var/folders/z8/t3l6wwkd63qdv3c1lb2r63_c0000gn/T/ipykernel_75283/2440719009.py:8: MatplotlibDeprecationWarning: The get_cmap function was deprecated in Matplotlib 3.7 and will be removed two minor releases later. Use ``matplotlib.colormaps[name]`` or ``matplotlib.colormaps.get_cmap(obj)`` instead.
+  ax.set_facecolor(plt.cm.get_cmap(&#39;viridis&#39;)(0.0))
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_6_wapor_vs_pywapor_22_1.png" src="../_images/notebooks_6_wapor_vs_pywapor_22_1.png" />
+</div>
+</div>
+<p>Although there is some variance, the two maps are very similar. <code class="docutils literal notranslate"><span class="pre">et_look</span></code> is identical to the model used to create the WaPOR data, but <code class="docutils literal notranslate"><span class="pre">pre_et_look</span></code> is not. The solar-radiation (ra_24) product used in pyWaPOR is differnt from WaPOR as well. This variance can thus mainly be explained by differences in the preprocessing of the <code class="docutils literal notranslate"><span class="pre">et_look</span></code> input data.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="5_enhancers.html" class="btn btn-neutral float-left" title="Enhancing data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../_pywapor_api.html" class="btn btn-neutral float-right" title="pyWaPOR API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

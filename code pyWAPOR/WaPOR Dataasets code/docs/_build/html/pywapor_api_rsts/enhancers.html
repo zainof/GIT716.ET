@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pywapor.enhancers &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dem" href="enhancers/dem.html" />
+    <link rel="prev" title="pywapor.se_root" href="se_root.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../_pywapor_api.html">pyWaPOR API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pre_et_look.html">pywapor.pre_et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="et_look.html">pywapor.et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_se_root.html">pywapor.pre_se_root</a></li>
+<li class="toctree-l2"><a class="reference internal" href="se_root.html">pywapor.se_root</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pywapor.enhancers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dem.html">dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/gap_fill.html">gap_fill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/lulc.html">lulc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/apply_enhancers.html">apply_enhancers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/other.html">other</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/pressure.html">pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/wind.html">wind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms.html">dms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="general.html">pywapor.general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect.html">pywapor.collect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_pywapor_api.html">pyWaPOR API</a></li>
+      <li class="breadcrumb-item active">pywapor.enhancers</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pywapor-enhancers">
+<h1>pywapor.enhancers<a class="headerlink" href="#pywapor-enhancers" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/dem.html">dem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/dem.html#pywapor.enhancers.dem.calc_slope"><code class="docutils literal notranslate"><span class="pre">calc_slope()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/dem.html#pywapor.enhancers.dem.calc_aspect"><code class="docutils literal notranslate"><span class="pre">calc_aspect()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/gap_fill.html">gap_fill</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/gap_fill.html#pywapor.enhancers.gap_fill.gap_fill"><code class="docutils literal notranslate"><span class="pre">gap_fill()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/lulc.html">lulc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.lulc_to_x"><code class="docutils literal notranslate"><span class="pre">lulc_to_x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.wapor_to_land_mask"><code class="docutils literal notranslate"><span class="pre">wapor_to_land_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.wapor_to_lue_max"><code class="docutils literal notranslate"><span class="pre">wapor_to_lue_max()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.wapor_to_rs_min"><code class="docutils literal notranslate"><span class="pre">wapor_to_rs_min()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.wapor_to_z_obst_max"><code class="docutils literal notranslate"><span class="pre">wapor_to_z_obst_max()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.globcover_to_land_mask"><code class="docutils literal notranslate"><span class="pre">globcover_to_land_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.globcover_to_lue_max"><code class="docutils literal notranslate"><span class="pre">globcover_to_lue_max()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.globcover_to_rs_min"><code class="docutils literal notranslate"><span class="pre">globcover_to_rs_min()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/lulc.html#pywapor.enhancers.lulc.globcover_to_z_obst_max"><code class="docutils literal notranslate"><span class="pre">globcover_to_z_obst_max()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/temperature.html">temperature</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.template"><code class="docutils literal notranslate"><span class="pre">template()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.kelvin_to_celsius"><code class="docutils literal notranslate"><span class="pre">kelvin_to_celsius()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.celsius_to_kelvin"><code class="docutils literal notranslate"><span class="pre">celsius_to_kelvin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.lapse_rate"><code class="docutils literal notranslate"><span class="pre">lapse_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.create_circle"><code class="docutils literal notranslate"><span class="pre">create_circle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.local_mean"><code class="docutils literal notranslate"><span class="pre">local_mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/temperature.html#pywapor.enhancers.temperature.bt_to_lst"><code class="docutils literal notranslate"><span class="pre">bt_to_lst()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/apply_enhancers.html">apply_enhancers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/apply_enhancers.html#pywapor.enhancers.apply_enhancers.apply_enhancer"><code class="docutils literal notranslate"><span class="pre">apply_enhancer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/other.html">other</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/other.html#pywapor.enhancers.other.drop_empty_times"><code class="docutils literal notranslate"><span class="pre">drop_empty_times()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/pressure.html">pressure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/pressure.html#pywapor.enhancers.pressure.pa_to_kpa"><code class="docutils literal notranslate"><span class="pre">pa_to_kpa()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/wind.html">wind</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/wind.html#pywapor.enhancers.wind.adjust_wind_height"><code class="docutils literal notranslate"><span class="pre">adjust_wind_height()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/wind.html#pywapor.enhancers.wind.windspeed"><code class="docutils literal notranslate"><span class="pre">windspeed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enhancers/dms.html">dms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/dms/pydms.html">pyDMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression"><code class="docutils literal notranslate"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.fit"><code class="docutils literal notranslate"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.predict"><code class="docutils literal notranslate"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression.predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener"><code class="docutils literal notranslate"><span class="pre">DecisionTreeSharpener</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.trainSharpener"><code class="docutils literal notranslate"><span class="pre">DecisionTreeSharpener.trainSharpener()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.applySharpener"><code class="docutils literal notranslate"><span class="pre">DecisionTreeSharpener.applySharpener()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="enhancers/dms/pydms.html#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.residualAnalysis"><code class="docutils literal notranslate"><span class="pre">DecisionTreeSharpener.residualAnalysis()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html">thermal_sharpener</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html#pywapor.enhancers.dms.thermal_sharpener.highres_inputs"><code class="docutils literal notranslate"><span class="pre">highres_inputs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html#pywapor.enhancers.dms.thermal_sharpener.lowres_inputs"><code class="docutils literal notranslate"><span class="pre">lowres_inputs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html#pywapor.enhancers.dms.thermal_sharpener.preprocess"><code class="docutils literal notranslate"><span class="pre">preprocess()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html#pywapor.enhancers.dms.thermal_sharpener.plot_sharpening"><code class="docutils literal notranslate"><span class="pre">plot_sharpening()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html#pywapor.enhancers.dms.thermal_sharpener.sharpen"><code class="docutils literal notranslate"><span class="pre">sharpen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="enhancers/dms/thermal_sharpener.html#pywapor.enhancers.dms.thermal_sharpener.get_cos_solar_zangle"><code class="docutils literal notranslate"><span class="pre">get_cos_solar_zangle()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="se_root.html" class="btn btn-neutral float-left" title="pywapor.se_root" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enhancers/dem.html" class="btn btn-neutral float-right" title="dem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

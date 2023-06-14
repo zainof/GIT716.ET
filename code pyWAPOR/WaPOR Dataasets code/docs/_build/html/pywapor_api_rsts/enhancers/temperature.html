@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>temperature &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="apply_enhancers" href="apply_enhancers.html" />
+    <link rel="prev" title="lulc" href="lulc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../_pywapor_api.html">pyWaPOR API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../pre_et_look.html">pywapor.pre_et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../et_look.html">pywapor.et_look</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pre_se_root.html">pywapor.pre_se_root</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../se_root.html">pywapor.se_root</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../enhancers.html">pywapor.enhancers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dem.html">dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gap_fill.html">gap_fill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lulc.html">lulc</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">temperature</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.template"><code class="docutils literal notranslate"><span class="pre">template()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.kelvin_to_celsius"><code class="docutils literal notranslate"><span class="pre">kelvin_to_celsius()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.celsius_to_kelvin"><code class="docutils literal notranslate"><span class="pre">celsius_to_kelvin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.lapse_rate"><code class="docutils literal notranslate"><span class="pre">lapse_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.create_circle"><code class="docutils literal notranslate"><span class="pre">create_circle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.local_mean"><code class="docutils literal notranslate"><span class="pre">local_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pywapor.enhancers.temperature.bt_to_lst"><code class="docutils literal notranslate"><span class="pre">bt_to_lst()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="apply_enhancers.html">apply_enhancers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other.html">other</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pressure.html">pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wind.html">wind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dms.html">dms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../general.html">pywapor.general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collect.html">pywapor.collect</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../_etlook.html">ETLook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../_pywapor_api.html">pyWaPOR API</a></li>
+          <li class="breadcrumb-item"><a href="../enhancers.html">pywapor.enhancers</a></li>
+      <li class="breadcrumb-item active">temperature</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pywapor.enhancers.temperature">
+<span id="temperature"></span><h1>temperature<a class="headerlink" href="#module-pywapor.enhancers.temperature" title="Permalink to this heading"></a></h1>
+<p>Functions to make adjustments to temperature maps.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.template">
+<span class="sig-name descname"><span class="pre">template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.template" title="Permalink to this definition"></a></dt>
+<dd><p>Example enhancer function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input dataset.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Variable to adjust.</p></li>
+<li><p><strong>out_var</strong> (<em>str</em><em>, </em><em>optional</em>) – variable to store new variable, by default None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Output dataset.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xr.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.kelvin_to_celsius">
+<span class="sig-name descname"><span class="pre">kelvin_to_celsius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.kelvin_to_celsius" title="Permalink to this definition"></a></dt>
+<dd><p>Convert units of a variable from Kelvin to degrees Celsius.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Dataset containing <cite>var</cite>.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Variable name.</p></li>
+<li><p><strong>in_var</strong> (<em>str</em><em>, </em><em>optional</em>) – Overwrites <cite>var</cite>, by default None.</p></li>
+<li><p><strong>out_var</strong> (<em>str</em><em>, </em><em>optional</em>) – Instead of overwriting <cite>var</cite>, store the new data in <cite>out_var</cite>,
+by default None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Adjusted data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.celsius_to_kelvin">
+<span class="sig-name descname"><span class="pre">celsius_to_kelvin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.celsius_to_kelvin" title="Permalink to this definition"></a></dt>
+<dd><p>Convert units of a variable from Kelvin to degrees Celsius.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Dataset containing <cite>var</cite>.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Variable name.</p></li>
+<li><p><strong>out_var</strong> (<em>str</em><em>, </em><em>optional</em>) – Instead of overwriting <cite>var</cite>, store the new data in <cite>out_var</cite>,
+by default None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Adjusted data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.lapse_rate">
+<span class="sig-name descname"><span class="pre">lapse_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lapse_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lapse_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.006</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.lapse_rate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a lapse-rate to <cite>var</cite> inside <cite>ds</cite> based on the difference between
+the actual value of <cite>lapse_var</cite> and its local (defined by <cite>radius</cite>) mean.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>xarray.Dataset</em>) – Dataset with the data.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – Name of the variable inside <cite>ds</cite> to apply this function to (y).</p></li>
+<li><p><strong>out_var</strong> (<em>str</em><em>, </em><em>optional</em>) – Instead of overwriting <cite>var</cite>, store the new data in <cite>out_var</cite>,
+by default None.</p></li>
+<li><p><strong>lapse_var</strong> (<em>str</em><em>, </em><em>optional</em>) – The variable used to calculate dx.</p></li>
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em>) – The local altitude is compared to the local mean altitude, radius
+(in degrees) defines over which area to calculate the mean, by default 0.25.</p></li>
+<li><p><strong>lapse_rate</strong> (<em>float</em><em>, </em><em>optional</em>) – dy/dx, i.e. how much should <cite>var</cite> be adjusted per difference in
+<cite>lapse_var</cite>, by default -0.006.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Adjusted data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.create_circle">
+<span class="sig-name descname"><span class="pre">create_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_size_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boolean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.create_circle" title="Permalink to this definition"></a></dt>
+<dd><p>Create a 2d array with pixel values representing the distance to
+the center of the array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_size_x</strong> (<em>float</em>) – Size of a pixel in the x-direction. Unit can be anything, as long as it
+is the same as for <cite>pixel_size_y</cite> and <cite>radius</cite>.</p></li>
+<li><p><strong>pixel_size_y</strong> (<em>float</em>) – Size of a pixel in the y-direction. Unit can be anything, as long as it
+is the same as for <cite>pixel_size_x</cite> and <cite>radius</cite>.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – Size of the circle. Unit can be anything, as long as it
+is the same as for <cite>pixel_size_x</cite> and <cite>pixel_size_y</cite>.</p></li>
+<li><p><strong>boolean</strong> (<em>bool</em><em>, </em><em>optional</em>) – Return distances to center (False) or whether or not the distance to
+the center is smaller than <cite>radius</cite> (True), by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values representing the distance to the center of the array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.local_mean">
+<span class="sig-name descname"><span class="pre">local_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.local_mean" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate local means.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>ndarray</em>) – Two dimensional array for which local means will be calculated.</p></li>
+<li><p><strong>pixel_size</strong> (<em>tuple</em>) – Size of the pixels in <cite>array</cite> in x and y direction respectively.</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – Size of the circle around each pixel from which to
+calculate the local mean.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array with the local mean of each pixel.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.enhancers.temperature.bt_to_lst">
+<span class="sig-name descname"><span class="pre">bt_to_lst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndvi_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndvi_v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emis_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.97</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emis_v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.985</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.temperature.bt_to_lst" title="Permalink to this definition"></a></dt>
+<dd><p>Convert brightness temperature to land surface temperature according to Sobrino et al (2008).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input.</p></li>
+<li><p><strong>x</strong> (<em>None</em>) – Not used.</p></li>
+<li><p><strong>ndvi_s</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold value, by default 0.2</p></li>
+<li><p><strong>ndvi_v</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold value, by default 0.5</p></li>
+<li><p><strong>emis_s</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold value, by default 0.97</p></li>
+<li><p><strong>emis_v</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold value, by default 0.985</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataset in which <cite>bt</cite> has been replaced with <cite>lst</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xr.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lulc.html" class="btn btn-neutral float-left" title="lulc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apply_enhancers.html" class="btn btn-neutral float-right" title="apply_enhancers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

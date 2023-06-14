@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clear Sky Radiation &mdash; pyWaPOR  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Soil Moisture" href="soil_moisture.html" />
+    <link rel="prev" title="ETLook" href="../_etlook.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004747" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyWaPOR
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_sources.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_pywapor_api.html">pyWaPOR API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../_etlook.html">ETLook</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Clear Sky Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.extraterrestrial_irradiance_normal"><code class="docutils literal notranslate"><span class="pre">extraterrestrial_irradiance_normal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.inverse_earth_sun_distance"><code class="docutils literal notranslate"><span class="pre">inverse_earth_sun_distance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.day_angle"><code class="docutils literal notranslate"><span class="pre">day_angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.solar_constant"><code class="docutils literal notranslate"><span class="pre">solar_constant()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.declination"><code class="docutils literal notranslate"><span class="pre">declination()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.relative_optical_airmass"><code class="docutils literal notranslate"><span class="pre">relative_optical_airmass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle_refracted"><code class="docutils literal notranslate"><span class="pre">solar_elevation_angle_refracted()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.hour_angle"><code class="docutils literal notranslate"><span class="pre">hour_angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle"><code class="docutils literal notranslate"><span class="pre">solar_elevation_angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.rayleigh_optical_thickness"><code class="docutils literal notranslate"><span class="pre">rayleigh_optical_thickness()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_normal_clear"><code class="docutils literal notranslate"><span class="pre">beam_irradiance_normal_clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_horizontal_clear"><code class="docutils literal notranslate"><span class="pre">beam_irradiance_horizontal_clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.linke_turbidity"><code class="docutils literal notranslate"><span class="pre">linke_turbidity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.diffuse_irradiance_horizontal_clear"><code class="docutils literal notranslate"><span class="pre">diffuse_irradiance_horizontal_clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.clear_sky_radiation.ra_clear_horizontal"><code class="docutils literal notranslate"><span class="pre">ra_clear_horizontal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="soil_moisture.html">Soil Moisture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evapotranspiration.html">Evapotranspiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="leaf.html">Leaf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteo.html">Meteo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neutral.html">Neutral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiation.html">Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resistance.html">Resistance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="roughness.html">Roughness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar_radiation.html">Solar Radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stress.html">Stress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unstable.html">Unstable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biomass.html">Biomass</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004747" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyWaPOR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_etlook.html">ETLook</a></li>
+      <li class="breadcrumb-item active">Clear Sky Radiation</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined Bitbucket URL -->
+              <a href="https://bitbucket.org/cioapps/pywapor/src/master/" class="fa fa-bitbucket"> Edit on Bitbucket</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pywapor.et_look_v2_v3.clear_sky_radiation">
+<span id="clear-sky-radiation"></span><h1>Clear Sky Radiation<a class="headerlink" href="#module-pywapor.et_look_v2_v3.clear_sky_radiation" title="Permalink to this heading"></a></h1>
+<p>The <cite>clear_sky_radiation</cite> module contains all functions related to the
+calculation of (instantaneous) clear sky radation. Most of these
+functions are based upon Šúri and Hofierka<a class="footnote-reference brackets" href="#footcite-vsuri2004new" id="id1">1</a>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.extraterrestrial_irradiance_normal">
+<span class="sig-name descname"><span class="pre">extraterrestrial_irradiance_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ied</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.extraterrestrial_irradiance_normal" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the extraterrestrial irradiance normal to the solar beam.</p>
+<div class="math notranslate nohighlight">
+\[G_{0} = I_{0} \cdot \varepsilon\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>I0</strong> (<em>float</em>) – solar constant,
+<span class="math notranslate nohighlight">\(I_{0}\)</span>
+[W m<sup>-2</sup>]</p></li>
+<li><p><strong>ied</strong> (<em>float</em>) – inverse earth sun distance,
+<span class="math notranslate nohighlight">\(\varepsilon\)</span>
+[AU<sup>-1</sup>]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>G0</strong> – ext rad normal to solar bea,
+<span class="math notranslate nohighlight">\(G_{0}\)</span>
+[W m<sup>-2</sup>]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.inverse_earth_sun_distance">
+<span class="sig-name descname"><span class="pre">inverse_earth_sun_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day_angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.inverse_earth_sun_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the inverse earth sun distance</p>
+<div class="math notranslate nohighlight">
+\[\varepsilon = 1 + 0.03344 \cdot \cos(j^{\prime} - 0.048869)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>day_angle</strong> (<em>float</em>) – day angle,
+<span class="math notranslate nohighlight">\(j^{\prime}\)</span>
+[-]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ied</strong> – inverse earth sun distance,
+<span class="math notranslate nohighlight">\(\varepsilon\)</span>
+[AU]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.day_angle">
+<span class="sig-name descname"><span class="pre">day_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.day_angle" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the day angle. 0 is january 1<sup>st</sup>,
+2<span class="math notranslate nohighlight">\(\pi\)</span> is december 31<sup>st</sup>.</p>
+<div class="math notranslate nohighlight">
+\[j^{\prime} = \frac{2 \cdot \pi \cdot j} {365.25}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>doy</strong> (<em>float</em>) – day of year,
+<span class="math notranslate nohighlight">\(j\)</span>
+[-]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>day_angle</strong> – day angle,
+<span class="math notranslate nohighlight">\(j^{\prime}\)</span>
+[rad]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.solar_constant">
+<span class="sig-name descname"><span class="pre">solar_constant</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.solar_constant" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the solar constant. The solar constant is defined as the
+flux density of solar radiation at the mean distance from Sun
+to Earth. The solar constant is estimated to be 1367 W m<sup>-2</sup>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>I0</strong> – solar constant,
+<span class="math notranslate nohighlight">\(I_{0}\)</span>
+[W m<sup>-2</sup>]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.declination">
+<span class="sig-name descname"><span class="pre">declination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day_angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.declination" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the solar declination. The solar declination is computed according to
+Gruter<a class="footnote-reference brackets" href="#footcite-gruter1984radiation" id="id2">2</a>.</p>
+<div class="math notranslate nohighlight">
+\[\delta = \arcsin\left(0.3978 \cdot \sin\left(j^{\prime} - 1.4 + 0.0355 \cdot \sin
+      \left(j^{\prime} - 0.0489\right)\right)\right)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>day_angle</strong> (<em>float</em>) – day angle,
+<span class="math notranslate nohighlight">\(j^{\prime}\)</span>
+[rad]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>decl</strong> – declination,
+<span class="math notranslate nohighlight">\(\delta\)</span>
+[rad]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.relative_optical_airmass">
+<span class="sig-name descname"><span class="pre">relative_optical_airmass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_air_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_air_0_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.relative_optical_airmass" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the relative optical air mass. It is calculated according to Kasten and Young<a class="footnote-reference brackets" href="#footcite-kasten1989revised" id="id3">3</a>.</p>
+<div class="math notranslate nohighlight">
+\[m = \frac{\frac{p}{p_{0}}}{\sin h_{0}^{ref}+0.50572
+ \left(h_{0}^{ref}+6.07995\right)^{-1.6364}}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p_air_i</strong> (<em>float</em>) – actual instantaneous air pressure,
+<span class="math notranslate nohighlight">\(p\)</span>
+[hPa]</p></li>
+<li><p><strong>p_air_0_i</strong> (<em>float</em>) – air pressure at sea level,
+<span class="math notranslate nohighlight">\(p_{0}\)</span>
+[-]</p></li>
+<li><p><strong>h0ref</strong> (<em>float</em>) – solar elevation angle corrected for refraction,
+<span class="math notranslate nohighlight">\(h_{0}^{ref}\)</span>
+[degrees]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>m</strong> – relative optical airmass,
+<span class="math notranslate nohighlight">\(m\)</span>
+[-]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle_refracted">
+<span class="sig-name descname"><span class="pre">solar_elevation_angle_refracted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle_refracted" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the solar elevation angle corrected for refraction.</p>
+<div class="math notranslate nohighlight">
+\[h_{0}^{ref} = h_{0} + \Delta h_{0}^{ref}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\Delta h_{0}^{ref}=0.61359 \cdot \frac{0.1594 + 1.123 \cdot h_{0} +
+0.065656 \cdot h_{0}^{2}}{
+1+28.9344 \cdot h_{0} + 277.3971 \cdot h_{0}^{2}}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h0</strong> (<em>float</em>) – solar elevation angle,
+<span class="math notranslate nohighlight">\(h_{0}\)</span>
+[degrees]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h0ref</strong> – solar elevation angle corrected for refrection,
+<span class="math notranslate nohighlight">\(h_{0}^{ref}\)</span>
+[degrees]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.hour_angle">
+<span class="sig-name descname"><span class="pre">hour_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solar_time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.hour_angle" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the solar hour angle.</p>
+<div class="math notranslate nohighlight">
+\[T = \frac{\pi}{12}\left(t-12\right)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>solar_time</strong> (<em>float</em>) – solar_time,
+<span class="math notranslate nohighlight">\(t\)</span>
+[hours]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ha</strong> – solar hour angle,
+<span class="math notranslate nohighlight">\(T\)</span>
+[rad]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle">
+<span class="sig-name descname"><span class="pre">solar_elevation_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ha</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.solar_elevation_angle" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the solar elevation angle.</p>
+<div class="math notranslate nohighlight">
+\[h_{0}=\arcsin\left(C_{31} \cdot \cos(T) + C_{33}\right)\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C_{31} &amp;= \cos(\varphi) \cdot \cos(\delta) \\
+C_{33} &amp;= \sin(\varphi) \cdot \sin(\delta)\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> (<em>float</em>) – latitude,
+<span class="math notranslate nohighlight">\(\varphi\)</span>
+[rad]</p></li>
+<li><p><strong>decl</strong> (<em>float</em>) – declination,
+<span class="math notranslate nohighlight">\(\delta\)</span>
+[rad]</p></li>
+<li><p><strong>ha</strong> (<em>float</em>) – solar hour angle,
+<span class="math notranslate nohighlight">\(T\)</span>
+[rad]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h0</strong> – solar elevation angle,
+<span class="math notranslate nohighlight">\(h_0\)</span>
+[degrees]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.rayleigh_optical_thickness">
+<span class="sig-name descname"><span class="pre">rayleigh_optical_thickness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.rayleigh_optical_thickness" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the Rayleigh optical thickness at airmass <span class="math notranslate nohighlight">\(m\)</span>. It is calculated according
+to the improved formula by Kasten<a class="footnote-reference brackets" href="#footcite-kasten1996linke" id="id4">4</a>.</p>
+<p>if <span class="math notranslate nohighlight">\(m\)</span> &gt; 20:</p>
+<div class="math notranslate nohighlight">
+\[\delta_{R}(m) = \left(6.6296 + 1.7513 \cdot  m - 0.1202 \cdot m^{2} + 0.0065 \cdot m^{3} - 0.00013 \cdot m^{4}\right)^{-1}\]</div>
+<p>if <span class="math notranslate nohighlight">\(m\)</span> &lt; 20:</p>
+<div class="math notranslate nohighlight">
+\[\delta_{R}(m) = \left(10.4+0.718 \cdot m\right)^{-1}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>float</em>) – relative optical airmass,
+<span class="math notranslate nohighlight">\(m\)</span>
+[-]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rotm</strong> – Rayleigh optical thickness at airmass m,
+<span class="math notranslate nohighlight">\(\delta_{R}\)</span>
+[-]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_normal_clear">
+<span class="sig-name descname"><span class="pre">beam_irradiance_normal_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tl2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_normal_clear" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the clear sky beam irradiance normal to the solar beam.</p>
+<div class="math notranslate nohighlight">
+\[B_{0c}=G_{0} \cdot \exp\left(-0.8662 \cdot T_{LK} \cdot m \cdot \delta_{R}\right)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G0</strong> (<em>float</em>) – ext rad normal to solar beam,
+<span class="math notranslate nohighlight">\(G_0\)</span>
+[W/m2]</p></li>
+<li><p><strong>Tl2</strong> (<em>float</em>) – airmass  2 Linke atmospheric turbidity factor,
+<span class="math notranslate nohighlight">\(T_{LK}\)</span>
+[-]</p></li>
+<li><p><strong>m</strong> (<em>float</em>) – relative optical airmass,
+<span class="math notranslate nohighlight">\(m\)</span>
+[-]</p></li>
+<li><p><strong>rotm</strong> (<em>float</em>) – Rayleigh optical thickness at airmass m,
+<span class="math notranslate nohighlight">\(\delta_{R}\)</span>
+[-]</p></li>
+<li><p><strong>h0</strong> (<em>float</em>) – solar elevation angle,
+<span class="math notranslate nohighlight">\(h_0\)</span>
+[degrees]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>B0c</strong> – beam irradiance normal to the solar beam,
+<span class="math notranslate nohighlight">\(B_{0c}\)</span>
+[W/m2]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_horizontal_clear">
+<span class="sig-name descname"><span class="pre">beam_irradiance_horizontal_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B0c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.beam_irradiance_horizontal_clear" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the clear sky beam irradiance on a horizontal surface.</p>
+<div class="math notranslate nohighlight">
+\[B_{hc} = B_{0c} \cdot \sin\left(h_{0}\right)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>B0c</strong> (<em>float</em>) – beam irradiance normal to the solar beam,
+<span class="math notranslate nohighlight">\(B_{0c}\)</span>
+[W/m2]</p></li>
+<li><p><strong>h0</strong> (<em>float</em>) – solar elevation angle,
+<span class="math notranslate nohighlight">\(h_0\)</span>
+[degrees]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Bhc</strong> – beam irradiance at a horizontal surface,
+<span class="math notranslate nohighlight">\(B_{hc}\)</span>
+[W/m2]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.linke_turbidity">
+<span class="sig-name descname"><span class="pre">linke_turbidity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wv_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aod550_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_air_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_air_0_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.linke_turbidity" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the air mass 2 Linke atmospheric turbidity factor.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_{rel} &amp;= \frac{p}{p_{0}} \\
+T_{LK} &amp;= 3.91 \cdot \tau_{550} \cdot e^{0.689p_{rel}}+0.376 \cdot \ln\left(TCWV\right)+\left(2+0.54 \cdot p_{rel}-0.34 \cdot p_{rel}^{2}\right)\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wv_i</strong> (<em>float</em>) – total column atmospheric water vapor,
+<span class="math notranslate nohighlight">\(TCWV\)</span>
+[kg m-2]</p></li>
+<li><p><strong>aod550_i</strong> (<em>float</em>) – Aerosol optical depth at 550nm,
+<span class="math notranslate nohighlight">\(aod550\)</span>
+[-]</p></li>
+<li><p><strong>p_air_i</strong> (<em>float</em>) – actual instantaneous air pressure,
+<span class="math notranslate nohighlight">\(p\)</span>
+[hPa]</p></li>
+<li><p><strong>p_air_0_i</strong> (<em>float</em>) – air pressure at sea level,
+<span class="math notranslate nohighlight">\(p_0\)</span>
+[-]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Tl2</strong> – Airmass 2 Linke atmospheric turbidity factor,
+<span class="math notranslate nohighlight">\(T_{LK}\)</span>
+[-]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.diffuse_irradiance_horizontal_clear">
+<span class="sig-name descname"><span class="pre">diffuse_irradiance_horizontal_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tl2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.diffuse_irradiance_horizontal_clear" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the clear sky beam irradiance on a horizontal surface.</p>
+<div class="math notranslate nohighlight">
+\[D_{hc}=G_{0} \cdot Tn\left(T_{LK}\right) \cdot F_{d}\left(h_{0}\right)\]</div>
+<p>For the estimation of the transmission function <span class="math notranslate nohighlight">\(Tn\left(T_{LK}\right)\)</span>
+the following function is used:</p>
+<div class="math notranslate nohighlight">
+\[Tn\left(T_{LK}\right)=-0.015843+0.030543 \cdot T_{LK}+0.0003797 \cdot T_{LK}^{2}\]</div>
+<p>The solar altitude function <span class="math notranslate nohighlight">\(F_{d}\left(h_{0}\right)\)</span> is evaluated using the expression:</p>
+<div class="math notranslate nohighlight">
+\[F_{d}\left(h_{0}\right)=A_{1}+A_{2} \cdot \sin (h_{0})+A_{3} \cdot sin^{2}(h_{0})\]</div>
+<p>with:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A_{1}^{\prime} &amp;= 0.26463-0.061581 \cdot T_{LK}+0.0031408 \cdot T_{LK}^{2} \\
+A_{1} &amp;= \frac{0.0022}{Tn\left(T_{LK}\right)} \: \text{if} \: A_{1}^{\prime} \cdot Tn\left(T_{LK}\right)&lt;0.0022 \\
+A_{1} &amp;= A_{1}^{\prime} \: \text{if} \: A_{1}^{\prime} \cdot Tn\left(T_{LK}\right)\geq0.0022 \\
+A_{2} &amp;= 2.04020+0.018945 \cdot T_{LK}-0.011161 \cdot T_{LK}^{2} \\
+A_{3} &amp;= -1.3025+0.039231 \cdot T_{LK}+0.0085079 \cdot T_{LK}^{2}\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G0</strong> (<em>float</em>) – ext rad normal to solar beam,
+<span class="math notranslate nohighlight">\(G_0\)</span>
+[W/m2]</p></li>
+<li><p><strong>Tl2</strong> (<em>float</em>) – Airmass 2 Linke atmospheric turbidity factor,
+<span class="math notranslate nohighlight">\(T_{LK}\)</span>
+[-]</p></li>
+<li><p><strong>h0</strong> (<em>float</em>) – solar elevation angle,
+<span class="math notranslate nohighlight">\(h_0\)</span>
+[degrees]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Dhc</strong> – Diffuse irradiance at a horizontal surface,
+<span class="math notranslate nohighlight">\(D_{hc}\)</span>
+[W/m2]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.clear_sky_radiation.ra_clear_horizontal">
+<span class="sig-name descname"><span class="pre">ra_clear_horizontal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Bhc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dhc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.clear_sky_radiation.ra_clear_horizontal" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the clear sky beam irradiance on a horizontal surface.</p>
+<div class="math notranslate nohighlight">
+\[G_{hc}=B_{hc}+D_{hc}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Bhc</strong> (<em>float</em>) – beam irradiance at a horizontal surface,
+<span class="math notranslate nohighlight">\(B_{hc}\)</span>
+[W/m2]</p></li>
+<li><p><strong>Dhc</strong> (<em>float</em>) – Diffuse irradiance at a horizontal surface,
+<span class="math notranslate nohighlight">\(D_{hc}\)</span>
+[W/m2]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ra_hor_clear_i</strong> – Total clear-sky irradiance on a horizontal surface,
+<span class="math notranslate nohighlight">\(G_{hc}\)</span>
+[W/m2]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+</dd></dl>
+
+<div class="docutils container" id="id5">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-vsuri2004new"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Marcel Šúri and Jaroslav Hofierka. A new gis-based solar radiation model and its application to photovoltaic assessments. <em>Transactions in GIS</em>, 8(2):175–190, 2004. URL: <a class="reference external" href="https://doi.org/10.1111/j.1467-9671.2004.00174.x">https://doi.org/10.1111/j.1467-9671.2004.00174.x</a>.</p>
+</dd>
+<dt class="label" id="footcite-gruter1984radiation"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>JW Gruter. Radiation nomenclature. brussels, cec. <em>Second Solar Energy Programme, Project F, Solar Radiation Data</em>, 1984.</p>
+</dd>
+<dt class="label" id="footcite-kasten1989revised"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Fritz Kasten and Andrew T Young. Revised optical air mass tables and approximation formula. <em>Applied optics</em>, 28(22):4735–4738, 1989. URL: <a class="reference external" href="https://doi.org/10.1364/AO.28.004735">https://doi.org/10.1364/AO.28.004735</a>.</p>
+</dd>
+<dt class="label" id="footcite-kasten1996linke"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>F Kasten. The linke turbidity factor based on improved values of the integral rayleigh optical thickness. <em>Solar energy</em>, 56(3):239–244, 1996. URL: <a class="reference external" href="https://doi.org/10.1016/0038-092X(95)00114-7">https://doi.org/10.1016/0038-092X(95)00114-7</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../_etlook.html" class="btn btn-neutral float-left" title="ETLook" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="soil_moisture.html" class="btn btn-neutral float-right" title="Soil Moisture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FAO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
