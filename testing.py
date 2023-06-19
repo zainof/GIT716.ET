@@ -1,4 +1,5 @@
-import pywapor
+from osgeo import gdal
+import pywapor 
 # User inputs.
 timelim = ["2021-07-01", "2021-07-11"]
 latlim = [28.9, 29.7]
