@@ -1,0 +1,1 @@
+The files in this directory were added during the process of implementing the final model. Therefore, these files are not final nor contain any code that was used in the final model. However, these files can be used a reference or starting point to the implementation of the final model. 
